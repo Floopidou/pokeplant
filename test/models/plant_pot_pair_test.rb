@@ -5,7 +5,9 @@ class PlantPotPairTest < ActiveSupport::TestCase
     @user = User.create!(
       email: "gardener@example.com",
       password: "password123",
-      password_confirmation: "password123"
+      password_confirmation: "password123",
+      username: "testuser",
+      birthdate: Date.new(1990, 1, 1)
     )
     @plant = Plant.create!(
       user: @user,
@@ -13,6 +15,7 @@ class PlantPotPairTest < ActiveSupport::TestCase
       position_in_garden: 1,
       nickname: "Fernsy",
       common_name: "Fern",
+      scientific_name: "Nephrolepis exaltata",
       light_need: 5,
       toxicity: 0,
       temperature_min: 10.0,
@@ -20,6 +23,13 @@ class PlantPotPairTest < ActiveSupport::TestCase
       ideal_pot_size: "medium",
       plant_size: "medium",
       personality: "gentle",
+      personality_tags: "soft,lush,peaceful",
+      type_of_soil: "moist peat-based mix",
+      optimal_placement: "indirect light, humid room",
+      origin_region: "Tropical regions worldwide",
+      description: "A classic fern with delicate fronds that loves humidity.",
+      watering_interval: 3,
+      repot_interval: 365,
       last_repot: Date.today,
       last_watered: Date.today,
       input_date: Date.today

@@ -5,7 +5,9 @@ class MessageTest < ActiveSupport::TestCase
     user = User.create!(
       email: "messenger@example.com",
       password: "password123",
-      password_confirmation: "password123"
+      password_confirmation: "password123",
+      username: "testuser",
+      birthdate: Date.new(1990, 1, 1)
     )
     plant = Plant.create!(
       user: user,
@@ -13,6 +15,7 @@ class MessageTest < ActiveSupport::TestCase
       position_in_garden: 3,
       nickname: "Rosa",
       common_name: "Rose",
+      scientific_name: "Rosa gallica",
       light_need: 9,
       toxicity: 1,
       temperature_min: 0.0,
@@ -20,6 +23,13 @@ class MessageTest < ActiveSupport::TestCase
       ideal_pot_size: "medium",
       plant_size: "medium",
       personality: "majesty",
+      personality_tags: "regal,fragrant,classic",
+      type_of_soil: "rich well-draining loam",
+      optimal_placement: "full sun, outdoors or bright windowsill",
+      origin_region: "Asia and Europe",
+      description: "A classic flowering shrub prized for its fragrant blooms.",
+      watering_interval: 4,
+      repot_interval: 365,
       last_repot: Date.today,
       last_watered: Date.today,
       input_date: Date.today
