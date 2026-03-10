@@ -1,15 +1,17 @@
 class User < ApplicationRecord
+  attr_writer :login
+  
+  before_validation do
+    self.leaf_coins ||= 0
+  end
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  attr_writer :login
-
-  validates :username, presence: true, uniqueness: { case_sensitive: false },
-                       format: { with: /\A[a-zA-Z0-9_]+\z/, message: "ne peut contenir que des lettres, chiffres et _" },
-                       length: { minimum: 3, maximum: 20 }
-
+  has_many :plants
+  has_many :chats
+  
   def login
     @login || username || email
   end
@@ -24,4 +26,9 @@ class User < ApplicationRecord
       where(conditions.to_hash).first
     end
   end
+
+  validates :username, :birthdate, :leaf_coins, presence: true
+  validates :username, presence: true, uniqueness: { case_sensitive: false },
+                       format: { with: /\A[a-zA-Z0-9_]+\z/, message: "ne peut contenir que des lettres, chiffres et _" },
+                       length: { minimum: 3, maximum: 20 }
 end
