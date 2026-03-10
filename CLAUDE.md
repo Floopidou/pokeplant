@@ -61,6 +61,9 @@ small, medium, large, very_large, tree
 - ideal_pot_size, plant_size: must be in size enum
 - All Plant fields required (presence): nickname, common_name, scientific_name, avatar_img, position_in_garden, personality, personality_tags, plant_size, ideal_pot_size, light_need, toxicity, temperature_min, temperature_max, type_of_soil, optimal_placement, origin_region, description, watering_interval, repot_interval, last_watered, last_repot, input_date
 
+## Language
+All UI text, labels, buttons, flash messages, and any user-facing content must be in **English** by default.
+
 ## Current Status
 Models + tests complete. Routes/controllers/views for plants, chats, pots not yet built.
 
