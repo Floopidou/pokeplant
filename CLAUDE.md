@@ -40,7 +40,7 @@ config/routes.rb    # Currently: root + devise_for only
 | Model | Key fields | Associations |
 |-------|-----------|--------------|
 | User | email, username, birthdate, leaf_coins (default 0) | has_many :plants, :chats |
-| Plant | nickname, common_name, mood_points (0-100), personality (15 types), plant_size, light_need (0-10), toxicity (0-10), temperature_min/max, last_watered, last_repot | belongs_to :user, has_many :plantpotpairs, :chats |
+| Plant | nickname, common_name, scientific_name, mood_points (0-100), personality (15 types), personality_tags, plant_size, ideal_pot_size, light_need (0-10), toxicity (0-10), temperature_min/max, type_of_soil, optimal_placement, origin_region, description, watering_interval, repot_interval, last_watered, last_repot, input_date, avatar_img, position_in_garden | belongs_to :user, has_many :plantpotpairs, :chats |
 | Chat | — | belongs_to :plant, :user; has_many :messages |
 | Message | content (text), role (string) | belongs_to :chat |
 | Pot | color, pot_size, pot_img, leaf_coin_value | has_many :plantpotpairs |
@@ -59,6 +59,7 @@ small, medium, large, very_large, tree
 - last_watered, last_repot: must be ≤ today
 - personality: must be one of 15 predefined values
 - ideal_pot_size, plant_size: must be in size enum
+- All Plant fields required (presence): nickname, common_name, scientific_name, avatar_img, position_in_garden, personality, personality_tags, plant_size, ideal_pot_size, light_need, toxicity, temperature_min, temperature_max, type_of_soil, optimal_placement, origin_region, description, watering_interval, repot_interval, last_watered, last_repot, input_date
 
 ## Current Status
 Models + tests complete. Routes/controllers/views for plants, chats, pots not yet built.
