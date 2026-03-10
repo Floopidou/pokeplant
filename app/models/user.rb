@@ -9,4 +9,6 @@ class User < ApplicationRecord
 
   has_many :plants
   has_many :chats
+
+  validates :username, :birthdate, :leaf_coins, presence: true
 end

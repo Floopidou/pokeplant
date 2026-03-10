@@ -2,10 +2,16 @@ require "test_helper"
 
 class UserTest < ActiveSupport::TestCase
   def valid_user
-    User.new(email: "test@example.com", password: "password123", password_confirmation: "password123")
+    User.new(
+      email: "test@example.com",
+      password: "password123",
+      password_confirmation: "password123",
+      username: "testuser",
+      birthdate: Date.new(1990, 1, 1)
+    )
   end
 
-  test "valid with email and password" do
+  test "valid with required attributes" do
     assert valid_user.valid?
   end
 
@@ -24,6 +30,18 @@ class UserTest < ActiveSupport::TestCase
   test "invalid without password" do
     user = valid_user
     user.password = nil
+    assert_not user.valid?
+  end
+
+  test "invalid without username" do
+    user = valid_user
+    user.username = nil
+    assert_not user.valid?
+  end
+
+  test "invalid without birthdate" do
+    user = valid_user
+    user.birthdate = nil
     assert_not user.valid?
   end
 
