@@ -5,7 +5,9 @@ class PlantTest < ActiveSupport::TestCase
     @user = User.create!(
       email: "planter@example.com",
       password: "password123",
-      password_confirmation: "password123"
+      password_confirmation: "password123",
+      username: "planter",
+      birthdate: Date.new(1990, 1, 1)
     )
   end
 
@@ -16,6 +18,7 @@ class PlantTest < ActiveSupport::TestCase
       position_in_garden: 1,
       nickname: "Spike",
       common_name: "Cactus",
+      scientific_name: "Cactus genericus",
       light_need: 8,
       toxicity: 2,
       temperature_min: 5.0,
@@ -23,6 +26,13 @@ class PlantTest < ActiveSupport::TestCase
       ideal_pot_size: "small",
       plant_size: "small",
       personality: "bucolic",
+      personality_tags: "resilient,sunny,tough",
+      type_of_soil: "sandy well-draining mix",
+      optimal_placement: "south-facing windowsill",
+      origin_region: "Americas",
+      description: "A spiky desert plant that thrives on neglect.",
+      watering_interval: 14,
+      repot_interval: 730,
       last_repot: Date.today,
       last_watered: Date.today,
       input_date: Date.today
@@ -72,9 +82,11 @@ class PlantTest < ActiveSupport::TestCase
     assert valid_plant.valid?
   end
 
-  %i[user avatar_img position_in_garden nickname common_name
+  %i[user avatar_img position_in_garden nickname common_name scientific_name
      light_need toxicity temperature_min temperature_max
-     ideal_pot_size plant_size personality].each do |attr|
+     ideal_pot_size plant_size personality personality_tags
+     type_of_soil optimal_placement origin_region description
+     watering_interval repot_interval].each do |attr|
     test "invalid without #{attr}" do
       plant = Plant.new(valid_attributes.except(attr))
       assert_not plant.valid?, "Expected plant to be invalid without #{attr}"

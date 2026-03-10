@@ -12,9 +12,14 @@ class Plant < ApplicationRecord
   has_many :chats
 
   # presence de tout sauf photo url pour l'instant
-  validates :user, :avatar_img, :position_in_garden, :nickname, :common_name, :mood_points,
-            :light_need, :toxicity, :temperature_min, :temperature_max, :ideal_pot_size,
-            :plant_size, :personality, :last_repot, :last_watered, :input_date, presence: true
+  validates :user, :avatar_img, :position_in_garden, :nickname, :common_name, :scientific_name,
+            :watering_interval, :repot_interval,:mood_points, :light_need, :toxicity,
+            :temperature_min, :temperature_max, :type_of_soil,
+            :ideal_pot_size, :plant_size,
+            :last_repot, :last_watered, :input_date,
+            :description, :optimal_placement, :origin_region,
+            :personality, :personality_tags,
+            presence: true
 
   # moodpoints entre 0 et 100
   validates :mood_points, inclusion: { in: 0..100 }
