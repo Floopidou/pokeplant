@@ -5,7 +5,9 @@ class ChatTest < ActiveSupport::TestCase
     @user = User.create!(
       email: "chatter@example.com",
       password: "password123",
-      password_confirmation: "password123"
+      password_confirmation: "password123",
+      username: "testuser",
+      birthdate: Date.new(1990, 1, 1)
     )
     @plant = Plant.create!(
       user: @user,
@@ -13,6 +15,7 @@ class ChatTest < ActiveSupport::TestCase
       position_in_garden: 2,
       nickname: "Monty",
       common_name: "Monstera",
+      scientific_name: "Monstera deliciosa",
       light_need: 6,
       toxicity: 3,
       temperature_min: 15.0,
@@ -20,6 +23,13 @@ class ChatTest < ActiveSupport::TestCase
       ideal_pot_size: "large",
       plant_size: "large",
       personality: "diva",
+      personality_tags: "dramatic,bold,lush",
+      type_of_soil: "well-draining potting mix",
+      optimal_placement: "bright indirect light",
+      origin_region: "Central America",
+      description: "A dramatic plant with large fenestrated leaves.",
+      watering_interval: 7,
+      repot_interval: 365,
       last_repot: Date.today,
       last_watered: Date.today,
       input_date: Date.today
