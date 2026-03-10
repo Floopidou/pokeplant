@@ -1,0 +1,382 @@
+// ============================================================
+// AUTH PIXEL ART KAWAII - PokéPlant
+// ============================================================
+
+// --- Page layout ---
+
+.devise-body {
+  background-color: $pp-mint;
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.07) 1px, transparent 1px);
+  background-size: 16px 16px;
+  min-height: 100vh;
+}
+
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+}
+
+.auth-container {
+  width: 100%;
+  max-width: 460px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+// --- Logo / Header ---
+
+.auth-logo {
+  text-align: center;
+
+  .auth-logo-icon {
+    font-size: 48px;
+    display: block;
+    line-height: 1;
+    filter: drop-shadow(3px 3px 0 $pp-dark-green);
+    animation: auth-bounce 1.6s ease-in-out infinite;
+  }
+
+  .auth-logo-title {
+    font-family: $pixel-font;
+    font-size: 18px;
+    color: $pp-dark-green;
+    margin: 8px 0 4px;
+    text-shadow: 3px 3px 0 $pp-shadow;
+    letter-spacing: 1px;
+  }
+
+  .auth-logo-sub {
+    font-family: $pixel-font;
+    font-size: 7px;
+    color: $pp-medium-green;
+    margin: 0;
+    letter-spacing: 0.5px;
+  }
+}
+
+@keyframes auth-bounce {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-6px); }
+}
+
+// --- Pixel Card ---
+
+.pixel-card {
+  width: 100%;
+  background: $pp-cream;
+  border: 4px solid $pp-dark-green;
+  box-shadow: 8px 8px 0 0 $pp-dark-green;
+  border-radius: 0;
+}
+
+.pixel-card-body {
+  padding: 24px 28px 28px;
+}
+
+// --- Tabs ---
+
+.auth-tabs {
+  display: flex;
+  border-bottom: 4px solid $pp-dark-green;
+  background: $pp-light-green;
+
+  .auth-tab {
+    flex: 1;
+    display: block;
+    text-align: center;
+    font-family: $pixel-font;
+    font-size: 8px;
+    padding: 12px 8px;
+    text-decoration: none;
+    color: $pp-dark-green;
+    background: $pp-light-green;
+    border-right: 4px solid $pp-dark-green;
+    transition: background 0.1s;
+    line-height: 1.4;
+
+    &:last-child {
+      border-right: none;
+    }
+
+    &:hover:not(.auth-tab--active) {
+      background: darken($pp-light-green, 8%);
+      color: $pp-dark-green;
+    }
+
+    &.auth-tab--active {
+      background: $pp-cream;
+      color: $pp-dark-green;
+      border-bottom: 4px solid $pp-cream;
+      margin-bottom: -4px;
+      font-weight: normal;
+    }
+  }
+}
+
+// --- Form fields ---
+
+.pixel-form-group {
+  margin-bottom: 16px;
+
+  // Hint text
+  .form-text,
+  small {
+    font-size: 10px;
+    color: $pp-medium-green;
+    font-family: $body-font;
+    display: block;
+    margin-top: 4px;
+  }
+}
+
+.pixel-label,
+.auth-page .form-label {
+  font-family: $pixel-font;
+  font-size: 8px;
+  color: $pp-dark-green;
+  display: block;
+  margin-bottom: 6px;
+  line-height: 1.6;
+}
+
+.pixel-input,
+.auth-page .form-control {
+  width: 100%;
+  border: 3px solid $pp-dark-green !important;
+  border-radius: 0 !important;
+  box-shadow: 3px 3px 0 0 $pp-dark-green !important;
+  background: #ffffff !important;
+  font-family: $body-font;
+  font-size: 14px;
+  padding: 10px 12px;
+  color: $pp-dark-green;
+  transition: box-shadow 0.1s, border-color 0.1s;
+  outline: none;
+
+  &::placeholder {
+    color: lighten($pp-medium-green, 20%);
+    font-style: italic;
+  }
+
+  &:focus {
+    outline: none !important;
+    border-color: $pp-pink !important;
+    box-shadow: 3px 3px 0 0 $pp-pink !important;
+  }
+
+  &.is-invalid {
+    border-color: #e53935 !important;
+    box-shadow: 3px 3px 0 0 #e53935 !important;
+  }
+}
+
+// Error messages
+.auth-page {
+  .invalid-feedback,
+  .error {
+    font-size: 10px;
+    color: #e53935;
+    font-family: $body-font;
+    margin-top: 4px;
+    display: block;
+  }
+
+  .alert {
+    border: 3px solid $pp-dark-green;
+    border-radius: 0;
+    box-shadow: 4px 4px 0 0 $pp-dark-green;
+    font-family: $pixel-font;
+    font-size: 8px;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+  }
+
+  .alert-danger {
+    background: #ffebee;
+    border-color: #e53935;
+    box-shadow: 4px 4px 0 0 #e53935;
+    color: #c62828;
+  }
+}
+
+// --- Remember me checkbox ---
+
+.pixel-remember {
+  margin-bottom: 16px;
+
+  .form-check-label {
+    font-family: $pixel-font;
+    font-size: 7px;
+    color: $pp-dark-green;
+    cursor: pointer;
+  }
+
+  .form-check-input {
+    width: 16px;
+    height: 16px;
+    border: 3px solid $pp-dark-green;
+    border-radius: 0;
+    background-color: #fff;
+    cursor: pointer;
+
+    &:checked {
+      background-color: $pp-green;
+      border-color: $pp-dark-green;
+    }
+
+    &:focus {
+      box-shadow: none;
+    }
+  }
+}
+
+// --- Buttons ---
+
+.pixel-form-actions {
+  margin-top: 20px;
+}
+
+.pixel-btn,
+.auth-page .btn {
+  font-family: $pixel-font !important;
+  font-size: 9px !important;
+  letter-spacing: 0.5px;
+  background: $pp-green !important;
+  color: #fff !important;
+  border: 3px solid $pp-dark-green !important;
+  box-shadow: 5px 5px 0 0 $pp-dark-green !important;
+  border-radius: 0 !important;
+  padding: 14px 20px !important;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  transition: transform 0.07s, box-shadow 0.07s;
+  line-height: 1.4;
+
+  &:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 3px 3px 0 0 $pp-dark-green !important;
+    background: lighten($pp-green, 8%) !important;
+    color: #fff !important;
+  }
+
+  &:active,
+  &:focus {
+    transform: translate(5px, 5px);
+    box-shadow: 0 0 0 0 $pp-dark-green !important;
+    outline: none !important;
+  }
+}
+
+.pixel-btn--pink {
+  background: $pp-pink !important;
+  border-color: darken($pp-pink, 30%) !important;
+  box-shadow: 5px 5px 0 0 darken($pp-pink, 30%) !important;
+
+  &:hover {
+    background: lighten($pp-pink, 8%) !important;
+    box-shadow: 3px 3px 0 0 darken($pp-pink, 30%) !important;
+  }
+
+  &:active,
+  &:focus {
+    box-shadow: 0 0 0 0 darken($pp-pink, 30%) !important;
+  }
+}
+
+// --- Divider ---
+
+.pixel-divider {
+  text-align: center;
+  margin: 20px 0 16px;
+  position: relative;
+
+  &::before,
+  &::after {
+    content: "";
+    display: inline-block;
+    height: 2px;
+    width: 80px;
+    background: repeating-linear-gradient(
+      90deg,
+      $pp-medium-green 0px,
+      $pp-medium-green 4px,
+      transparent 4px,
+      transparent 8px
+    );
+    vertical-align: middle;
+    margin: 0 8px;
+  }
+
+  span {
+    font-family: $pixel-font;
+    font-size: 7px;
+    color: $pp-medium-green;
+  }
+}
+
+// --- Links ---
+
+.auth-links {
+  text-align: center;
+}
+
+.pixel-link {
+  font-family: $pixel-font;
+  font-size: 7px;
+  color: $pp-medium-green;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: color 0.1s, border-color 0.1s;
+
+  &:hover {
+    color: $pp-dark-green;
+    border-bottom-color: $pp-dark-green;
+  }
+}
+
+// --- Decorative emoji row ---
+
+.auth-decorations {
+  font-size: 24px;
+  letter-spacing: 8px;
+  filter: drop-shadow(2px 2px 0 rgba(0, 0, 0, 0.15));
+  margin-top: 4px;
+
+  span {
+    display: inline-block;
+    animation: auth-wiggle 2s ease-in-out infinite;
+
+    &:nth-child(2) { animation-delay: 0.3s; }
+    &:nth-child(3) { animation-delay: 0.6s; }
+    &:nth-child(4) { animation-delay: 0.9s; }
+    &:nth-child(5) { animation-delay: 1.2s; }
+  }
+}
+
+@keyframes auth-wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25%       { transform: rotate(-8deg); }
+  75%       { transform: rotate(8deg); }
+}
+
+// --- Flash messages in devise layout ---
+
+.devise-body .alert {
+  margin: 0;
+  border-radius: 0;
+  border: 0;
+  border-bottom: 4px solid $pp-dark-green;
+  font-family: $pixel-font;
+  font-size: 8px;
+  text-align: center;
+  padding: 12px;
+}

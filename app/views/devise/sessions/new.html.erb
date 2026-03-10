@@ -1,20 +1,78 @@
-<h2>Log in</h2>
+<div class="auth-page">
+  <div class="auth-container">
 
-<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="form-inputs">
-    <%= f.input :email,
-                required: false,
-                autofocus: true,
-                input_html: { autocomplete: "email" } %>
-    <%= f.input :password,
-                required: false,
-                input_html: { autocomplete: "current-password" } %>
-    <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+    <div class="auth-logo">
+      <span class="auth-logo-icon">🌱</span>
+      <h1 class="auth-logo-title">PokéPlant</h1>
+      <p class="auth-logo-sub">Your garden, your adventure !</p>
+    </div>
+
+    <div class="pixel-card">
+
+      <div class="auth-tabs">
+        <a href="<%= new_user_session_path %>" class="auth-tab auth-tab--active">
+          ▶ Sign Up
+        </a>
+        <a href="<%= new_user_registration_path %>" class="auth-tab">
+          Sign In
+        </a>
+      </div>
+
+      <div class="pixel-card-body">
+        <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
+          <%= f.input :login,
+              label: "🌿 Pseudo or Email",
+              label_html: { class: "pixel-label" },
+              wrapper_html: { class: "pixel-form-group" },
+              input_html: {
+                class: "pixel-input",
+                placeholder: "ton_pseudo",
+                autocomplete: "username"
+              },
+              required: false,
+              autofocus: true %>
+
+          <%= f.input :password,
+              label: "🔒 Password",
+              label_html: { class: "pixel-label" },
+              wrapper_html: { class: "pixel-form-group" },
+              input_html: {
+                class: "pixel-input",
+                placeholder: "••••••••",
+                autocomplete: "current-password"
+              },
+              required: false %>
+
+          <% if devise_mapping.rememberable? %>
+            <div class="pixel-remember">
+              <%= f.input :remember_me, as: :boolean, label: "Remember Me" %>
+            </div>
+          <% end %>
+
+          <div class="pixel-form-actions">
+            <%= f.button :submit, "▶ Login", class: "pixel-btn w-100" %>
+          </div>
+
+        <% end %>
+
+        <div class="pixel-divider">
+          <span>~ ou ~</span>
+        </div>
+
+        <div class="auth-links">
+          <%= link_to "Forgot password?", new_user_password_path, class: "pixel-link" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="auth-decorations">
+      <span>🌵</span>
+      <span>🌿</span>
+      <span>🍀</span>
+      <span>🌸</span>
+      <span>🪴</span>
+    </div>
+
   </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, "Log in" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>
