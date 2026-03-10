@@ -28,11 +28,13 @@ bin/rails db:seed
 
 ```
 app/models/         # User, Plant, Chat, Message, Pot, PlantPotPair
-app/controllers/    # Minimal — mostly Devise + PagesController
-app/views/          # ERB templates
+app/controllers/    # PagesController, PlantsController, ChatsController,
+                    # MessagesController, PotsController, PlantPotPairsController
+app/views/          # ERB templates (plants/, chats/, pots/, pages/, shared/)
 test/models/        # Comprehensive Minitest model tests
+test/controllers/   # Controller tests for all resources
 db/migrate/         # 8 migrations
-config/routes.rb    # Currently: root + devise_for only
+config/routes.rb    # Full RESTful routes (see Routes section below)
 ```
 
 ## Domain Models
@@ -64,8 +66,33 @@ small, medium, large, very_large, tree
 ## Language
 All UI text, labels, buttons, flash messages, and any user-facing content must be in **English** by default.
 
+## Routes
+
+```
+GET    /                          pages#home
+GET    /loading                   pages#loading
+GET    /all_reminders             pages#reminders
+
+resources :plants (full CRUD)
+  GET    /plants/:id/plant_reminders
+  PATCH  /plants/:id/update_name
+  PATCH  /plants/:id/water
+  PATCH  /plants/:id/repot
+  PATCH  /plants/:id/pet
+
+  resources :chats (create, index, show, destroy)
+    resources :messages (create only)
+
+resources :pots (index, show)
+  resources :plant_pot_pairs (create only)   # buying a pot
+
+resources :plant_pot_pairs (destroy only)    # unequipping/removing a pot
+```
+
+> **Pitfall**: do NOT add top-level `get "chats/show"` style routes — they shadow the nested resource routes.
+
 ## Current Status
-Models + tests complete. Routes/controllers/views for plants, chats, pots not yet built.
+Models + tests complete. Controllers, views, and routes for plants, chats, pots, messages, and plant_pot_pairs are built.
 
 ## Linting & CI
 - RuboCop: `rubocop-rails-omakase` style (see `.rubocop.yml`)
