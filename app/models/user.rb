@@ -1,6 +1,14 @@
 class User < ApplicationRecord
+  before_validation do
+    self.leaf_coins ||= 0
+  end
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+
+  has_many :plants
+  has_many :chats
+
+  validates :username, :birthdate, :leaf_coins, presence: true
 end
