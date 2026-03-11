@@ -1,8 +1,8 @@
 MOODS
-Happy: 80-100 points
-Thirsty: <= 80 points & not watered (repotted or not)
-Grumpy: <=80 points & not repotted
-Lonely: <=60 points despite watered and repotted
+Happy: 60-100 points
+Thirsty: not watered (repotted or not) (regardless of mood points)
+Grumpy: not repotted (regardless of mood points)
+Lonely: <=60 mood points
 
 
 PERSONALITIES
