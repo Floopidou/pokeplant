@@ -1,6 +1,14 @@
 class PlantsController < ApplicationController
   before_action :authenticate_user!
 
+  PERSONALITY_TAGS = ["thunderstorm", "Tuesday", "velvet", "pickle",
+                      "blizzard", "hamster", "noodle", "foggy", "pebble",
+                      "tangerine", "wobbly", "monsoon", "biscuit", "glacier",
+                      "sparrow", "crunchy", "tornado", "jellyfish", "flannel",
+                      "Wednesday", "cobblestone", "drizzle", "penguin", "marmalade",
+                      "avalanche", "hammock", "crumble", "blizzard", "lampshade",
+                      "puddle"]
+
   def index
     @plants = current_user.plants.order(position_in_garden: :asc)
   end
@@ -9,45 +17,98 @@ class PlantsController < ApplicationController
     @plant = Plant.find(params[:id])
   end
 
+  ### CREATION DE PLANT
+  # 1. on prend la photo
   def new
   end
 
-  def create
+  # 2. A partir de la photo, on lance le llm pour l'identifier avec un service identify_plant
+  def create # rubocop:disable Metrics/MethodLength
     photo = params[:photo]
 
     unless photo.present?
       flash[:alert] = "Please provide a photo of your plant."
-      redirect_to new_plant_path and return
+      redirect_to new_plant_path
+      return
     end
 
-    plant_data = identify_plant(photo.tempfile.path)
+    plant_data = identify_plant(photo.tempfile.path) # POURRAIT ETRE UN SERVICE
 
     if plant_data.nil?
       flash[:alert] = "Could not identify the plant. Please try again with a clearer photo."
-      redirect_to new_plant_path and return
+      redirect_to new_plant_path
+      return
     end
 
-    upload_dir = Rails.root.join("public", "uploads", "plants")
-    FileUtils.mkdir_p(upload_dir)
-    filename = "#{SecureRandom.hex(8)}#{File.extname(photo.original_filename)}"
-    FileUtils.cp(photo.tempfile.path, upload_dir.join(filename))
+    ## plant found and identified
 
+    # je prépare la next position sur base de la denrière plante
     next_pos = current_user.plants.maximum(:position_in_garden).to_i + 1
+
+    # hash avec les colonnes nécessaires pour la Plant (sauf user, nickname, ositiob, phot url,avatar img, etc.)
+    # D'abord je prends uniquement les colonnes qui devraient être générées par l'ia
+    array_of_ai_generated_plant_columns = Plant.column_names - %w[id user_id
+                                                                  position_in_garden avatar_img
+                                                                  personality_tags personality
+                                                                  created_at updated_at]
+    # j'en fais un hash avec ces arguments
+    partial_plant_hash = plant_data.slice(*array_of_ai_generated_plant_columns)
 
     @plant = Plant.new(
       user: current_user,
-      nickname: params[:nickname],
-      position_in_garden: params[:position_in_garden].presence&.to_i || next_pos,
-      avatar_img: "/uploads/plants/#{filename}",
-      **plant_data.slice(*Plant.column_names - %w[id user_id avatar_img nickname
-                                                  position_in_garden created_at updated_at])
+      position_in_garden: next_pos,
+      avatar_img: "happy_monstera.svg", # Il va falloir faire un finder sur base du nom de plante (un SEVRVICE)
+      **partial_plant_hash # le ** imbrique le hash dans l'autre hash
     )
 
+    # ---> j'upload la photo
+    @plant.photo.attach(params[:photo])
+
     if @plant.save
-      redirect_to @plant, notice: "#{@plant.common_name} identified and added to your garden!"
+      redirect_to choose_name_plant_path(@plant), notice: "#{@plant.common_name} identified and added to your garden!"
     else
       flash[:alert] = "Could not save the plant: #{@plant.errors.full_messages.join(', ')}"
       redirect_to new_plant_path
+    end
+  end
+
+  # 3. je display avatar_img et je demande le nom
+  def choose_name
+    @plant = Plant.find(params[:id])
+  end
+
+  # 4. je change le nom
+  def apply_name
+    @plant = Plant.find(params[:id])
+    @plant.nickname = params[:nickname]
+
+    if @plant.save
+      redirect_to select_tags_plant_path(@plant),
+                  notice: "Your #{@plant.common_name} has been named #{@plant.nickname}!"
+    else
+      flash[:alert] = "Could not save the plant: #{@plant.errors.full_messages.join(', ')}"
+      redirect_to choose_name_plant_path
+    end
+  end
+
+  # 5. je sélectionne les tags
+  def select_tags
+    @plant = Plant.find(params[:id])
+    @tags = PlantsController::PERSONALITY_TAGS
+  end
+
+  # 6. je set les tags et lance le sélecteur de personnalités
+  def apply_tags
+    @plant = Plant.find(params[:id])
+    # string_of_tags = params[:selected_tags].join(", ")
+    new_personality = personality_setter(@plant.input_date, params[:selected_tags])
+    @plant.personality = new_personality
+
+    if @plant.save
+      redirect_to plant_path(@plant), notice: "Personality of #{@plant.nickname} has been generated!"
+    else
+      flash[:alert] = "Could not save the plant: #{@plant.errors.full_messages.join(', ')}"
+      redirect_to select_name_plant_path
     end
   end
 
@@ -62,7 +123,7 @@ class PlantsController < ApplicationController
 
   private
 
-  def identify_plant(image_path)
+  def identify_plant(image_path) # rubocop:disable Metrics/MethodLength
     prompt = <<~PROMPT
       You are a botanist expert. Analyze this plant photo and return a JSON object with exactly these fields:
       - common_name: string
@@ -79,8 +140,6 @@ class PlantsController < ApplicationController
       - repot_interval: recommended number of days between repottings (integer)
       - plant_size: one of "small", "medium", "large", "very_large", "tree"
       - ideal_pot_size: one of "small", "medium", "large", "very_large", "tree"
-      - personality: the single best-matching personality for this plant, chosen from: bucolic, partygoer, rustic, vacationer, assistant, guide, inspector, rescuer, choosy, diva, gentle, majesty, artist, clumsy, pilferer, troublemaker
-      - personality_tags: 3 to 5 short descriptive personality tags, comma-separated (e.g. "resilient, low-maintenance, dramatic")
 
       Return ONLY valid JSON. No markdown, no code fences, no explanation.
     PROMPT
@@ -92,5 +151,52 @@ class PlantsController < ApplicationController
   rescue StandardError => e
     Rails.logger.error("Plant identification failed: #{e.message}")
     nil
+  end
+
+  def personality_setter(input_date, personality_tags) # rubocop:disable Metrics/MethodLength
+    base_prompt = <<~PROMPT
+      You are a good mentalist in charge of determining the personality
+      of a virtual person in an app
+
+      I am the user in charge of the virtual person and I don't know what their
+      personality is
+
+      Among available personalities, you must determine the type of the
+      personality that the person has based on its astrological sign,
+      knowing it's born on #{input_date}, and based on a few words that makes me think
+      of this virtual person, which are #{personality_tags}
+
+      Reply with ONLY the personality name, nothing else.
+    PROMPT
+
+    my_llm = RubyLLM.chat(model: "gpt-4o")
+    instructed_llm = my_llm.with_instructions(personalities_available)
+    response = instructed_llm.ask(base_prompt)
+    response.content.strip.downcase
+  rescue StandardError => e
+    Rails.logger.error("Personality setter failed: #{e.message}")
+    nil
+  end
+
+  def personalities_available
+    <<~PROMPT
+      The only possible personalities names for virtual persons are the following, with a description attached that characterize them:
+      - Bucolic: Gentle, dreamy souls, quietly enjoying life's peaceful moments from their favorite spot.
+      - PartyGoer: Joyful party-starters, they turn every occasion into a lively celebration.
+      - Rustic: Warm-hearted and easygoing, these dogs cherish life's simple comforts without fuss.
+      - Vacationer: Relaxed and friendly, they delight in life's small pleasures at an easy pace.
+      - Assistant: Thoughtful and devoted, they gracefully anticipate your needs with quiet attention.
+      - Guide: Quietly confident and independent, they calmly lead the way with steady assurance.
+      - Inspector: Sharp-eyed observers, their quiet independence means nothing escapes their notice.
+      - Rescuer: Active and protective, they swiftly respond with bravery whenever duty calls.
+      - Choosy: Social yet particular, they charmingly, and firmly, make their preferences known.
+      - Diva: Sensitive and reserved, these gentle souls expect constant care and affectionate attention.
+      - Gentle: Refined and self-assured, they elegantly master the subtle art of discretion.
+      - Majesty: Independent and charismatic, they reign serenely over their domain with quiet dignity.
+      - Artist: Expressive and spirited, they turn every place into their own creative playground.
+      - Clumsy: Affectionate but stubborn, their boundless energy often leads to delightful mishaps.
+      - Pilferer: Playful and mischievous, their lively spirit makes them expert thieves of anything enticing.
+      - Troublemaker: Free-spirited rebels, joyfully ignoring rules and living life on their own playful terms.
+    PROMPT
   end
 end

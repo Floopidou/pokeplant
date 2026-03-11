@@ -74,4 +74,9 @@ end
 
 # login
 gem "devise"
+
+# ai
 gem "ruby_llm", "~> 1.2.0"
+
+# hosting
+gem "cloudinary"
