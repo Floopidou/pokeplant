@@ -30,6 +30,14 @@ Rails.application.routes.draw do
     end
     # route with reminders for this plant
     member do
+      # new plant creation helpers
+      get :choose_name
+      patch :apply_name
+
+      get :select_tags
+      patch :apply_tags
+
+      # other useful routes
       get :plant_reminders # builds a list of reminders linked to my plants
       patch :update_name # change name of my plant
       patch :water # waters the plant

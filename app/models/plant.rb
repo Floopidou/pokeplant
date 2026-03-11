@@ -10,15 +10,15 @@ class Plant < ApplicationRecord
   belongs_to :user
   has_many :plantpotpairs
   has_many :chats
+  has_one_attached :photo
 
-  # presence de tout sauf photo url pour l'instant
-  validates :user, :avatar_img, :position_in_garden, :nickname, :common_name, :scientific_name,
-            :watering_interval, :repot_interval,:mood_points, :light_need, :toxicity,
+  # presence de tout sauf photo, nickanme (défini après) personality et personality tags (défini après)
+  validates :user, :avatar_img, :position_in_garden, :common_name, :scientific_name,
+            :watering_interval, :repot_interval, :mood_points, :light_need, :toxicity,
             :temperature_min, :temperature_max, :type_of_soil,
             :ideal_pot_size, :plant_size,
             :last_repot, :last_watered, :input_date,
             :description, :optimal_placement, :origin_region,
-            :personality, :personality_tags,
             presence: true
 
   # moodpoints entre 0 et 100
@@ -36,7 +36,8 @@ class Plant < ApplicationRecord
   validates :personality,
             inclusion: { in: %w[bucolic partygoer rustic vacationer assistant guide inspector
                                 rescuer choosy diva gentle majesty artist clumsy pilferer
-                                troublemaker] }
+                                troublemaker] },
+            allow_nil: true
   # dates last_repot, last_watered, input_date <=today
   validates :last_repot, :last_watered, comparison: { less_than_or_equal_to: ->(_) { Date.today } }
 end

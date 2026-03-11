@@ -1,0 +1,10 @@
+<form action="<%= apply_tags_plant_path(@plant) %>" method="patch" enctype="multipart/form-data">
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+
+  <div>
+    <label for="selected_tags">Give it a tag</label>
+    <input type="text" id="selected_tags" name="selected_tags" placeholder="e.g., glass" autocomplete="off">
+  </div>
+
+  <button type="submit">Plant the plant</button>
+</form>
