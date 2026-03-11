@@ -35,6 +35,14 @@
 .auth-logo {
   text-align: center;
 
+  img {
+    // max-width: 220px;
+    // mix-blend-mode: multiply;
+    background-color: transparent;
+    // opacity: 0.5;
+
+  }
+
   .auth-logo-icon {
     font-size: 48px;
     display: block;
