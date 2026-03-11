@@ -62,7 +62,7 @@
 
   .auth-logo-sub {
     font-family: $pixel-font;
-    font-size: 7px;
+    font-size: 11px;
     color: $pp-medium-green;
     margin: 0;
     letter-spacing: 0.5px;
@@ -335,6 +335,7 @@
 
 .auth-links {
   text-align: center;
+  margin: 20px 0 16px;
 }
 
 .pixel-link {
@@ -387,4 +388,22 @@
   font-size: 8px;
   text-align: center;
   padding: 12px;
+}
+
+
+
+.pixel-input,
+.pixel-label,
+.pixel-btn,
+.form-text,
+.auth-logo-sub,
+.form-check-label,.pixel-link{
+  font-family: $departure-font !important;
+  font-size: 12px;
+}
+.poke_color {
+  color: #f2a0b0;
+}
+.plant_color {
+  color: #3b6a2a;
 }

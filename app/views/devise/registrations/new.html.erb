@@ -14,10 +14,10 @@
 
       <div class="auth-tabs">
         <a href="<%= new_user_session_path %>" class="auth-tab">
-          Connexion
+          Log In
         </a>
         <a href="<%= new_user_registration_path %>" class="auth-tab auth-tab--active">
-          ▶ Inscription
+          ▶ Sign Up
         </a>
       </div>
 
@@ -27,20 +27,20 @@
           <%= f.error_notification message: f.object.errors.full_messages.join(", ") if f.object.errors.any? %>
 
           <%= f.input :username,
-              label: "🌿 Pseudo",
+              label: "🌿 Nickname",
               label_html: { class: "pixel-label" },
               wrapper_html: { class: "pixel-form-group" },
               input_html: {
                 class: "pixel-input",
-                placeholder: "mon_pseudo",
+                placeholder: "Your_nickname",
                 autocomplete: "username"
               },
               required: true,
               autofocus: true,
-              hint: "3-20 caractères, lettres, chiffres et _ uniquement" %>
+              hint: "3-20 characters, letters, numbers and _ only" %>
 
           <%= f.input :email,
-              label: "📧 Adresse Email",
+              label: "📧 Email Address",
               label_html: { class: "pixel-label" },
               wrapper_html: { class: "pixel-form-group" },
               input_html: {
@@ -51,7 +51,7 @@
               required: true %>
 
           <%= f.input :password,
-              label: "🔒 Mot de passe",
+              label: "🔒 Password",
               label_html: { class: "pixel-label" },
               wrapper_html: { class: "pixel-form-group" },
               input_html: {
@@ -60,10 +60,10 @@
                 autocomplete: "new-password"
               },
               required: true,
-              hint: @minimum_password_length ? "#{@minimum_password_length} caractères minimum" : nil %>
+              hint: @minimum_password_length ? "#{@minimum_password_length} minimum characters" : nil %>
 
           <%= f.input :password_confirmation,
-              label: "🔒 Confirmer le mot de passe",
+              label: "🔒 Confirm password",
               label_html: { class: "pixel-label" },
               wrapper_html: { class: "pixel-form-group" },
               input_html: {
@@ -74,28 +74,28 @@
               required: true %>
 
           <div class="pixel-form-actions">
-            <%= f.button :submit, "✨ CRÉER MON COMPTE", class: "pixel-btn pixel-btn--pink w-100" %>
+            <%= f.button :submit, "✨ CREATE MY ACCOUNT", class: "pixel-btn pixel-btn--pink w-100" %>
           </div>
 
         <% end %>
 
-        <div class="pixel-divider">
-          <span>~ ou ~</span>
-        </div>
+        <%# <div class="pixel-divider">
+          <span>~ or ~</span>
+        </div> %>
 
         <div class="auth-links">
-          <%= link_to "Déjà un compte ? Se connecter", new_user_session_path, class: "pixel-link" %>
+          <%= link_to "Already have an account ? Please Log In", new_user_session_path, class: "pixel-link" %>
         </div>
       </div>
     </div>
 
-    <div class="auth-decorations">
+    <%# <div class="auth-decorations">
       <span>🌵</span>
       <span>🌿</span>
       <span>🍀</span>
       <span>🌸</span>
       <span>🪴</span>
-    </div>
+    </div> %>
 
   </div>
 </div>
