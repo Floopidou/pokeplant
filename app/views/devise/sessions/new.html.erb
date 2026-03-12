@@ -14,7 +14,7 @@
 
       <div class="auth-tabs">
         <a href="<%= new_user_session_path %>" class="auth-tab auth-tab--active">
-          ▶ Log In
+          Log In
         </a>
         <a href="<%= new_user_registration_path %>" class="auth-tab">
           Sign Up
@@ -60,24 +60,12 @@
 
         <% end %>
 
-        <%# <div class="pixel-divider">
-          <span>~ or ~</span>
-        </div> %>
-
         <div class="auth-links">
-          <%# <%= link_to "Forgot password?", new_user_password_path, class: "pixel-link" %>
           <%= link_to "No account? Sign Up Here", new_user_registration_path, class: "pixel-link" %>
         </div>
       </div>
     </div>
 
-    <%# <div class="auth-decorations">
-      <span>🌵</span>
-      <span>🌿</span>
-      <span>🍀</span>
-      <span>🌸</span>
-      <span>🪴</span>
-    </div> %>
 
   </div>
 </div>
