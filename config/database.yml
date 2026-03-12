@@ -87,7 +87,9 @@ test:
 production:
   primary: &primary_production
     <<: *default
-    url: <%= ENV["DATABASE_URL"] %>
+    database: pokeplant_production
+    username: pokeplant
+    password: <%= ENV["POKEPLANT_DATABASE_PASSWORD"] %>
   cache:
     <<: *primary_production
     database: pokeplant_production_cache
