@@ -40,4 +40,22 @@ class Plant < ApplicationRecord
             allow_nil: true
   # dates last_repot, last_watered, input_date <=today
   validates :last_repot, :last_watered, comparison: { less_than_or_equal_to: ->(_) { Date.today } }
+
+  def mood
+    return :thirsty if needs_water?
+    return :grumpy if needs_repot?
+    return :lonely if mood_points <= 60
+
+    :happy
+  end
+
+  private
+
+  def needs_water?
+    (Date.today - last_watered).to_i > watering_interval
+  end
+
+  def needs_repot?
+    (Date.today - last_repot).to_i > repot_interval
+  end
 end
