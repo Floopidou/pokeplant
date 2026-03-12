@@ -5,11 +5,16 @@
 // --- Page layout ---
 
 .devise-body {
-  background-color: $pp-mint;
-  background-image:
-    linear-gradient(rgba(0, 0, 0, 0.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 0, 0, 0.07) 1px, transparent 1px);
-  background-size: 16px 16px;
+  // background-color: $pp-mint;
+  // background-image:
+  //   linear-gradient(rgba(0, 0, 0, 0.07) 1px, transparent 1px),
+  //   linear-gradient(90deg, rgba(0, 0, 0, 0.07) 1px, transparent 1px);
+  // background-size: 16px 16px;
+  background: url(wallpaper.svg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
   min-height: 100vh;
 }
 
@@ -405,4 +410,106 @@
 }
 .plant_color {
   color: #3b6a2a;
+}
+
+
+
+
+.auth-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.auth-logo {
+  margin-top: 40px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.auth-logo-svg {
+  width: 220px;
+  height: auto;
+}
+
+
+.auth-container {
+  width: 100%;
+  max-width: 460px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding-top: 100px; // Espace pour le logo fixe
+}
+
+.auth-logo {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  text-align: center;
+}
+
+// Le contenu reste au-dessus des nuages
+
+
+.devise-body {
+  position: relative;
+  overflow: hidden;
+
+  // Deux couches de nuages
+  &::before,
+  &::after {
+    content: "";
+    position: fixed;
+    top: 10;
+    left: 0;
+    width: 200%;
+    height: 100%;
+    background-image: url('clouds.svg');
+    background-repeat: repeat;
+    background-size: 329px 816px;
+    pointer-events: none;
+  }
+
+  &::before {
+    animation: clouds-scroll-horizontal 30s linear infinite;
+    z-index: 0;
+  }
+
+  // Deuxième couche décalée
+  &::after {
+    animation: clouds-scroll-horizontal 60s linear infinite;
+    animation-delay: -30s;
+    z-index: 0;
+    transform: translateY(100px) scale(1.05);
+  }
+}
+
+@keyframes clouds-scroll-horizontal {
+  0% {
+    transform: translateX(0);
+    opacity: 0.7;
+  }
+  45% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 0;
+  }
+  55% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateX(-50%);
+    opacity: 0.7;
+  }
+}
+
+.auth-page {
+  position: relative;
+  z-index: 1;
 }
