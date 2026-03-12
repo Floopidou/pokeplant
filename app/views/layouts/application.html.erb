@@ -23,12 +23,14 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body class="<%= content_for(:body_class) %>">
     <%= render "shared/flashes" %>
     <%= link_to "Skip to main content", "#main-content", class: "visually-hidden-focusable" %>
-    <header>
-      <%= render "shared/navbar" %> <!-- 👈 Add this for navbar -->
-    </header>
+    <% unless content_for?(:hide_navbar) %>
+      <header>
+        <%= render "shared/navbar" %>
+      </header>
+    <% end %>
 
     <main id="main-content">
       <%= yield %>

@@ -1,0 +1,264 @@
+// ============================================================
+// GARDEN INDEX — PokéPlant (pixel art kawaii)
+// ============================================================
+
+// ── Body background + scrolling clouds ─────────────────────
+
+.garden-body {
+  background: url('wallpaper.svg') no-repeat center center fixed;
+  background-size: cover;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+
+  &::before,
+  &::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 100%;
+    background-image: url('clouds.svg');
+    background-repeat: repeat;
+    background-size: 329px 816px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  &::before {
+    animation: clouds-scroll-horizontal 30s linear infinite;
+    opacity: 0.7;
+  }
+
+  &::after {
+    animation: clouds-scroll-horizontal 60s linear infinite;
+    animation-delay: -30s;
+    opacity: 0.5;
+    transform: translateY(80px) scale(1.05);
+  }
+}
+
+@keyframes clouds-scroll-horizontal {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+// ── Page wrapper ────────────────────────────────────────────
+
+.garden-page {
+  position: relative;
+  z-index: 1;
+  max-width: 380px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 16px 80px;
+  justify-content: center;
+}
+
+// ── Top badges ──────────────────────────────────────────────
+
+.garden-header {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 380px;
+  max-width: 100vw;
+  padding: 0 16px;
+  display: flex;
+  justify-content: space-between;
+  z-index: 100;
+  pointer-events: none;
+
+  > * { pointer-events: auto; }
+}
+
+.garden-badge {
+  background: $pp-cream;
+  border: 3px solid $pp-dark-green;
+  box-shadow: 3px 3px 0 $pp-dark-green;
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-family: $pixel-font;
+  font-size: 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.garden-badge-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+.garden-coin-icon {
+  width: 50px;
+  height: 50px;
+  margin: -15px 0;
+}
+
+// ── Title ───────────────────────────────────────────────────
+
+.garden-title {
+  font-family: $pixel-font;
+  font-size: 1rem;
+  color: $pp-dark-green;
+  margin: 8px 0 20px;
+  text-align: center;
+}
+
+// ── Isometric grid ──────────────────────────────────────────
+
+.garden-grid {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.garden-row {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 12px;
+
+  &:first-child { margin-top: 0; }
+}
+
+// ── Plant tile ──────────────────────────────────────────────
+
+.garden-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+
+  &:hover .tile-plant { transform: translateX(-50%) translateY(-8px); }
+}
+
+.tile-wrapper {
+  position: relative;
+  width: 150px;
+
+  .tile-base {
+    width: 100%;
+    display: block;
+  }
+
+  .tile-plant {
+    position: absolute;
+    bottom: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 125px;
+    height: 125px;
+    object-fit: contain;
+    z-index: 2;
+    transition: transform 0.15s ease;
+  }
+}
+
+.tile-label {
+  font-family: $pixel-font;
+  font-size: 0.45rem;
+  color: $pp-dark-green;
+  white-space: nowrap;
+  margin-top: 2px;
+}
+
+// ── Pagination — pixel SVG button style ────────────────────
+
+.garden-pagination {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.garden-page-btn {
+  // Matches the provided SVG: cream fill, 1.5px black border, black drop shadow offset 3px/4px
+  background: #FFFDE5;
+  border: 1.5px solid black;
+  box-shadow: 3px 4px 0 black;
+  min-width: 36px;
+  height: 34px;
+  padding: 0 10px;
+  font-family: $pixel-font;
+  font-size: 0.65rem;
+  color: black;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  border-radius: 0;
+
+  &.active {
+    background: #c8e6c8;
+    transform: translate(3px, 4px);
+    box-shadow: none;
+  }
+
+  &.disabled {
+    opacity: 0.35;
+    pointer-events: none;
+  }
+
+  &:hover:not(.active):not(.disabled) {
+    background: #f0f8e8;
+  }
+}
+
+// ── Bottom nav ──────────────────────────────────────────────
+
+.garden-bottom-nav {
+  position: fixed;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 380px;
+  max-width: 100vw;
+  padding: 0 20px;
+  background: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 100;
+  pointer-events: none;
+
+  > * { pointer-events: auto; }
+}
+
+.garden-nav-btn {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  width: 72px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  flex-shrink: 0;
+  cursor: pointer;
+  padding: 0;
+}
+
+.garden-nav-icon {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+}
+
+.garden-search-bar {
+  flex: 1;
+  height: 36px;
+  background: white;
+  border: 3px solid $pp-dark-green;
+  border-radius: 8px;
+}

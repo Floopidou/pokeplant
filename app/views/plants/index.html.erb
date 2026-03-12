@@ -1,1 +1,69 @@
-<h1>The garden</h1>
+<% content_for :body_class, "garden-body" %>
+<% content_for :hide_navbar, "true" %>
+
+<div class="garden-page">
+
+  <!-- Top badges -->
+  <div class="garden-header">
+    <div class="garden-badge">
+      <%= image_tag "leaf_coin.png", class: "garden-badge-icon", alt: "plants" %>
+      <%= @total_plant_count %>/6
+    </div>
+    <div class="garden-badge">
+      <%= image_tag "leaf_coin.png", class: "garden-badge-icon garden-coin-icon", alt: "coins" %>
+      <%= current_user.leaf_coins %>
+    </div>
+  </div>
+
+  <!-- Title -->
+  <h1 class="garden-title">The Garden</h1>
+
+  <!-- Always 6 slots, 2 rows of 3 -->
+  <% slots = (@paged_plants.to_a + Array.new(6, nil)).first(6) %>
+  <div class="garden-grid">
+    <% slots.each_slice(2).with_index do |row, i| %>
+      <div class="garden-row <%= 'garden-row--offset' if i.odd? %>">
+        <% row.each do |plant| %>
+          <% if plant %>
+            <%= link_to plant_path(plant), class: "garden-tile" do %>
+              <div class="tile-wrapper">
+                <% avatar = File.exist?(Rails.root.join("app/assets/images/avatars/#{plant.avatar_img}")) ? "avatars/#{plant.avatar_img}" : "avatars/happy_monstera.svg" %>
+                <%= image_tag avatar, class: "tile-plant", alt: plant.nickname %>
+                <%= image_tag "tile.svg", class: "tile-base", alt: "" %>
+              </div>
+              <span class="tile-label"><%= plant.nickname %></span>
+            <% end %>
+          <% else %>
+            <div class="garden-tile garden-tile--empty">
+              <div class="tile-wrapper">
+                <%= image_tag "tile.svg", class: "tile-base", alt: "" %>
+              </div>
+              <span class="tile-label">&nbsp;</span>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Pagination — always 4 pages -->
+  <div class="garden-pagination">
+    <% (1..4).each do |p| %>
+      <%= link_to plants_path(page: p),
+          class: "garden-page-btn #{'active' if p == @current_page}" do %>
+        <%= p %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <!-- Bottom nav -->
+  <div class="garden-bottom-nav">
+    <%= link_to pots_path, class: "garden-nav-btn" do %>
+      <%= image_tag "shop.png", alt: "shop", class: "garden-nav-icon" %>
+    <% end %>
+    <button class="garden-nav-btn">
+      <%= image_tag "reglage.png", alt: "settings", class: "garden-nav-icon" %>
+    </button>
+  </div>
+
+</div>

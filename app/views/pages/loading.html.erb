@@ -1,1 +1,25 @@
-<h1>Future loading page</h1>
+<% content_for :body_class, "garden-body" %>
+<% content_for :hide_navbar, "true" %>
+
+<div class="loader-page">
+
+  <!-- Version badge -->
+  <div class="loader-version">
+    <%= image_tag "version.svg", alt: "version", class: "loader-version-img" %>
+  </div>
+
+  <!-- Logo centered -->
+  <div class="loader-logo">
+    <%= image_tag "pokeplant-logo.svg", class: "loader-logo-img", alt: "PokéPlant" %>
+  </div>
+
+  <!-- Progress bar -->
+  <div class="loader-bottom">
+    <p class="loader-status">GARDEN LOADED!</p>
+    <div class="loader-bar-track">
+      <div class="loader-bar"></div>
+    </div>
+    <p class="loader-percent">100%</p>
+  </div>
+
+</div>
