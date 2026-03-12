@@ -8,7 +8,6 @@ class PlantsController < ApplicationController
                       "Wednesday", "cobblestone", "drizzle", "penguin", "marmalade",
                       "avalanche", "hammock", "crumble", "blizzard", "lampshade",
                       "puddle"]
-
   def index
     @plants = current_user.plants.order(position_in_garden: :asc)
   end
@@ -119,6 +118,18 @@ class PlantsController < ApplicationController
   end
 
   def destroy
+  end
+
+  def water
+    @plant = Plant.find(params[:id])
+    @plant.update(last_watered: Date.today)
+    redirect_to plant_path(@plant)
+  end
+
+  def repot
+    @plant = Plant.find(params[:id])
+    @plant.update(last_repot: Date.today)
+    redirect_to plant_path(@plant)
   end
 
   private
