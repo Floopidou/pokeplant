@@ -9,7 +9,11 @@ class PlantsController < ApplicationController
                       "avalanche", "hammock", "crumble", "blizzard", "lampshade",
                       "puddle"]
   def index
-    @plants = current_user.plants.order(position_in_garden: :asc)
+    per_page = 6
+    @current_page = (params[:page] || 1).to_i.clamp(1, 4)
+    all_plants = current_user.plants.order(position_in_garden: :asc)
+    @total_plant_count = all_plants.count
+    @paged_plants = all_plants.offset((@current_page - 1) * per_page).limit(per_page)
   end
 
   def show

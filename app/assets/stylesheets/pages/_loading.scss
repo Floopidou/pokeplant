@@ -1,0 +1,117 @@
+// ============================================================
+// LOADER PAGE — PokéPlant
+// ============================================================
+
+.loader-page {
+  position: relative;
+  z-index: 1;
+  max-width: 380px;
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+}
+
+// ── Version badge ───────────────────────────────────────────
+
+.loader-version {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.loader-version-img {
+  height: 29px;
+  width: auto;
+}
+
+// ── Logo ────────────────────────────────────────────────────
+
+.loader-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  animation: loader-float 3s ease-in-out infinite;
+}
+
+.loader-logo-img {
+  width: 260px;
+  height: auto;
+}
+
+.loader-tagline {
+  font-family: $departure-font;
+  font-size: 0.7rem;
+  color: $pp-dark-green;
+  letter-spacing: 1px;
+  margin: 0;
+  text-align: center;
+}
+
+@keyframes loader-float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+
+// ── Progress bar ────────────────────────────────────────────
+
+.loader-bottom {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.loader-status {
+  font-family: $departure-font;
+  font-size: 0.75rem;
+  color: $pp-dark-green;
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+.loader-bar-track {
+  width: 100%;
+  height: 20px;
+  background: $pp-cream;
+  border: 3px solid $pp-dark-green;
+  box-shadow: 3px 3px 0 $pp-dark-green;
+  overflow: hidden;
+}
+
+.loader-bar {
+  height: 100%;
+  width: 0%;
+  background: repeating-linear-gradient(
+    90deg,
+    $pp-medium-green 0px,
+    $pp-medium-green 14px,
+    $pp-dark-green 14px,
+    $pp-dark-green 16px
+  );
+  animation: bar-fill 6s cubic-bezier(0.1, 0, 0.3, 1) forwards;
+}
+
+@keyframes bar-fill {
+  0%   { width: 0%; }
+  60%  { width: 85%; }
+  100% { width: 100%; }
+}
+
+.loader-percent {
+  font-family: $departure-font;
+  font-size: 0.7rem;
+  color: $pp-medium-green;
+  margin: 0;
+}
