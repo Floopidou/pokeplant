@@ -1,0 +1,401 @@
+// ============================================================
+// CHAT — PokéPlant  (pixel art kawaii)
+// ============================================================
+
+.chat-page {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  height: calc(100vh - 60px); // ajuste selon la hauteur de ta navbar
+  overflow: hidden;
+  background: $pp-mint;
+  background-image:
+    linear-gradient(rgba(0,0,0,.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,.05) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+
+// ── Sidebar ──────────────────────────────────────────────────
+
+.chat-sidebar {
+  display: flex;
+  flex-direction: column;
+  background: $pp-cream;
+  border-right: 4px solid $pp-dark-green;
+  overflow: hidden;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 16px;
+    background: $pp-dark-green;
+
+    span { font-size: 18px; }
+
+    h2 {
+      font-family: $departure-font;
+      font-size: 11px;
+      color: $pp-cream;
+      letter-spacing: 2px;
+    }
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    overflow-y: auto;
+    flex: 1;
+
+    &::-webkit-scrollbar { width: 5px; }
+    &::-webkit-scrollbar-thumb { background: $pp-medium-green; }
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 14px;
+    cursor: pointer;
+    border-bottom: 2px solid $pp-light-green;
+    transition: background .08s;
+
+    &:hover:not(&--active) { background: $pp-light-green; }
+
+    &--active {
+      background: $pp-light-green;
+      border-left: 4px solid $pp-pink;
+      padding-left: 10px;
+
+      .chat-sidebar__name { font-weight: bold; }
+    }
+  }
+
+  &__avatar {
+    font-size: 28px;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border: 2px solid $pp-dark-green;
+    display: block;
+  }
+
+  &__info { flex: 1; overflow: hidden; }
+
+  &__name {
+    font-family: $departure-font;
+    font-size: 11px;
+    color: $pp-dark-green;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__preview {
+    font-size: 10px;
+    color: $pp-medium-green;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 2px;
+  }
+
+  &__footer {
+    padding: 12px 14px;
+    border-top: 4px solid $pp-dark-green;
+    background: $pp-light-green;
+  }
+}
+
+// ── Main ─────────────────────────────────────────────────────
+
+.chat-main {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+// ── Header ───────────────────────────────────────────────────
+
+.chat-header {
+  display: flex;
+  align-items: center;
+  padding: 12px 18px;
+  background: $pp-cream;
+  border-bottom: 4px solid $pp-dark-green;
+  gap: 12px;
+
+  &__left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  &__avatar {
+    width: 44px;
+    height: 44px;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  &__img {
+    width: 44px;
+    height: 44px;
+    object-fit: cover;
+    border: 3px solid $pp-dark-green;
+    box-shadow: 3px 3px 0 $pp-dark-green;
+    display: block;
+  }
+
+  &__name {
+    font-family: $departure-font;
+    font-size: 13px;
+    color: $pp-dark-green;
+    margin: 0 0 3px;
+  }
+
+  &__status {
+    font-family: $departure-font;
+    font-size: 9px;
+    color: $pp-medium-green;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin: 0;
+  }
+
+  &__status-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: $pp-green;
+    border: 2px solid $pp-dark-green;
+    animation: pp-blink 1.4s step-start infinite;
+  }
+}
+
+@keyframes pp-blink {
+  50% { opacity: 0; }
+}
+
+// ── Messages ─────────────────────────────────────────────────
+
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+  &::-webkit-scrollbar { width: 5px; }
+  &::-webkit-scrollbar-thumb { background: $pp-medium-green; }
+}
+
+.chat-date-separator {
+  text-align: center;
+
+  &::before,
+  &::after {
+    content: "";
+    display: inline-block;
+    height: 2px;
+    width: 50px;
+    background: repeating-linear-gradient(
+      90deg, $pp-medium-green 0px, $pp-medium-green 4px,
+      transparent 4px, transparent 8px
+    );
+    vertical-align: middle;
+    margin: 0 8px;
+  }
+
+  span {
+    font-family: $departure-font;
+    font-size: 8px;
+    color: $pp-medium-green;
+    letter-spacing: 2px;
+  }
+}
+
+.chat-bubble-wrap {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+
+  &--out { flex-direction: row-reverse; }
+}
+
+.chat-bubble__avatar {
+  font-size: 22px;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+.chat-bubble__img {
+  width: 36px;
+  height: 36px;
+  object-fit: cover;
+  border: 2px solid $pp-dark-green;
+  display: block;
+}
+
+.chat-bubble {
+  max-width: 460px;
+  padding: 11px 15px;
+  font-size: 13px;
+  line-height: 1.6;
+  border: 3px solid $pp-dark-green;
+
+  &--in {
+    background: $pp-cream;
+    box-shadow: 4px 4px 0 $pp-dark-green;
+    color: $pp-dark-green;
+    position: relative;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: -9px; bottom: 10px;
+      width: 7px; height: 7px;
+      background: $pp-cream;
+      border-left: 3px solid $pp-dark-green;
+      border-bottom: 3px solid $pp-dark-green;
+      transform: rotate(45deg);
+    }
+  }
+
+  &--out {
+    background: $pp-green;
+    box-shadow: 4px 4px 0 $pp-dark-green;
+    color: #fff;
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      right: -9px; bottom: 10px;
+      width: 7px; height: 7px;
+      background: $pp-green;
+      border-right: 3px solid $pp-dark-green;
+      border-bottom: 3px solid $pp-dark-green;
+      transform: rotate(-45deg);
+    }
+  }
+}
+
+.chat-bubble__time {
+  display: block;
+  font-family: $departure-font;
+  font-size: 8px;
+  color: $pp-medium-green;
+  margin-top: 4px;
+
+  &--out { text-align: right; }
+}
+
+// ── Input ─────────────────────────────────────────────────────
+
+.chat-input-area {
+  border-top: 4px solid $pp-dark-green;
+  background: $pp-cream;
+  padding: 10px 14px 12px;
+}
+
+.chat-quick-emojis {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 9px;
+}
+
+.chat-emoji-btn {
+  font-size: 17px;
+  background: $pp-light-green;
+  border: 2px solid $pp-dark-green;
+  box-shadow: 2px 2px 0 $pp-dark-green;
+  padding: 3px 6px;
+  cursor: pointer;
+  transition: transform .07s, box-shadow .07s;
+  line-height: 1;
+
+  &:hover { transform: translate(1px,1px); box-shadow: 1px 1px 0 $pp-dark-green; }
+  &:active { transform: translate(2px,2px); box-shadow: none; }
+}
+
+.chat-input-row {
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+}
+
+.chat-input-textarea {
+  flex: 1;
+  resize: none;
+  overflow: hidden;
+  min-height: 44px;
+  max-height: 110px;
+  font-size: 13px !important;
+  line-height: 1.5;
+  padding: 10px 12px !important;
+}
+
+.chat-send-btn {
+  flex-shrink: 0;
+  white-space: nowrap;
+  padding: 12px 16px !important;
+  font-size: 10px !important;
+}
+
+.chat-input-hint {
+  font-family: $departure-font;
+  font-size: 8px;
+  color: $pp-medium-green;
+  margin-top: 6px;
+}
+
+// ── Responsive ───────────────────────────────────────────────
+
+@media (max-width: 640px) {
+  .chat-page {
+    grid-template-columns: 1fr;
+    grid-template-rows: 160px 1fr;
+  }
+
+  .chat-sidebar {
+    border-right: none;
+    border-bottom: 4px solid $pp-dark-green;
+
+    &__list {
+      display: flex;
+      flex-direction: row;
+      overflow-x: auto;
+    }
+
+    &__item {
+      flex-direction: column;
+      min-width: 80px;
+      border-bottom: none;
+      border-right: 2px solid $pp-light-green;
+      text-align: center;
+      padding: 8px;
+    }
+
+    &__info, &__footer { display: none; }
+  }
+}

@@ -14,7 +14,7 @@
 
       <div class="auth-tabs">
         <a href="<%= new_user_session_path %>" class="auth-tab auth-tab--active">
-          ▶ Log In
+          Log In
         </a>
         <a href="<%= new_user_registration_path %>" class="auth-tab">
           Sign Up
@@ -25,19 +25,20 @@
         <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
 
           <%= f.input :login,
-              label: "🌿 Nickname or Email",
+              label: false,
               label_html: { class: "pixel-label" },
               wrapper_html: { class: "pixel-form-group" },
               input_html: {
                 class: "pixel-input",
                 placeholder: "Your_nickname",
-                autocomplete: "username"
+                autocomplete: "username",
+
               },
               required: false,
               autofocus: true %>
 
           <%= f.input :password,
-              label: "🔒 Password",
+              label: false,
               label_html: { class: "pixel-label" },
               wrapper_html: { class: "pixel-form-group" },
               input_html: {
@@ -59,24 +60,12 @@
 
         <% end %>
 
-        <%# <div class="pixel-divider">
-          <span>~ or ~</span>
-        </div> %>
-
         <div class="auth-links">
-          <%# <%= link_to "Forgot password?", new_user_password_path, class: "pixel-link" %>
-          <%= link_to "You don't have an account? Sign Up Here", new_user_registration_path, class: "pixel-link" %>
+          <%= link_to "No account? Sign Up Here", new_user_registration_path, class: "pixel-link" %>
         </div>
       </div>
     </div>
 
-    <%# <div class="auth-decorations">
-      <span>🌵</span>
-      <span>🌿</span>
-      <span>🍀</span>
-      <span>🌸</span>
-      <span>🪴</span>
-    </div> %>
 
   </div>
 </div>
