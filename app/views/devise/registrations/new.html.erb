@@ -39,6 +39,17 @@
               autofocus: true,
               hint: "3-20 characters, letters, numbers and _ only" %>
 
+          <%= f.input :birthdate,
+              label: " birthdate",
+              label_html: { class: "pixel-label" },
+              wrapper_html: { class: "pixel-form-group" },
+              input_html: {
+                class: "pixel-input",
+                placeholder: "DD/MM/YYYY",
+                autocomplete: "date"
+              },
+              required: true %>
+
           <%= f.input :email,
               label: "📧 Email Address",
               label_html: { class: "pixel-label" },
@@ -49,6 +60,7 @@
                 autocomplete: "email"
               },
               required: true %>
+
 
           <%= f.input :password,
               label: "🔒 Password",
