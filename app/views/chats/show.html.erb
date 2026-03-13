@@ -14,18 +14,18 @@
         <span class="chat-plant-status">
           <% case @plant.mood %>
           <% when :happy %>
-            🌱 En pleine forme !
+            🌱 In shape !
           <% when :thirsty %>
-            💧 Un peu soif...
+            💧 A little thirsty...
           <% when :grumpy %>
-            😤 Besoin d'espace
+            😤 Need more space
           <% when :lonely %>
-            🥺 Tu me manques
+            🥺 Miss You
           <% end %>
         </span>
       </div>
      <%= link_to plant_path(@plant), class: "chat-back-link" do %>
-        <%= image_tag "cross.svg", alt: "Fermer", class: "chat-close-icon" %>
+        <%= image_tag "cross.svg", alt: "Close", class: "chat-close-icon" %>
       <% end %>
     </div>
 
@@ -62,7 +62,7 @@
         <div class="chat-input-wrapper">
           <%= f.text_field :content,
                            class: "chat-input pixel-input",
-                           placeholder: "Parle à ta plante...",
+                           placeholder: "Talk to your plant...",
                            autocomplete: "off",
                            id: "chat-input",
                            required: true,
@@ -70,7 +70,7 @@
           <button type="submit"
                   class="chat-send-btn pixel-btn pixel-btn--pink"
                   data-chat-form-target="button">
-            ✨ Envoyer
+            SEND
           </button>
         </div>
       <% end %>
