@@ -1,10 +1,23 @@
-<form action="<%= apply_name_plant_path(@plant) %>" method="patch" enctype="multipart/form-data">
-  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+<% content_for :body_class, "garden-body" %>
+<% content_for :hide_navbar, "true" %>
 
-  <div>
-    <label for="nickname">Give it a nickname</label>
-    <input type="text" id="nickname" name="nickname" placeholder="e.g., Choubidou" autocomplete="off">
-  </div>
+<div class="garden-page name-page">
 
-  <button type="submit">Name my pokeplant</button>
-</form>
+  <h1 class="garden-title">Name your plant</h1>
+
+  <% avatar = File.exist?(Rails.root.join("app/assets/images/avatars/#{@plant.avatar_img}")) ? "avatars/#{@plant.avatar_img}" : "avatars/happy_monstera.svg" %>
+  <%= image_tag avatar, class: "name-avatar", alt: @plant.common_name %>
+
+  <form action="<%= apply_name_plant_path(@plant) %>" method="post" class="name-form">
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+    <%= hidden_field_tag :_method, "patch" %>
+
+    <input type="text" name="nickname" class="name-input"
+           placeholder="e.g., Choubidou" autocomplete="off" maxlength="20">
+
+    <button type="submit" class="garden-page-btn name-submit">
+      Name my plant
+    </button>
+  </form>
+
+</div>

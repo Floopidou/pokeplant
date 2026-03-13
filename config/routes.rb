@@ -10,8 +10,8 @@ Rails.application.routes.draw do
   get 'chat_test', to: 'chats#test'
   get 'plants/:id/test', to: 'plants#test'
   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
-  # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
-  # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
+  get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
+  get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   # Defines the root path route ("/")
   # root "posts#index"
@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   # static pages
   # root to: "pages#home"
   get "loading", to: "pages#loading"
-  get "", to: "pages#home"
+  get "", to: "plants#index"
 
   # route with reminders for all plants of current user
   get "all_reminders", to: "pages#reminders", as: :reminders
@@ -46,8 +46,10 @@ Rails.application.routes.draw do
       patch :repot # repots the plant
       patch :pet # pets the plant
 
+      get :plant_menu 
     end
   end
+
 
   resources :pots, only: [:index, :show] do
     resources :plant_pot_pairs, only: [:create] # buying a new pot = creating a plant_pot_pairs

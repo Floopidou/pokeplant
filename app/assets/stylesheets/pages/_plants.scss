@@ -79,15 +79,17 @@
 }
 
 .garden-badge {
-  background: $pp-cream;
-  border: 3px solid $pp-dark-green;
-  box-shadow: 3px 3px 0 $pp-dark-green;
-  border-radius: 20px;
-  padding: 4px 12px;
+  background-image: url('cadre.svg');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  width: 126px;
+  height: 27px;
+  padding: 0 10px;
   font-family: $pixel-font;
   font-size: 0.6rem;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 6px;
 }
 
@@ -107,28 +109,49 @@
 
 .garden-title {
   font-family: $pixel-font;
-  font-size: 1rem;
+  font-size: 1.7rem;
   color: $pp-dark-green;
   margin: 8px 0 20px;
   text-align: center;
+  text-shadow: 0 3px 0 white;
 }
 
-// ── Isometric grid ──────────────────────────────────────────
+// ── Isometric diamond grid ───────────────────────────────────
+//
+//  Layout (6 slots):
+//        [1]          ← top center
+//    [2]     [3]      ← upper flanking
+//    [4]     [5]      ← lower middle
+//        [6]          ← bottom center
+//
+//  Tile = 150px wide (square SVG drawn as isometric diamond).
+//  Row step = 65px → tiles overlap ~10px vertically for depth.
 
 .garden-grid {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  position: relative;
+  width: 320px;   // exactly fits the diamond: 0..170+150
+  height: 375px;
+  margin: 0 auto;
 }
 
-.garden-row {
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-  margin-top: 12px;
+// Each slot is absolutely placed; later rows have higher z-index
+// so they render "in front" in isometric perspective.
+// Pattern (tile = 150px wide):
+//        [1]      left=85
+//    [2]    [3]   left=0, left=170
+//        [5]      left=85
+//    [6]    [4]   left=0, left=170
+.garden-slot {
+  position: absolute;
 
-  &:first-child { margin-top: 0; }
+  // No z-index on slots so they don't create stacking contexts —
+  // .tile-plant z-index:2 then floats above all .tile-base globally.
+  &--1 { left: 85px;  top: 0px;   }
+  &--2 { left: 0px;   top: 75px;  }
+  &--3 { left: 170px; top: 75px;  }
+  &--4 { left: 170px; top: 225px; }
+  &--5 { left: 85px;  top: 150px; }
+  &--6 { left: 0px;   top: 225px; }
 }
 
 // ── Plant tile ──────────────────────────────────────────────
@@ -165,11 +188,16 @@
 }
 
 .tile-label {
+  position: absolute;
+  bottom: 28%;
+  left: 50%;
+  transform: translateX(-50%);
   font-family: $pixel-font;
   font-size: 0.45rem;
-  color: $pp-dark-green;
+  color: white;
   white-space: nowrap;
-  margin-top: 2px;
+  z-index: 3;
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.6);
 }
 
 // ── Pagination — pixel SVG button style ────────────────────
@@ -177,11 +205,11 @@
 .garden-pagination {
   display: flex;
   gap: 10px;
-  margin-top: 20px;
+  margin-top: 36px;
 }
 
 .garden-page-btn {
-  // Matches the provided SVG: cream fill, 1.5px black border, black drop shadow offset 3px/4px
+  // Matches gprovided SVG: cream fill, 1.5px black border, black drop shadow offset 3px/4px
   background: #FFFDE5;
   border: 1.5px solid black;
   box-shadow: 3px 4px 0 black;
@@ -255,10 +283,311 @@
   object-fit: contain;
 }
 
+.garden-nav-btn--main {
+  width: 96px;
+  height: 96px;
+
+  &:active .garden-nav-icon--main {
+    transform: translate(3px, 5px);
+  }
+}
+
+.garden-nav-icon--main {
+  width: 96px;
+  height: 96px;
+  object-fit: contain;
+  transition: transform 0.07s ease;
+}
+
 .garden-search-bar {
   flex: 1;
   height: 36px;
   background: white;
   border: 3px solid $pp-dark-green;
   border-radius: 8px;
+}
+
+// ── Tag selection page ───────────────────────────────────────
+
+.tags-page {
+  gap: 16px;
+  justify-content: flex-start;
+  padding-top: 60px;
+}
+
+.tags-subtitle {
+  font-family: $pixel-font;
+  font-size: 0.55rem;
+  color: $pp-dark-green;
+  text-align: center;
+  line-height: 1.8;
+  margin: 0 8px 8px;
+}
+
+.tags-counter-wrap {
+  background-image: url('cadre.svg');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  width: 126px;
+  height: 27px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.tags-counter {
+  font-family: $pixel-font;
+  font-size: 0.55rem;
+  color: $pp-dark-green;
+}
+
+.tags-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  width: 100%;
+  margin-top: 24px;
+}
+
+.tag-tile {
+  cursor: pointer;
+  display: flex;
+  align-items: stretch;
+
+  input[type="checkbox"] { display: none; }
+
+  .tag-word {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 72px;
+    text-align: center;
+    background: $pp-cream;
+    border: 1.5px solid black;
+    box-shadow: 3px 4px 0 black;
+    padding: 12px 8px;
+    font-family: $pixel-font;
+    font-size: 0.6rem;
+    color: black;
+    transition: background 0.1s, transform 0.1s, box-shadow 0.1s;
+    line-height: 1.6;
+  }
+
+  &.is-selected .tag-word {
+    background: $pp-medium-green;
+    color: white;
+    transform: translate(3px, 4px);
+    box-shadow: none;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.4);
+  }
+
+  &.is-disabled {
+    pointer-events: none;
+
+    .tag-word { opacity: 0.3; }
+  }
+}
+
+.tags-submit {
+  margin-top: 40px;
+  width: 100%;
+  align-self: center;
+}
+
+// ── Name page ────────────────────────────────────────────────
+
+.name-page {
+  gap: 16px;
+  justify-content: center;
+}
+
+.name-avatar {
+  width: 240px;
+  height: 240px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+.name-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+}
+
+.name-input {
+  width: 100%;
+  max-width: 280px;
+  height: 40px;
+  background: $pp-cream;
+  border: 2px solid black;
+  box-shadow: 3px 4px 0 black;
+  border-radius: 0;
+  padding: 0 12px;
+  font-family: $pixel-font;
+  font-size: 0.55rem;
+  color: black;
+  outline: none;
+
+  &::placeholder { color: rgba(0, 0, 0, 0.35); }
+
+  &:focus {
+    background: white;
+    border-color: $pp-dark-green;
+    box-shadow: 3px 4px 0 $pp-dark-green;
+  }
+}
+
+.name-submit {
+  margin-top: 8px;
+}
+
+// ── New plant page ───────────────────────────────────────────
+
+.new-plant-page {
+  gap: 20px;
+  justify-content: center;
+}
+
+.plant-photo-preview {
+  width: 260px;
+  height: 260px;
+  background: $pp-cream;
+  border: 2px solid black;
+  box-shadow: 3px 4px 0 black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.preview-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.preview-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 20px;
+  text-align: center;
+}
+
+.preview-placeholder-icon {
+  width: 72px;
+  height: 72px;
+  opacity: 0.5;
+}
+
+.new-plant-submit {
+  margin-top: 32px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+
+  &:disabled {
+    opacity: 0.35;
+    pointer-events: none;
+    box-shadow: none;
+  }
+}
+
+// ── Plant menu page ──────────────────────────────────────────
+
+.plant-menu-page {
+  gap: 4px;
+  justify-content: center;
+  padding-top: 80px;
+}
+
+.plant-menu-title {
+  margin: 4px 0 0;
+}
+
+.plant-menu-subtitle {
+  font-family: $pixel-font;
+  font-size: 0.6rem;
+  color: $pp-dark-green;
+  text-align: center;
+  margin: 0 0 8px;
+}
+
+.plant-menu-avatar-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 8px 0;
+}
+
+.plant-menu-avatar {
+  width: 260px;
+  height: 260px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+.plant-show-arrow {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  font-family: $pixel-font;
+  font-size: 2rem;
+  color: $pp-dark-green;
+  cursor: pointer;
+  padding: 0 8px;
+  line-height: 1;
+
+  &:active { opacity: 0.5; }
+}
+
+.plant-action-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  max-width: 300px;
+  margin-top: 24px;
+}
+
+.plant-action-row {
+  display: flex;
+  justify-content: center;
+  gap: 95px;
+
+  &--center {
+    gap: 0;
+  }
+}
+
+.plant-action-btn {
+  width: 60px;
+  height: 60px;
+  background: $pp-cream;
+  border: 2px solid black;
+  box-shadow: 3px 4px 0 black;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.07s ease, box-shadow 0.07s ease;
+
+  &:active {
+    transform: translate(3px, 4px);
+    box-shadow: none;
+  }
+}
+
+.plant-action-icon {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  image-rendering: pixelated;
 }

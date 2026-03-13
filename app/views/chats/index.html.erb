@@ -1,0 +1,21 @@
+<div class="chats-list">
+  <h1>Conversations avec <%= @plant.nickname || @plant.common_name %></h1>
+
+  <% if @chats.any? %>
+    <% @chats.each do |chat| %>
+      <%= link_to plant_chat_path(@plant, chat), class: "chat-item" do %>
+        <span>💬 Conversation du <%= chat.created_at.strftime("%d/%m/%Y à %H:%M") %></span>
+        <span><%= chat.messages.count %> messages</span>
+      <% end %>
+    <% end %>
+  <% else %>
+    <p>Aucune conversation pour le moment !</p>
+  <% end %>
+
+  <%= button_to "🌱 Nouvelle conversation",
+                plant_chats_path(@plant),
+                method: :post,
+                class: "pixel-btn pixel-btn--green" %>
+
+  <%= link_to "← Retour à #{@plant.common_name}", plant_path(@plant) %>
+</div>
