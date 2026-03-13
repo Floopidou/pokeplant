@@ -562,3 +562,29 @@
     padding: 8px 12px;
   }
 }
+.chat-messages {
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 200px;
+    background-image: image-url('pokeplant-logo.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.15;
+    pointer-events: none;
+    z-index: 0;
+  }
+}
+
+// Pour que les messages passent au-dessus du logo
+.chat-message {
+  position: relative;
+  z-index: 1;
+}
