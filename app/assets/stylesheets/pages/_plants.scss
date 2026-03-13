@@ -301,7 +301,7 @@
 
 .tags-subtitle {
   font-family: $pixel-font;
-  font-size: 0.4rem;
+  font-size: 0.55rem;
   color: $pp-dark-green;
   text-align: center;
   line-height: 1.8;
@@ -317,6 +317,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 0 auto;
 }
 
 .tags-counter {
@@ -328,8 +329,9 @@
 .tags-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+  gap: 18px;
   width: 100%;
+  margin-top: 24px;
 }
 
 .tag-tile {
@@ -373,7 +375,7 @@
 }
 
 .tags-submit {
-  margin-top: 24px;
+  margin-top: 40px;
   width: 100%;
   align-self: center;
 }

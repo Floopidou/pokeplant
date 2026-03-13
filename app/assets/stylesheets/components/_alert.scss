@@ -1,6 +1,48 @@
-.alert {
+.pp-flash {
   position: fixed;
-  bottom: 16px;
-  right: 16px;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 1000;
+
+  // Use the bubble SVG as background frame
+  background-image: url('bubble.svg');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-color: transparent;
+
+  width: 300px;
+  height: 75px;
+  padding: 0 28px 12px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family: $pixel-font;
+  font-size: 0.6rem;
+  color: black;
+  text-align: center;
+  line-height: 1.4;
+  white-space: normal;
+
+  border: none;
+  box-shadow: none;
+
+  animation: flash-show 4s ease forwards;
+
+  &--alert {
+    color: $pp-dark-green;
+  }
+
+  &--notice {
+    color: $pp-dark-green;
+  }
+}
+
+@keyframes flash-show {
+  0%   { opacity: 0; transform: translateX(-50%) translateY(8px); }
+  10%  { opacity: 1; transform: translateX(-50%) translateY(0); }
+  80%  { opacity: 1; transform: translateX(-50%) translateY(0); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(8px); }
 }
