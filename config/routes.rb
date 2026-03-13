@@ -7,7 +7,8 @@ Rails.application.routes.draw do
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
   #test chat
-get 'chat_test', to: 'chats#test'
+  get 'chat_test', to: 'chats#test'
+  get 'plants/:id/test', to: 'plants#test'
   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
@@ -44,6 +45,7 @@ get 'chat_test', to: 'chats#test'
       patch :water # waters the plant
       patch :repot # repots the plant
       patch :pet # pets the plant
+
     end
   end
 
