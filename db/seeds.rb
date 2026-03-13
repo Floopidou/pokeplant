@@ -68,7 +68,7 @@ monstera_manon = Plant.create!(
   nickname: "Monsti",
   common_name: "Monstera",
   scientific_name: "Monstera deliciosa",
-  avatar_img: "monstera_avatar.svg",
+  avatar_img: "happy_monstera.svg",
   position_in_garden: 1,
   personality: "gentle",
   personality_tags: "calm,caring,bright",
@@ -87,27 +87,27 @@ monstera_manon = Plant.create!(
   mood_points: 90
 )
 
-calathea = Plant.create!(
+golden_pothos = Plant.create!(
   user: manon,
-  nickname: "Cali",
-  common_name: "Calathea",
-  scientific_name: "Calathea ornata",
-  avatar_img: "monstera_avatar.svg",
+  nickname: "Goldie",
+  common_name: "Golden Pothos",
+  scientific_name: "Epipremnum aureum",
+  avatar_img: "happy_pothos.svg",
   position_in_garden: 2,
-  personality: "diva",
-  personality_tags: "demanding,colorful,fussy",
+  personality: "clumsy",
+  personality_tags: "easygoing,trailing,resilient",
   plant_size: "medium",
   ideal_pot_size: "medium",
-  light_need: 4,
-  toxicity: 0,
-  temperature_min: 18,
-  temperature_max: 28,
-  type_of_soil: "rich humus-based potting mix",
-  optimal_placement: "shaded indoor spot, away from drafts",
-  origin_region: "Tropical South America",
-  description: "Known for its striped ornamental leaves, it hates direct sun and hard water.",
-  watering_interval: 5,
-  repot_interval: 365,
+  light_need: 3,
+  toxicity: 4,
+  temperature_min: 15,
+  temperature_max: 30,
+  type_of_soil: "well-draining potting mix",
+  optimal_placement: "bright indirect light, tolerates low light",
+  origin_region: "Southeast Asia",
+  description: "One of the easiest houseplants to grow, with heart-shaped golden-green leaves. Nearly impossible to kill.",
+  watering_interval: 7,
+  repot_interval: 548,
   mood_points: 75
 )
 
@@ -116,7 +116,7 @@ ficus = Plant.create!(
   nickname: "Fifi",
   common_name: "Ficus lyrata",
   scientific_name: "Ficus lyrata",
-  avatar_img: "monstera_avatar.svg",
+  avatar_img: "happy_undefined.svg",
   position_in_garden: 3,
   personality: "majesty",
   personality_tags: "majestic,imposing,steady",
@@ -140,7 +140,7 @@ monstera_bob = Plant.create!(
   nickname: "Monstro",
   common_name: "Monstera",
   scientific_name: "Monstera deliciosa",
-  avatar_img: "monstera_avatar.svg",
+  avatar_img: "happy_monstera.svg",
   position_in_garden: 1,
   personality: "partygoer",
   personality_tags: "lively,energetic,sociable",
@@ -162,7 +162,7 @@ monstera_bob = Plant.create!(
 # --- PlantPotPairs (chaque plante associée au pot basique) ---
 puts "Creating plant-pot pairs..."
 
-[monstera_manon, calathea, ficus, monstera_bob].each do |plant|
+[monstera_manon, golden_pothos, ficus, monstera_bob].each do |plant|
   PlantPotPair.create!(plant: plant, pot: pot_basique, equipped: true)
 end
 

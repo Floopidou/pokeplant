@@ -66,12 +66,17 @@ class PlantsController < ApplicationController
     # j'en fais un hash avec ces arguments
     partial_plant_hash = plant_data.slice(*array_of_ai_generated_plant_columns)
 
+    # je cherche l'avatar
+
     @plant = Plant.new(
       user: current_user,
       position_in_garden: next_pos,
-      avatar_img: "happy_monstera.svg", # Il va falloir faire un finder sur base du nom de plante (un SEVRVICE)
       **partial_plant_hash # le ** imbrique le hash dans l'autre hash
     )
+
+    # avatar_img: avatar, # Il va falloir faire un finder sur base du nom de plante (un SEVRVICE)
+    correct_avatar = get_avatar(@plant.common_name)
+    @plant.avatar_img = correct_avatar
 
     # ---> j'upload la photo
     @plant.photo.attach(params[:photo])
@@ -116,7 +121,11 @@ class PlantsController < ApplicationController
     missing = 3 - selected.size
 
     if missing > 0
-      flash[:alert] = missing == 3 ? "Please check 3 words." : "Please check #{missing} more #{missing == 1 ? 'word' : 'words'}."
+      flash[:alert] = if missing == 3
+                        "Please check 3 words."
+                      else
+                        "Please check #{missing} more #{missing == 1 ? 'word' : 'words'}."
+                      end
       redirect_to select_tags_plant_path(@plant) and return
     end
 
@@ -154,6 +163,16 @@ class PlantsController < ApplicationController
   end
 
   private
+
+  def get_avatar(name)
+    if name.downcase.include?("swiss")
+      return "happy_monstera.svg"
+    elsif name.downcase.include?("pothos")
+      return "happy_pothos.svg"
+    else
+      return "happy_undefined.svg"
+    end
+  end
 
   def identify_plant(image_path) # rubocop:disable Metrics/MethodLength
     prompt = <<~PROMPT
