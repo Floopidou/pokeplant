@@ -444,3 +444,57 @@
 .name-submit {
   margin-top: 8px;
 }
+
+// ── New plant page ───────────────────────────────────────────
+
+.new-plant-page {
+  gap: 20px;
+  justify-content: center;
+}
+
+.plant-photo-preview {
+  width: 260px;
+  height: 260px;
+  background: $pp-cream;
+  border: 2px solid black;
+  box-shadow: 3px 4px 0 black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.preview-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.preview-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 20px;
+  text-align: center;
+}
+
+.preview-placeholder-icon {
+  width: 72px;
+  height: 72px;
+  opacity: 0.5;
+}
+
+.new-plant-submit {
+  margin-top: 32px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+
+  &:disabled {
+    opacity: 0.35;
+    pointer-events: none;
+    box-shadow: none;
+  }
+}

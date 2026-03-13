@@ -58,9 +58,9 @@
     <%= link_to pots_path, class: "garden-nav-btn" do %>
       <%= image_tag "shop.svg", alt: "shop", class: "garden-nav-icon" %>
     <% end %>
-    <button class="garden-nav-btn garden-nav-btn--main">
-      <%= image_tag "photo_button.svg", alt: "photo", class: "garden-nav-icon--main" %>
-    </button>
+    <%= link_to new_plant_path, class: "garden-nav-btn garden-nav-btn--main" do %>
+      <%= image_tag "photo_button.svg", alt: "add plant", class: "garden-nav-icon--main" %>
+    <% end %>
     <button class="garden-nav-btn">
       <%= image_tag "reglage.png", alt: "settings", class: "garden-nav-icon" %>
     </button>
