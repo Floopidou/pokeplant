@@ -1,12 +1,31 @@
-<h1>Add a new plant</h1>
+<% content_for :body_class, "garden-body" %>
+<% content_for :hide_navbar, "true" %>
 
-<form action="<%= plants_path %>" method="post" enctype="multipart/form-data">
-  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+<div class="garden-page new-plant-page" data-controller="plant-upload">
 
-  <div>
-    <label for="photo">Photo of your plant</label>
-    <input type="file" id="photo" name="photo" accept="image/*">
-  </div>
+  <h1 class="garden-title">New plant</h1>
 
-  <button type="submit">Identify my plant</button>
-</form>
+  <form action="<%= plants_path %>" method="post" enctype="multipart/form-data">
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+
+    <div class="plant-photo-preview" data-plant-upload-target="preview"
+         data-action="click->plant-upload#pick">
+      <img class="preview-img" data-plant-upload-target="previewImg" alt="" style="display:none">
+      <div class="preview-placeholder" data-plant-upload-target="placeholder">
+        <%= image_tag "photo_button.svg", class: "preview-placeholder-icon", alt: "" %>
+        <p class="tags-subtitle">Tap to choose or take a photo</p>
+      </div>
+    </div>
+
+    <input type="file" name="photo" accept="image/*"
+           data-plant-upload-target="fileInput"
+           data-action="change->plant-upload#showPreview"
+           style="display:none">
+
+    <button type="submit" class="garden-page-btn new-plant-submit"
+            data-plant-upload-target="submitBtn" disabled>
+      Identify my plant
+    </button>
+  </form>
+
+</div>
