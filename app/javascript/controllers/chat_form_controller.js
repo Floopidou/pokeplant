@@ -3,6 +3,18 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   static targets = ["input", "button", "messages"]
 
+  connect() {
+    this.inputTarget.addEventListener("keydown", this.handleKeydown.bind(this))
+  }
+
+  handleKeydown(event) {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault()
+      this.element.querySelector("form").requestSubmit()
+    }
+  }
+
+
   submit() {
     const content = this.inputTarget.value.trim()
     if (!content) return
