@@ -1,81 +1,73 @@
 <div class="chat-page">
-  <div class="chat-container">
+  <div class="chat-container"
+       data-controller="chat-form"
+       data-chat-form-target="container"
+       >
 
     <!-- Header avec la plante -->
     <div class="chat-header">
       <div class="chat-plant-avatar">
-        <%= image_tag "avatars/happy_monstera.svg", alt: "Monstera", class: "chat-avatar-img" %>
+        <%# <%= image_tag "avatars/#{@plant.avatar_img}", alt: @plant.common_name, class: "chat-avatar-img" %> %>
       </div>
       <div class="chat-plant-info">
-        <h1 class="chat-plant-name">Monstera</h1>
-        <span class="chat-plant-status">🌱 En ligne</span>
+        <h1 class="chat-plant-name"><%= @plant.nickname || @plant.common_name %></h1>
+        <span class="chat-plant-status">
+          <% case @plant.mood %>
+          <% when :happy %>
+            🌱 En pleine forme !
+          <% when :thirsty %>
+            💧 Un peu soif...
+          <% when :grumpy %>
+            😤 Besoin d'espace
+          <% when :lonely %>
+            🥺 Tu me manques
+          <% end %>
+        </span>
       </div>
+      <%= link_to "← Retour", plant_path(@plant), class: "chat-back-link" %>
     </div>
 
     <!-- Zone des messages -->
-    <div class="chat-messages" id="chat-messages">
-
-      <!-- Message de la plante -->
-      <div class="chat-message chat-message--plant">
-        <div class="chat-message-avatar">
-          <%= image_tag "avatars/happy_monstera.svg", alt: "Monstera", class: "chat-message-avatar-img" %>
-        </div>
-        <div class="chat-bubble chat-bubble--plant">
-          <p>Salut ! Je suis trop contente de te voir ! 🌿</p>
-          <span class="chat-time">10:42</span>
-        </div>
-      </div>
-
-      <!-- Message de l'utilisateur -->
-      <div class="chat-message chat-message--user">
-        <div class="chat-bubble chat-bubble--user">
-          <p>Hey Monstera ! Comment tu vas aujourd'hui ?</p>
-          <span class="chat-time">10:43</span>
-        </div>
-      </div>
-
-      <!-- Message de la plante -->
-      <div class="chat-message chat-message--plant">
-        <div class="chat-message-avatar">
-          <%= image_tag "avatars/happy_monstera.svg", alt: "Monstera", class: "chat-message-avatar-img" %>
-        </div>
-        <div class="chat-bubble chat-bubble--plant">
-          <p>Je me sens super bien ! Mais j'aurais bien besoin d'un peu d'eau... 💧</p>
-          <span class="chat-time">10:43</span>
-        </div>
-      </div>
-
-      <!-- Message de l'utilisateur -->
-      <div class="chat-message chat-message--user">
-        <div class="chat-bubble chat-bubble--user">
-          <p>Je m'en occupe tout de suite !</p>
-          <span class="chat-time">10:44</span>
-        </div>
-      </div>
-
-      <!-- Message de la plante -->
-      <div class="chat-message chat-message--plant">
-        <div class="chat-message-avatar">
-          <%= image_tag "avatars/happy_monstera.svg", alt: "Monstera", class: "chat-message-avatar-img" %>
-        </div>
-        <div class="chat-bubble chat-bubble--plant">
-          <p>Merci beaucoup ! Tu es le meilleur ami qu'une plante puisse avoir ! 💚✨</p>
-          <span class="chat-time">10:44</span>
-        </div>
-      </div>
-
+    <div class="chat-messages" id="chat-messages" data-chat-form-target="messages">
+      <% @messages.each do |message| %>
+        <% if message.role == "user" %>
+          <div class="chat-message chat-message--user">
+            <div class="chat-bubble chat-bubble--user">
+              <p><%= message.content %></p>
+              <span class="chat-time"><%= message.created_at.strftime("%H:%M") %></span>
+            </div>
+          </div>
+        <% else %>
+          <div class="chat-message chat-message--plant">
+            <div class="chat-message-avatar">
+              <%# <%= image_tag "avatars/#{@plant.avatar_img}", alt: @plant.common_name, class: "chat-message-avatar-img" %> %>
+            </div>
+            <div class="chat-bubble chat-bubble--plant">
+              <p><%= message.content %></p>
+              <span class="chat-time"><%= message.created_at.strftime("%H:%M") %></span>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
     </div>
 
     <!-- Zone de saisie -->
     <div class="chat-input-area">
-      <%= form_with url: "#", method: :post, class: "chat-form", local: true do |f| %>
+      <%= form_with model: Message.new,
+                    url: plant_chat_messages_path(@plant, @chat),
+                    class: "chat-form",
+                    data: { action: "submit->chat-form#submit" } do |f| %>
         <div class="chat-input-wrapper">
-          <input type="text"
-                 class="chat-input pixel-input"
-                 placeholder="Parle à ta plante..."
-                 autocomplete="off"
-                 id="chat-input">
-          <button type="submit" class="chat-send-btn pixel-btn pixel-btn--pink">
+          <%= f.text_field :content,
+                           class: "chat-input pixel-input",
+                           placeholder: "Parle à ta plante...",
+                           autocomplete: "off",
+                           id: "chat-input",
+                           required: true,
+                           data: { chat_form_target: "input" } %>
+          <button type="submit"
+                  class="chat-send-btn pixel-btn pixel-btn--pink"
+                  data-chat-form-target="button">
             ✨ Envoyer
           </button>
         </div>
