@@ -1,0 +1,47 @@
+<%# Supprimer l'indicateur de typing %>
+<%= turbo_stream.remove "typing-indicator" %>
+
+<%# Ajouter le message de l'utilisateur %>
+<%= turbo_stream.append "chat-messages" do %>
+  <div class="chat-message chat-message--user">
+    <div class="chat-bubble chat-bubble--user">
+      <p><%= @user_message.content %></p>
+      <span class="chat-time"><%= @user_message.created_at.strftime("%H:%M") %></span>
+    </div>
+  </div>
+<% end %>
+
+<%# Ajouter la réponse de la plante %>
+<%= turbo_stream.append "chat-messages" do %>
+  <div class="chat-message chat-message--plant">
+    <div class="chat-message-avatar">
+      <%# <%= image_tag "avatars/#{@plant.avatar_img}", alt: @plant.common_name, class: "chat-message-avatar-img" %> %>
+    </div>
+    <div class="chat-bubble chat-bubble--plant">
+      <p><%= @plant_message.content %></p>
+      <span class="chat-time"><%= @plant_message.created_at.strftime("%H:%M") %></span>
+    </div>
+  </div>
+<% end %>
+
+<%# Réactiver le bouton et vider l'input %>
+<%= turbo_stream.replace "chat-input" do %>
+  <input type="text"
+         class="chat-input pixel-input"
+         placeholder="Parle à ta plante..."
+         autocomplete="off"
+         name="message[content]"
+         id="chat-input"
+         required
+         data-chat-form-target="input">
+<% end %>
+
+<%# Réactiver le bouton %>
+<%= turbo_stream.replace "submit-button" do %>
+  <button type="submit"
+          class="chat-send-btn pixel-btn pixel-btn--pink"
+          id="submit-button"
+          data-chat-form-target="button">
+    ✨ Envoyer
+  </button>
+<% end %>
