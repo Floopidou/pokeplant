@@ -21,16 +21,23 @@
 
   <!-- Avatar with arrows -->
   <div class="plant-menu-avatar-row">
-    <button class="plant-show-arrow" type="button">&#8249;</button>
-    <% avatar = File.exist?(Rails.root.join("app/assets/images/avatars/#{@plant.avatar_img}")) ? "avatars/#{@plant.avatar_img}" : "avatars/happy_monstera.svg" %>
-    <%= image_tag avatar, class: "plant-menu-avatar", alt: @plant.nickname %>
-    <button class="plant-show-arrow" type="button">&#8250;</button>
+    <%= link_to plant_menu_plant_path(@prev_plant), class: "plant-show-arrow" do %>&#8249;<% end %>
+    <div class="plant-menu-avatar-wrap">
+      <% avatar = File.exist?(Rails.root.join("app/assets/images/avatars/#{@plant.avatar_img}")) ? "avatars/#{@plant.avatar_img}" : "avatars/happy_monstera.svg" %>
+      <%= image_tag avatar, class: "plant-menu-avatar", alt: @plant.nickname %>
+      <%= link_to "/plants/#{@plant.id}/test", class: "plant-info-btn" do %>
+        <%= image_tag "info_page.svg", class: "plant-info-icon", alt: "info" %>
+      <% end %>
+    </div>
+    <%= link_to plant_menu_plant_path(@next_plant), class: "plant-show-arrow" do %>&#8250;<% end %>
   </div>
 
   <!-- Action buttons: 2 / 1 / 2 -->
   <div class="plant-action-grid">
     <div class="plant-action-row">
-      <%= link_to "&nbsp;".html_safe, "javascript:history.back()", class: "plant-action-btn" %>
+      <%= link_to "javascript:history.back()", class: "plant-action-btn" do %>
+        <%= image_tag "arrosoir (1).svg", class: "plant-action-icon", alt: "water" %>
+      <% end %>
       <%= link_to plant_chats_path(@plant), class: "plant-action-btn", data: { turbo_method: :post } do %>
         <%= image_tag "chat_emote.svg", class: "plant-action-icon", alt: "chat" %>
       <% end %>

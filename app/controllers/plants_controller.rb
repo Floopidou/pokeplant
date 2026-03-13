@@ -168,7 +168,10 @@ class PlantsController < ApplicationController
 
   def plant_menu
     @plant = Plant.find(params[:id])
-
+    plants = current_user.plants.order(:position_in_garden).to_a
+    idx = plants.index(@plant)
+    @prev_plant = plants[(idx - 1) % plants.size]
+    @next_plant = plants[(idx + 1) % plants.size]
   end
   private
 
