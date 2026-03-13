@@ -26,4 +26,29 @@ export default class extends Controller {
       }
     })
   }
+
+  checkSubmit(event) {
+    const count = this.checkboxTargets.filter(cb => cb.checked).length
+    const missing = this.maxValue - count
+
+    if (missing > 0) {
+      event.preventDefault()
+      const msg = missing === this.maxValue
+        ? `Please check ${this.maxValue} words.`
+        : `Please check ${missing} more ${missing === 1 ? "word" : "words"}.`
+      this.#showFlash(msg)
+    }
+  }
+
+  #showFlash(message) {
+    const existing = document.querySelector(".pp-flash--js")
+    if (existing) existing.remove()
+
+    const el = document.createElement("div")
+    el.className = "pp-flash pp-flash--alert pp-flash--js"
+    el.textContent = message
+    document.body.appendChild(el)
+
+    setTimeout(() => el.remove(), 4000)
+  }
 }

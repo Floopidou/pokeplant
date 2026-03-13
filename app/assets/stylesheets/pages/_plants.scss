@@ -144,14 +144,14 @@
 .garden-slot {
   position: absolute;
 
-  &:hover { z-index: 10; }
-
-  &--1 { left: 85px;  top: 0px;   z-index: 1; }
-  &--2 { left: 0px;   top: 75px;  z-index: 2; }
-  &--3 { left: 170px; top: 75px;  z-index: 2; }
-  &--4 { left: 170px; top: 225px; z-index: 3; }
-  &--5 { left: 85px;  top: 150px; z-index: 3; }
-  &--6 { left: 0px;   top: 225px; z-index: 4; }
+  // No z-index on slots so they don't create stacking contexts —
+  // .tile-plant z-index:2 then floats above all .tile-base globally.
+  &--1 { left: 85px;  top: 0px;   }
+  &--2 { left: 0px;   top: 75px;  }
+  &--3 { left: 170px; top: 75px;  }
+  &--4 { left: 170px; top: 225px; }
+  &--5 { left: 85px;  top: 150px; }
+  &--6 { left: 0px;   top: 225px; }
 }
 
 // ── Plant tile ──────────────────────────────────────────────
@@ -283,6 +283,22 @@
   object-fit: contain;
 }
 
+.garden-nav-btn--main {
+  width: 96px;
+  height: 96px;
+
+  &:active .garden-nav-icon--main {
+    transform: translate(3px, 5px);
+  }
+}
+
+.garden-nav-icon--main {
+  width: 96px;
+  height: 96px;
+  object-fit: contain;
+  transition: transform 0.07s ease;
+}
+
 .garden-search-bar {
   flex: 1;
   height: 36px;
@@ -378,4 +394,53 @@
   margin-top: 40px;
   width: 100%;
   align-self: center;
+}
+
+// ── Name page ────────────────────────────────────────────────
+
+.name-page {
+  gap: 16px;
+  justify-content: center;
+}
+
+.name-avatar {
+  width: 240px;
+  height: 240px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+.name-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+}
+
+.name-input {
+  width: 100%;
+  max-width: 280px;
+  height: 40px;
+  background: $pp-cream;
+  border: 2px solid black;
+  box-shadow: 3px 4px 0 black;
+  border-radius: 0;
+  padding: 0 12px;
+  font-family: $pixel-font;
+  font-size: 0.55rem;
+  color: black;
+  outline: none;
+
+  &::placeholder { color: rgba(0, 0, 0, 0.35); }
+
+  &:focus {
+    background: white;
+    border-color: $pp-dark-green;
+    box-shadow: 3px 4px 0 $pp-dark-green;
+  }
+}
+
+.name-submit {
+  margin-top: 8px;
 }

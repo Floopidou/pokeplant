@@ -113,9 +113,10 @@ class PlantsController < ApplicationController
   def apply_tags
     @plant = Plant.find(params[:id])
     selected = Array(params[:selected_tags]).first(3)
+    missing = 3 - selected.size
 
-    if selected.empty?
-      flash[:alert] = "Please select at least one tag."
+    if missing > 0
+      flash[:alert] = missing == 3 ? "Please check 3 words." : "Please check #{missing} more #{missing == 1 ? 'word' : 'words'}."
       redirect_to select_tags_plant_path(@plant) and return
     end
 

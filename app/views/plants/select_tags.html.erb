@@ -7,7 +7,8 @@
 
   <form action="<%= apply_tags_plant_path(@plant) %>" method="post"
         data-controller="tag-select"
-        data-tag-select-max-value="3">
+        data-tag-select-max-value="3"
+        data-action="submit->tag-select#checkSubmit">
     <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
     <%= hidden_field_tag :_method, "patch" %>
 
