@@ -24,7 +24,9 @@
           <% end %>
         </span>
       </div>
-      <%= link_to "← Retour", plant_path(@plant), class: "chat-back-link" %>
+     <%= link_to plant_path(@plant), class: "chat-back-link" do %>
+        <%= image_tag "cross.svg", alt: "Fermer", class: "chat-close-icon" %>
+      <% end %>
     </div>
 
     <!-- Zone des messages -->

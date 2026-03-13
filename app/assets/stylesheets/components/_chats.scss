@@ -10,7 +10,13 @@
   justify-content: center;
   padding: 24px 16px;
 }
-
+.chat-page {
+  background-image: url('wallpaper.svg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+}
 .chat-container {
   width: 100%;
   max-width: 600px;
