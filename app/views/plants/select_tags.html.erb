@@ -1,10 +1,33 @@
-<form action="<%= apply_tags_plant_path(@plant) %>" method="patch" enctype="multipart/form-data">
-  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+<% content_for :body_class, "garden-body" %>
+<% content_for :hide_navbar, "true" %>
 
-  <div>
-    <label for="selected_tags">Give it a tag</label>
-    <input type="text" id="selected_tags" name="selected_tags" placeholder="e.g., glass" autocomplete="off">
-  </div>
+<div class="garden-page tags-page">
+  <h1 class="garden-title">Choose your tags</h1>
+  <p class="tags-subtitle">Pick up to 3 words that feel like your plant</p>
 
-  <button type="submit">Plant the plant</button>
-</form>
+  <form action="<%= apply_tags_plant_path(@plant) %>" method="post"
+        data-controller="tag-select"
+        data-tag-select-max-value="3">
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+    <%= hidden_field_tag :_method, "patch" %>
+
+    <div class="tags-counter-wrap">
+      <span class="tags-counter" data-tag-select-target="counter">0 / 3</span>
+    </div>
+
+    <div class="tags-grid">
+      <% @tags.each do |tag| %>
+        <label class="tag-tile" data-tag-select-target="tile">
+          <input type="checkbox" name="selected_tags[]" value="<%= tag %>"
+                 data-action="change->tag-select#update"
+                 data-tag-select-target="checkbox">
+          <span class="tag-word"><%= tag %></span>
+        </label>
+      <% end %>
+    </div>
+
+    <button type="submit" class="garden-page-btn tags-submit">
+      Plant the plant
+    </button>
+  </form>
+</div>
