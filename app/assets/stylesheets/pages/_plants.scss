@@ -79,15 +79,17 @@
 }
 
 .garden-badge {
-  background: $pp-cream;
-  border: 3px solid $pp-dark-green;
-  box-shadow: 3px 3px 0 $pp-dark-green;
-  border-radius: 20px;
-  padding: 4px 12px;
+  background-image: url('cadre.svg');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  width: 126px;
+  height: 27px;
+  padding: 0 10px;
   font-family: $pixel-font;
   font-size: 0.6rem;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 6px;
 }
 
@@ -107,28 +109,49 @@
 
 .garden-title {
   font-family: $pixel-font;
-  font-size: 1rem;
+  font-size: 1.7rem;
   color: $pp-dark-green;
   margin: 8px 0 20px;
   text-align: center;
+  text-shadow: 0 3px 0 white;
 }
 
-// ── Isometric grid ──────────────────────────────────────────
+// ── Isometric diamond grid ───────────────────────────────────
+//
+//  Layout (6 slots):
+//        [1]          ← top center
+//    [2]     [3]      ← upper flanking
+//    [4]     [5]      ← lower middle
+//        [6]          ← bottom center
+//
+//  Tile = 150px wide (square SVG drawn as isometric diamond).
+//  Row step = 65px → tiles overlap ~10px vertically for depth.
 
 .garden-grid {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  position: relative;
+  width: 320px;   // exactly fits the diamond: 0..170+150
+  height: 375px;
+  margin: 0 auto;
 }
 
-.garden-row {
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-  margin-top: 12px;
+// Each slot is absolutely placed; later rows have higher z-index
+// so they render "in front" in isometric perspective.
+// Pattern (tile = 150px wide):
+//        [1]      left=85
+//    [2]    [3]   left=0, left=170
+//        [5]      left=85
+//    [6]    [4]   left=0, left=170
+.garden-slot {
+  position: absolute;
 
-  &:first-child { margin-top: 0; }
+  &:hover { z-index: 10; }
+
+  &--1 { left: 85px;  top: 0px;   z-index: 1; }
+  &--2 { left: 0px;   top: 75px;  z-index: 2; }
+  &--3 { left: 170px; top: 75px;  z-index: 2; }
+  &--4 { left: 170px; top: 225px; z-index: 3; }
+  &--5 { left: 85px;  top: 150px; z-index: 3; }
+  &--6 { left: 0px;   top: 225px; z-index: 4; }
 }
 
 // ── Plant tile ──────────────────────────────────────────────
@@ -165,11 +188,16 @@
 }
 
 .tile-label {
+  position: absolute;
+  bottom: 28%;
+  left: 50%;
+  transform: translateX(-50%);
   font-family: $pixel-font;
   font-size: 0.45rem;
-  color: $pp-dark-green;
+  color: white;
   white-space: nowrap;
-  margin-top: 2px;
+  z-index: 3;
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.6);
 }
 
 // ── Pagination — pixel SVG button style ────────────────────
@@ -177,11 +205,11 @@
 .garden-pagination {
   display: flex;
   gap: 10px;
-  margin-top: 20px;
+  margin-top: 36px;
 }
 
 .garden-page-btn {
-  // Matches the provided SVG: cream fill, 1.5px black border, black drop shadow offset 3px/4px
+  // Matches gprovided SVG: cream fill, 1.5px black border, black drop shadow offset 3px/4px
   background: #FFFDE5;
   border: 1.5px solid black;
   box-shadow: 3px 4px 0 black;
