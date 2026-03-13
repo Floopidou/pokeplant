@@ -18,29 +18,26 @@
   <!-- Title -->
   <h1 class="garden-title">The Garden</h1>
 
-  <!-- Always 6 slots, 2 rows of 3 -->
+  <!-- 6 slots in isometric diamond: [1], [2,3], [4,5], [6] -->
   <% slots = (@paged_plants.to_a + Array.new(6, nil)).first(6) %>
   <div class="garden-grid">
-    <% slots.each_slice(2).with_index do |row, i| %>
-      <div class="garden-row <%= 'garden-row--offset' if i.odd? %>">
-        <% row.each do |plant| %>
-          <% if plant %>
-            <%= link_to plant_path(plant), class: "garden-tile" do %>
-              <div class="tile-wrapper">
-                <% avatar = File.exist?(Rails.root.join("app/assets/images/avatars/#{plant.avatar_img}")) ? "avatars/#{plant.avatar_img}" : "avatars/happy_monstera.svg" %>
-                <%= image_tag avatar, class: "tile-plant", alt: plant.nickname %>
-                <%= image_tag "tile.svg", class: "tile-base", alt: "" %>
-              </div>
+    <% slots.each_with_index do |plant, i| %>
+      <div class="garden-slot garden-slot--<%= i + 1 %>">
+        <% if plant %>
+          <%= link_to plant_path(plant), class: "garden-tile" do %>
+            <div class="tile-wrapper">
+              <% avatar = File.exist?(Rails.root.join("app/assets/images/avatars/#{plant.avatar_img}")) ? "avatars/#{plant.avatar_img}" : "avatars/happy_monstera.svg" %>
+              <%= image_tag avatar, class: "tile-plant", alt: plant.nickname %>
+              <%= image_tag "tile.svg", class: "tile-base", alt: "" %>
               <span class="tile-label"><%= plant.nickname %></span>
-            <% end %>
-          <% else %>
-            <div class="garden-tile garden-tile--empty">
-              <div class="tile-wrapper">
-                <%= image_tag "tile.svg", class: "tile-base", alt: "" %>
-              </div>
-              <span class="tile-label">&nbsp;</span>
             </div>
           <% end %>
+        <% else %>
+          <div class="garden-tile garden-tile--empty">
+            <div class="tile-wrapper">
+              <%= image_tag "tile.svg", class: "tile-base", alt: "" %>
+            </div>
+          </div>
         <% end %>
       </div>
     <% end %>
@@ -59,7 +56,7 @@
   <!-- Bottom nav -->
   <div class="garden-bottom-nav">
     <%= link_to pots_path, class: "garden-nav-btn" do %>
-      <%= image_tag "shop.png", alt: "shop", class: "garden-nav-icon" %>
+      <%= image_tag "shop.svg", alt: "shop", class: "garden-nav-icon" %>
     <% end %>
     <button class="garden-nav-btn">
       <%= image_tag "reglage.png", alt: "settings", class: "garden-nav-icon" %>
