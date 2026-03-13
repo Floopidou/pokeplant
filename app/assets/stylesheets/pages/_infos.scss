@@ -1,0 +1,151 @@
+// ============================================================
+// PLANT INFOS PAGE — PokéPlant
+// ============================================================
+
+.infos-body {
+  margin: 0;
+  padding: 0;
+
+  main {
+    padding: 0;
+    margin: 0;
+  }
+}
+
+.infos-page {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+// ── Background SVG (first in DOM = no white line) ────────────
+
+.infos-bg {
+  width: 100%;
+  height: auto;
+  display: block;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+// ── Top overlay (arrow + title) ──────────────────────────────
+
+.infos-top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 16px 16px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 10;
+  pointer-events: none;
+
+  > * { pointer-events: auto; }
+}
+
+.infos-back {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  width: 28px;
+  height: 22px;
+  display: block;
+  z-index: 10;
+
+  img { width: 100%; height: 100%; }
+}
+
+.infos-title {
+  font-family: "PressStart2P", monospace;
+  font-size: 1.50rem;
+  color: $pp-dark-green;
+  text-align: center;
+  margin: 8px 0 12px;
+  letter-spacing: 1px;
+}
+
+// ── Bottom section ───────────────────────────────────────────
+
+.infos-bottom {
+  background: $pp-light-green;
+  flex: 1;
+  width: 100%;
+  min-height: 300px;
+  padding: 0 12px 24px;
+  margin-top: -280px;
+  position: relative;
+  z-index: 5;
+}
+
+.infos-card {
+  width: 100%;
+  position: relative;
+  z-index: 3;
+}
+
+.infos-card-bg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.infos-card-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 24px 20px;
+  font-family: "PressStart2P", monospace;
+  color: #222;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.infos-label {
+  font-size: 0.9rem;
+  text-align: center;
+  margin: 0 0 8px;
+  opacity: 0.7;
+}
+
+.infos-value {
+  font-size: 1.1rem;
+  text-align: center;
+  margin: 0 0 20px;
+  line-height: 1.6;
+}
+
+.infos-underline { text-decoration: underline; }
+
+.infos-quote {
+  font-size: 1rem;
+  text-align: center;
+  margin: 0 0 20px;
+  line-height: 2;
+}
+
+.infos-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.infos-icon {
+  font-size: 1.8rem;
+  flex-shrink: 0;
+}
+
+.infos-row-text {
+  font-size: 0.8rem;
+  text-align: left;
+  margin: 0 0 8px;
+  line-height: 2;
+}

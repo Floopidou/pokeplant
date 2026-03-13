@@ -29,6 +29,10 @@ class PlantsController < ApplicationController
     @plant = Plant.find(params[:id])
   end
 
+  def test
+    @plant = Plant.find(params[:id])
+  end
+
   ### CREATION DE PLANT
   # 1. on prend la photo
   def new
