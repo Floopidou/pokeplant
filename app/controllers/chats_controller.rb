@@ -36,10 +36,6 @@ class ChatsController < ApplicationController
     redirect_to plant_chats_path(@plant), notice: "Conversation supprimée"
   end
 
-  def test
-    # Page de test statique
-  end
-
   private
 
   def set_plant

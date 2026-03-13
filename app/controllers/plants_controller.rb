@@ -29,6 +29,10 @@ class PlantsController < ApplicationController
     @plant = Plant.find(params[:id])
   end
 
+  def test
+    @plant = Plant.find(params[:id])
+  end
+
   ### CREATION DE PLANT
   # 1. on prend la photo
   def new
@@ -134,7 +138,7 @@ class PlantsController < ApplicationController
     @plant.personality = personality_setter(@plant.input_date, string_of_tags)
 
     if @plant.save
-      redirect_to plant_path(@plant), notice: "Personality of #{@plant.nickname} has been generated!"
+      redirect_to plant_menu_plant_path(@plant), notice: "Personality of #{@plant.nickname} has been generated!"
     else
       flash[:alert] = "Could not save the plant: #{@plant.errors.full_messages.join(', ')}"
       redirect_to select_tags_plant_path(@plant)
@@ -162,6 +166,10 @@ class PlantsController < ApplicationController
     redirect_to plant_path(@plant)
   end
 
+  def plant_menu
+    @plant = Plant.find(params[:id])
+
+  end
   private
 
   def get_avatar(name)

@@ -20,3 +20,8 @@ $pixel-font: "Press Start 2P", monospace;
   src: font-url('DepartureMono-Regular.woff') format('woff');
 }
 $departure-font: "DepartureMono", monospace;
+
+@font-face {
+  font-family: "PressStart2P";
+  src: font-url('PressStart2P-Regular.ttf') format('truetype');
+}
