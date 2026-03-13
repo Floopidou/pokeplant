@@ -527,6 +527,11 @@
   margin: 8px 0;
 }
 
+.plant-menu-avatar-wrap {
+  position: relative;
+  display: inline-flex;
+}
+
 .plant-menu-avatar {
   width: 260px;
   height: 260px;
@@ -534,16 +539,34 @@
   image-rendering: pixelated;
 }
 
+.plant-info-btn {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.plant-info-icon {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
 .plant-show-arrow {
   background: transparent;
   border: none;
   box-shadow: none;
   font-family: $pixel-font;
-  font-size: 2rem;
+  font-size: 1.2rem;
   color: $pp-dark-green;
   cursor: pointer;
   padding: 0 8px;
   line-height: 1;
+  text-decoration: none;
 
   &:active { opacity: 0.5; }
 }
