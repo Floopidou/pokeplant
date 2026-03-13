@@ -44,8 +44,11 @@ get 'chat_test', to: 'chats#test'
       patch :water # waters the plant
       patch :repot # repots the plant
       patch :pet # pets the plant
+
+      get :plant_menu 
     end
   end
+
 
   resources :pots, only: [:index, :show] do
     resources :plant_pot_pairs, only: [:create] # buying a new pot = creating a plant_pot_pairs
