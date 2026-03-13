@@ -1,13 +1,22 @@
 class PlantsController < ApplicationController
   before_action :authenticate_user!
 
-  PERSONALITY_TAGS = ["thunderstorm", "Tuesday", "velvet", "pickle",
-                      "blizzard", "hamster", "noodle", "foggy", "pebble",
-                      "tangerine", "wobbly", "monsoon", "biscuit", "glacier",
-                      "sparrow", "crunchy", "tornado", "jellyfish", "flannel",
-                      "Wednesday", "cobblestone", "drizzle", "penguin", "marmalade",
-                      "avalanche", "hammock", "crumble", "blizzard", "lampshade",
-                      "puddle"]
+  PERSONALITY_TAGS = %w[
+    thunderstorm tornado blizzard drizzle monsoon avalanche glacier
+    fog rainbow eclipse tide ember frost pebble cobblestone
+    meadow thorn gust dusk ripple
+    penguin jellyfish sparrow hamster hedgehog gecko moth raven
+    firefly seahorse fox crane beetle ferret capybara
+    salamander wren lynx otter magpie
+    velvet flannel hammock lampshade lantern compass thimble quill
+    mitten satchel locket ribbon candle patchwork cobweb
+    tassel inkwell mantle curtain bellows
+    biscuit marmalade pickle noodle tangerine crumble cinnamon
+    caramel waffle sourdough custard mustard molasses fig marzipan
+    wobbly crunchy wistful plucky prickly whimsical peculiar mellow
+    frantic restless serene jovial sulky gallant furtive
+    Tuesday Wednesday puzzle blip zigzag meander rumble tangle flurry lurk
+  ].freeze
   def index
     per_page = 6
     @current_page = (params[:page] || 1).to_i.clamp(1, 4)
@@ -97,21 +106,28 @@ class PlantsController < ApplicationController
   # 5. je sélectionne les tags
   def select_tags
     @plant = Plant.find(params[:id])
-    @tags = PlantsController::PERSONALITY_TAGS
+    @tags = PERSONALITY_TAGS.select { |w| w.length <= 7 }.sample(12)
   end
 
   # 6. je set les tags et lance le sélecteur de personnalités
   def apply_tags
     @plant = Plant.find(params[:id])
-    # string_of_tags = params[:selected_tags].join(", ")
-    new_personality = personality_setter(@plant.input_date, params[:selected_tags])
-    @plant.personality = new_personality
+    selected = Array(params[:selected_tags]).first(3)
+
+    if selected.empty?
+      flash[:alert] = "Please select at least one tag."
+      redirect_to select_tags_plant_path(@plant) and return
+    end
+
+    string_of_tags = selected.join(", ")
+    @plant.personality_tags = string_of_tags
+    @plant.personality = personality_setter(@plant.input_date, string_of_tags)
 
     if @plant.save
       redirect_to plant_path(@plant), notice: "Personality of #{@plant.nickname} has been generated!"
     else
       flash[:alert] = "Could not save the plant: #{@plant.errors.full_messages.join(', ')}"
-      redirect_to select_name_plant_path
+      redirect_to select_tags_plant_path(@plant)
     end
   end
 
