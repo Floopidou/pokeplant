@@ -15,7 +15,8 @@
 <%= turbo_stream.append "chat-messages" do %>
   <div class="chat-message chat-message--plant">
     <div class="chat-message-avatar">
-      <%# <%= image_tag "avatars/#{@plant.avatar_img}", alt: @plant.common_name, class: "chat-message-avatar-img" %> %>
+      <%# <%= image_tag "avatars/#{@plant.avatar_img}", alt: @plant.common_name, class: "chat-message-avatar-img" %>
+      <%= image_tag "avatars/monstera_avatar.svg", alt: @plant.common_name, class: "chat-message-avatar-img" %>
     </div>
     <div class="chat-bubble chat-bubble--plant">
       <p><%= @plant_message.content %></p>
