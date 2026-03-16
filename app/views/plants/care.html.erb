@@ -25,7 +25,7 @@
   <!-- Avatar -->
   <div class="care-avatar-zone">
     <% avatar = File.exist?(Rails.root.join("app/assets/images/avatars/#{@plant.avatar_img}")) ? "avatars/#{@plant.avatar_img}" : "avatars/happy_monstera.svg" %>
-    <%= image_tag avatar, class: "care-avatar", alt: @plant.nickname %>
+    <%= image_tag avatar, class: "care-avatar plant-menu-avatar", alt: @plant.nickname %>
   </div>
 
   <!-- Hearts + mood -->
