@@ -3,17 +3,6 @@
 
 <div class="garden-page plant-menu-page">
 
-  <!-- Top badges -->
-  <div class="garden-header">
-    <div class="garden-badge">
-      <%= image_tag "leaf_coin.png", class: "garden-badge-icon", alt: "plants" %>
-      <%= current_user.plants.count %>/6
-    </div>
-    <div class="garden-badge">
-      <%= image_tag "leaf_coin.png", class: "garden-badge-icon garden-coin-icon", alt: "coins" %>
-      <%= current_user.leaf_coins %>
-    </div>
-  </div>
 
   <!-- Title -->
   <h1 class="garden-title plant-menu-title"><%= @plant.nickname %></h1>
