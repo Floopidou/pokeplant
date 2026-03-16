@@ -55,6 +55,6 @@ export default class extends Controller {
 
     // Réactiver le bouton
     this.buttonTarget.disabled = false
-    this.buttonTarget.innerHTML = "✨ Envoyer"
+    this.buttonTarget.innerHTML = "SEND"
   }
 }
