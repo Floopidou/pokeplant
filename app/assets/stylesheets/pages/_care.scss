@@ -1,0 +1,267 @@
+// ── Care page ────────────────────────────────────────────────
+
+.care-page {
+  justify-content: flex-start;
+  padding-top: 56px;
+  padding-bottom: 0;
+  padding-left: 0;
+  padding-right: 0;
+  gap: 2px;
+  align-items: center;
+}
+
+// ── Nav row ──────────────────────────────────────────────────
+
+.care-nav {
+  width: 100%;
+  max-width: 380px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+  margin-bottom: 2px;
+}
+
+.care-back-btn {
+  font-family: $pixel-font;
+  font-size: 1.2rem;
+  color: $pp-dark-green;
+  text-decoration: none;
+  text-shadow: 0 2px 0 white;
+  line-height: 1;
+}
+
+.care-help-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+
+  &:active { opacity: 0.8; }
+}
+
+.care-help-icon {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+// ── Title ────────────────────────────────────────────────────
+
+.care-plant-name {
+  margin: 2px 0 0;
+}
+
+.care-plant-species {
+  font-family: $pixel-font;
+  font-size: 0.5rem;
+  color: $pp-medium-green;
+  text-shadow: 0 1px 0 white;
+  margin: 0 0 2px;
+  letter-spacing: 2px;
+}
+
+// ── Avatar ───────────────────────────────────────────────────
+
+.care-avatar-zone {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.care-avatar {
+  width: 260px;
+  height: 260px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+// ── Hearts + mood ────────────────────────────────────────────
+
+.care-mood {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.care-hearts {
+  display: flex;
+  gap: 8px;
+}
+
+.care-heart {
+  font-size: 1.3rem;
+  color: rgba($pp-pink, 0.3);
+  line-height: 1;
+
+  &.filled { color: $pp-pink; }
+}
+
+.care-mood-text {
+  font-family: $pixel-font;
+  font-size: 0.48rem;
+  color: $pp-dark-green;
+  text-shadow: 0 1px 0 white;
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+// ── Bottom section ────────────────────────────────────────────
+
+.care-bottom {
+  width: 100%;
+  flex: 1;
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+// ── Tab nav ───────────────────────────────────────────────────
+
+.care-tab-nav {
+  display: flex;
+  align-items: flex-end;
+}
+
+.care-tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: $pixel-font;
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  color: $pp-cream;
+  text-shadow: 2px 2px 0 rgba(255, 255, 255, 0.35);
+  border: 4px solid $pp-dark-green;
+  border-bottom: none;
+  cursor: pointer;
+  margin-bottom: -4px;
+  position: relative;
+  z-index: 1;
+
+  &--active   { height: 56px; }
+  &--inactive { height: 48px; }
+
+  &--water {
+    &.care-tab--active   { background: $pp-medium-green; color: white; text-shadow: 1px 1px 0 $pp-skyblue; }
+    &.care-tab--inactive { background: $pp-medium-green; color: $pp-dark-green; text-shadow: 1px 1px 0 white; }
+  }
+
+  &--pot {
+    &.care-tab--active   { background: $pp-lightpink; color: $pp-brown; z-index: 2; text-shadow: 2px 2px 0 white; }
+    &.care-tab--inactive { background: $pp-lightpink; color: $pp-pink; text-shadow: 1px 1px 0 white; }
+  }
+}
+
+.care-tab-arrow {
+  font-size: 1.2rem;
+  line-height: 1;
+  margin-right: 6px;
+  margin-bottom: 10px;
+
+}
+
+// ── Panel ─────────────────────────────────────────────────────
+
+.care-panel {
+  border: 4px solid $pp-dark-green;
+  padding: 24px 24px 32px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  position: relative;
+  z-index: 0;
+
+  &--water { background: $pp-medium-green; justify-content: center; }
+  &--pot   { background: $pp-lightpink;   justify-content: center; }
+}
+
+// ── Progress bar ──────────────────────────────────────────────
+
+.care-bar-wrap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.care-bar-indicator-row {
+  position: relative;
+  width: 100%;
+  height: 12px;
+}
+
+.care-bar-indicator {
+  position: absolute;
+  font-size: 0.5rem;
+  color: rgba(0, 0, 0, 0.45);
+  transform: translateX(-50%);
+  line-height: 1;
+}
+
+// 20-cell pixel bar
+.care-bar-cells {
+  display: flex;
+  gap: 2px;
+  width: 100%;
+  padding: 3px;
+  background: $pp-cream;
+
+  .care-panel--water & { border: 2px solid $pp-skyblue; }
+  .care-panel--pot   & { border: 2px solid $pp-brown; }
+}
+
+.care-bar-cell {
+  flex: 1;
+  height: 16px;
+  background: $pp-cream;
+  border: 1px solid #ddd;
+
+  &--water { background: #7ec8e3; border-color: #5ab0cb; }
+  &--pot   { background: $pp-brown; border-color: darken($pp-brown, 10%); }
+}
+
+.care-bar-labels {
+  display: flex;
+  justify-content: space-between;
+  font-family: $pixel-font;
+  font-size: 0.38rem;
+  letter-spacing: 0.5px;
+
+  .care-panel--water & { color: rgba(255, 255, 255, 0.8); }
+  .care-panel--pot   & { color: rgba(0, 0, 0, 0.55); }
+}
+
+// ── Action button ──────────────────────────────────────────────
+
+.care-action-btn {
+  background: $pp-cream;
+  border: 2px solid black;
+  box-shadow: 3px 3px 0 black;
+  font-family: $pixel-font;
+  font-size: 0.55rem;
+  letter-spacing: 1px;
+  padding: 10px 22px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  &:active {
+    transform: translate(3px, 3px);
+    box-shadow: none;
+  }
+}
+
+.care-btn-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}

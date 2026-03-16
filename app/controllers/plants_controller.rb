@@ -166,6 +166,10 @@ class PlantsController < ApplicationController
     redirect_to plant_path(@plant)
   end
 
+  def care
+    @plant = Plant.find(params[:id])
+  end
+
   def plant_menu
     @plant = Plant.find(params[:id])
     plants = current_user.plants.order(:position_in_garden).to_a
