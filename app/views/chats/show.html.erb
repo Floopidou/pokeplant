@@ -7,7 +7,7 @@
     <!-- Header avec la plante -->
     <div class="chat-header">
       <div class="chat-plant-avatar">
-        <%# <%= image_tag "avatars/#{@plant.avatar_img}", alt: @plant.common_name, class: "chat-avatar-img" %>
+        <%# image_tag "avatars/#{@plant.avatar_img}", alt: @plant.common_name, class: "chat-avatar-img" %>
         <%= image_tag "avatars/monstera_avatar.svg", alt: @plant.common_name, class: "chat-avatar-img" %>
 
       </div>
@@ -26,6 +26,12 @@
           <% end %>
         </span>
       </div>
+
+<!----------->
+<%= link_to plant_chats_path(@plant), class: "pixel-btn pixel-btn--pink" do %>
+  💬...
+<% end %>
+<!------->
      <%= link_to plant_menu_plant_path(@plant), class: "chat-back-link" do %>
         <%= image_tag "cross.svg", alt: "Close", class: "chat-close-icon" %>
       <% end %>
@@ -33,7 +39,7 @@
 
     <!-- Zone des messages -->
     <div class="chat-messages" id="chat-messages" data-chat-form-target="messages">
-      
+
       <% @messages.each do |message| %>
         <% if message.role == "user" %>
           <div class="chat-message chat-message--user">
@@ -45,7 +51,7 @@
         <% else %>
           <div class="chat-message chat-message--plant">
             <div class="chat-message-avatar">
-              <%# <%= image_tag "avatars/#{@plant.avatar_img}", alt: @plant.common_name, class: "chat-message-avatar-img" %>
+              <%# image_tag "avatars/#{@plant.avatar_img}", alt: @plant.common_name, class: "chat-message-avatar-img" %>
               <%= image_tag "avatars/monstera_avatar.svg", alt: @plant.common_name, class: "chat-message-avatar-img" %>
             </div>
             <div class="chat-bubble chat-bubble--plant">

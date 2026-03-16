@@ -61,7 +61,7 @@ class MessagesController < ApplicationController
       - Origine : #{@plant.origin_region}
 
       Règles :
-      - Réponds toujours en français
+      - Réponds toujours en anglais
       - Sois kawaii et attachante
       - Utilise des emojis de plantes 🌱🌿🍀💧☀️
       - Fais des phrases courtes et mignonnes

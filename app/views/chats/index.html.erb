@@ -1,21 +1,55 @@
-<div class="chats-list">
-  <h1>Conversations avec <%= @plant.nickname || @plant.common_name %></h1>
+<div class="chats-index-page">
+  <div class="chats-index-container">
 
-  <% if @chats.any? %>
-    <% @chats.each do |chat| %>
-      <%= link_to plant_chat_path(@plant, chat), class: "chat-item" do %>
-        <span>💬 Conversation du <%= chat.created_at.strftime("%d/%m/%Y à %H:%M") %></span>
-        <span><%= chat.messages.count %> messages</span>
+    <!-- Header -->
+    <div class="chats-index-header">
+      <%= link_to plant_menu_plant_path(@plant), class: "chat-back-link" do %>
+        <%= image_tag "cross.svg", alt: "Close", class: "chat-close-icon" %>
       <% end %>
-    <% end %>
-  <% else %>
-    <p>Aucune conversation pour le moment !</p>
-  <% end %>
+      <div class="chats-plant-info">
+        <%= image_tag "avatars/monstera_avatar.svg", alt: @plant.common_name, class: "chats-plant-avatar" %>
+        <h1 class="chats-title">Chats with <%= @plant.nickname || @plant.common_name %></h1>
+      </div>
+    </div>
 
-  <%= button_to "🌱 Nouvelle conversation",
-                plant_chats_path(@plant),
-                method: :post,
-                class: "pixel-btn pixel-btn--green" %>
+    <!-- Bouton nouvelle conversation -->
+    <div class="chats-new">
+      <%= button_to plant_chats_path(@plant), method: :post, class: "pixel-btn pixel-btn--green chats-new-btn" do %>
+        🌱 NEW CHAT
+      <% end %>
+    </div>
 
-  <%= link_to "← Retour à #{@plant.common_name}", plant_path(@plant) %>
+    <!-- Liste des conversations -->
+    <div class="chats-list">
+      <% if @chats.any? %>
+        <% @chats.each do |chat| %>
+          <div class="chat-item">
+            <%= link_to plant_chat_path(@plant, chat), class: "chat-item-link" do %>
+              <div class="chat-item-icon">💬</div>
+              <div class="chat-item-info">
+                <span class="chat-item-date"><%= chat.created_at.strftime("%d/%m/%Y à %H:%M") %></span>
+                <span class="chat-item-preview">
+                  <% if chat.messages.any? %>
+                    <%= truncate(chat.messages.last.content, length: 50) %>
+                  <% else %>
+                    No message
+                  <% end %>
+                </span>
+                <span class="chat-item-count"><%= chat.messages.count %> message<%= chat.messages.count > 1 ? 's' : '' %></span>
+              </div>
+            <% end %>
+            <%= button_to plant_chat_path(@plant, chat), method: :delete, class: "chat-item-delete", data: { turbo_confirm: "Supprimer cette conversation ?" } do %>
+              🗑️
+            <% end %>
+          </div>
+        <% end %>
+      <% else %>
+        <div class="chats-empty">
+          <p>🌿 No chat for the moment !</p>
+          <p>Just start to chat with your plant.</p>
+        </div>
+      <% end %>
+    </div>
+
+  </div>
 </div>
