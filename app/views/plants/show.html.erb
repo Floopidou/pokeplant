@@ -1,19 +1,60 @@
-<h1>Plants#show</h1>
-<p>Info page of the plan</p>
+<% content_for :body_class, "garden-body" %>
+<% content_for :hide_navbar, "true" %>
 
-<h1>temporary show</h1>
+<div class="garden-page plant-menu-page">
 
-<h2>Common name</h2>
-<p><%= @plant.common_name %></p>
+  <!-- Top badges -->
+  <div class="garden-header">
+    <div class="garden-badge">
+      <%= image_tag "leaf_coin.png", class: "garden-badge-icon", alt: "plants" %>
+      <%= current_user.plants.count %>/6
+    </div>
+    <div class="garden-badge">
+      <%= image_tag "leaf_coin.png", class: "garden-badge-icon garden-coin-icon", alt: "coins" %>
+      <%= current_user.leaf_coins %>
+    </div>
+  </div>
 
-<h2>Nickname</h2>
-<p><%= @plant.nickname %></p>
+  <!-- Title -->
+  <h1 class="garden-title plant-menu-title"><%= @plant.nickname %></h1>
+  <p class="plant-menu-subtitle"><%= @plant.common_name %></p>
 
-<h2>Watering interval</h2>
-<p><%= @plant.watering_interval %></p>
+  <!-- Avatar with arrows -->
+  <div class="plant-menu-avatar-row">
+    <%= link_to plant_path(@prev_plant), class: "plant-show-arrow" do %>&#8249;<% end %>
+    <div class="plant-menu-avatar-wrap">
+      <% avatar = File.exist?(Rails.root.join("app/assets/images/avatars/#{@plant.avatar_img}")) ? "avatars/#{@plant.avatar_img}" : "avatars/undefined_pink_happy.svg" %>
+      <%= image_tag avatar, class: "plant-menu-avatar", alt: @plant.nickname %>
+      <%= link_to infos_plant_path(@plant), class: "plant-info-btn" do %>
+        <%= image_tag "info_page.svg", class: "plant-info-icon", alt: "info" %>
+      <% end %>
+    </div>
+    <%= link_to plant_path(@next_plant), class: "plant-show-arrow" do %>&#8250;<% end %>
+  </div>
 
-<h2>Personality</h2>
-<p><%= @plant.personality %></p>
+  <!-- Action buttons: 2 / 1 / 2 -->
+  <div class="plant-action-grid">
+    <div class="plant-action-row">
+      <%= link_to care_plant_path, class: "plant-action-btn" do %>
+        <%= image_tag "arrosoir (1).svg", class: "plant-action-icon", alt: "water" %>
+      <% end %>
+      <%= link_to plant_chats_path(@plant), class: "plant-action-btn", data: { turbo_method: :post } do %>
+        <%= image_tag "chat_emote.svg", class: "plant-action-icon", alt: "chat" %>
+      <% end %>
+    </div>
+    <div class="plant-action-row plant-action-row--center">
+      <%= link_to plants_path, class: "plant-action-btn" do %>
+        <%= image_tag "cross.svg", class: "plant-action-icon", alt: "" %>
+      <% end %>
+    </div>
+    <div class="plant-action-row">
+      <button class="plant-action-btn" type="button">
+        <%= image_tag "paint.svg", class: "plant-action-icon", alt: "paint" %>
+      </button>
+      <button class="plant-action-btn" type="button">
+        <%= image_tag "sword.svg", class: "plant-action-icon", alt: "sword" %>
+      </button>
+    </div>
+  </div>
 
-<h2>PLANT</h2>
-<p><%= @plant.personality_tags %></p>
+</div>

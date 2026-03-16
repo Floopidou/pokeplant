@@ -27,7 +27,7 @@
           <% if plant %>
             <%= link_to plant_menu_plant_path(plant), class: "garden-tile", data: { turbo_frame: "_top" } do %>
               <div class="tile-wrapper">
-                <% avatar = File.exist?(Rails.root.join("app/assets/images/avatars/#{plant.avatar_img}")) ? "avatars/#{plant.avatar_img}" : "avatars/happy_monstera.svg" %>
+                <% avatar = File.exist?(Rails.root.join("app/assets/images/avatars/#{plant.avatar_img}")) ? "avatars/#{plant.avatar_img}" : "avatars/undefined_pink_happy.svg" %>
                 <%= image_tag "tile.svg", class: "tile-base", alt: "" %>
                 <%= image_tag avatar, class: "tile-plant", alt: plant.nickname %>
                 <span class="tile-label"><%= plant.nickname %></span>

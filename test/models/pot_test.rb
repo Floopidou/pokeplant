@@ -33,7 +33,7 @@ class PotTest < ActiveSupport::TestCase
     end
   end
 
-  test "has many plantpotpairs" do
-    assert_respond_to valid_pot, :plantpotpairs
+  test "has many plant_pot_pairs" do
+    assert_respond_to valid_pot, :plant_pot_pairs
   end
 end

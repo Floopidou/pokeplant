@@ -207,8 +207,8 @@ class PlantTest < ActiveSupport::TestCase
 
   # --- Associations ---
 
-  test "has many plantpotpairs" do
-    assert_respond_to valid_plant, :plantpotpairs
+  test "has many plant_pot_pairs" do
+    assert_respond_to valid_plant, :plant_pot_pairs
   end
 
   test "has many chats" do

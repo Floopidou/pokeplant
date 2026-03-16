@@ -50,7 +50,7 @@ Rails.application.routes.draw do
       patch :repot # repots the plant
       patch :pet # pets the plant
 
-      get :plant_menu
+      #get :plant_menu
     end
   end
 

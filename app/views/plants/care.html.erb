@@ -20,7 +20,7 @@
 
   <!-- Nav: back + info button -->
   <div class="care-nav">
-    <%= link_to plant_menu_plant_path(@plant), class: "care-back-btn" do %>&#8592;<% end %>
+    <%= link_to plant_path(@plant), class: "care-back-btn" do %>&#8592;<% end %>
     <%= link_to infos_plant_path(@plant), class: "care-help-btn" do %>
       <%= image_tag "info_page.svg", class: "care-help-icon", alt: "info" %>
     <% end %>
@@ -118,7 +118,6 @@
           <path d="M3.85714 7L3.85714 5.83333L2.57143 5.83333L2.57143 3.49999L1.28571 3.49999L1.28571 1.16666L-2.54983e-07 1.16666L-3.0598e-07 5.85212e-07L9 1.91809e-07L9 1.16666L7.71429 1.16666L7.71429 3.49999L6.42857 3.49999L6.42857 5.83333L5.14286 5.83333L5.14286 7L3.85714 7Z" fill="#1A120A" fill-opacity="0.56"/>
         </svg>
       </div>
-
       <%= button_to water_plant_path(@plant), method: :patch, class: "care-action-btn" do %>
         WATER <%= image_tag "water-drop.svg", class: "care-btn-icon", alt: "" %>
       <% end %>
@@ -168,7 +167,7 @@
           <path d="M154 17H143V21H154V17Z" fill="white" fill-opacity="0.3"/>
         </svg>
       </div>
-
+      <%# TODO backend: form action: repot_plant_path(@plant), method: :patch %>
       <%= button_to repot_plant_path(@plant), method: :patch, class: "care-action-btn" do %>
         POT <%= image_tag "pot-mini.svg", class: "care-btn-icon", alt: "" %>
       <% end %>
