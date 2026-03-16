@@ -217,7 +217,7 @@
   }
 
   &::before {
-    
+
     position: absolute;
     top: -3px;
     right: -10px;
@@ -730,14 +730,21 @@
   text-align: center;
   padding: 40px 20px;
   color: $pp-dark-green;
-
+  font-family: $departure-font;
   p {
     margin: 10px 0;
   }
 }
 
+.blink {
+  animation: blink-animation 2s steps(1, start) infinite;
+}
 
-
+@keyframes blink-animation {
+    50% {
+        visibility: hidden;
+    }
+}
 
 //modal delete
 // Modal de confirmation custom

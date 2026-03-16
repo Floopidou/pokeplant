@@ -6,7 +6,7 @@
     <!-- Header avec la plante -->
     <div class="chat-header">
       <div class="chat-plant-avatar">
-        <%= image_tag "avatars/#{@plant.avatar_img}", alt: @plant.common_name, class: "chat-avatar-img" %>
+        <%= image_tag "avatars/#{@plant.avatar_img}", alt: @plant.common_name, class: "chat-avatar-img plant-chat-avatar" %>
         <%# image_tag "avatars/monstera_avatar.svg", alt: @plant.common_name, class: "chat-avatar-img" %>
 
       </div>
@@ -31,7 +31,7 @@
   💬...
 <% end %>
 <!------->
-     <%= link_to plant_menu_plant_path(@plant), class: "chat-back-link" do %>
+     <%= link_to plant_path(@plant), class: "chat-back-link" do %>
         <%= image_tag "cross.svg", alt: "Close", class: "chat-close-icon" %>
       <% end %>
     </div>

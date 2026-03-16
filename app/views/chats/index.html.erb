@@ -7,7 +7,7 @@
         <%= image_tag "avatars/#{@plant.avatar_img}", alt: @plant.common_name, class: "chats-plant-avatar" %>
         <h1 class="chats-title">Chats with <%= @plant.nickname || @plant.common_name %></h1>
       </div>
-      <%= link_to plant_menu_plant_path(@plant), class: "chat-back-link" do %>
+      <%= link_to plant_path(@plant), class: "chat-back-link" do %>
         <%= image_tag "cross.svg", alt: "Close", class: "chat-close-icon" %>
       <% end %>
     </div>
@@ -56,8 +56,8 @@
           </div>
         <% end %>
       <% else %>
-        <div class="chats-empty">
-          <p>🌿 No chat for the moment !</p>
+        <div class="chats-empty blink">
+          <p>No chat for the moment !</p>
           <p>Just start to chat with your plant.</p>
         </div>
       <% end %>
