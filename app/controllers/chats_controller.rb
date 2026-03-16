@@ -33,7 +33,7 @@ class ChatsController < ApplicationController
   def destroy
     @chat = @plant.chats.find(params[:id])
     @chat.destroy
-    redirect_to plant_chats_path(@plant), notice: "Conversation supprimée"
+    redirect_to plant_chats_path(@plant), notice: "Conversation deleted"
   end
 
   private
