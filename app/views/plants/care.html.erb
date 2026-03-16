@@ -17,7 +17,7 @@
 
   <!-- Nav: back + info button -->
   <div class="care-nav">
-    <%= link_to plant_menu_plant_path(@plant), class: "care-back-btn" do %>&#8592;<% end %>
+    <%= link_to plant_path(@plant), class: "care-back-btn" do %>&#8592;<% end %>
     <%= link_to infos_plant_path(@plant), class: "care-help-btn" do %>
       <%= image_tag "info_page.svg", class: "care-help-icon", alt: "info" %>
     <% end %>
@@ -86,10 +86,9 @@
           <span>hydrated</span>
         </div>
       </div>
-      <%# TODO backend: form action: water_plant_path(@plant), method: :patch %>
-      <button class="care-action-btn" type="button">
+      <%= button_to water_plant_path(@plant), method: :patch, class: "care-action-btn" do %>
         WATER <%= image_tag "water-drop.svg", class: "care-btn-icon", alt: "" %>
-      </button>
+      <% end %>
     </div>
 
     <%# Pot panel %>
@@ -110,9 +109,9 @@
         </div>
       </div>
       <%# TODO backend: form action: repot_plant_path(@plant), method: :patch %>
-      <button class="care-action-btn" type="button">
+      <%= button_to repot_plant_path(@plant), method: :patch, class: "care-action-btn" do %>
         POT <%= image_tag "pot-mini.svg", class: "care-btn-icon", alt: "" %>
-      </button>
+      <% end %>
     </div>
 
   </div>

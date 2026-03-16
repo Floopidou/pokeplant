@@ -35,7 +35,7 @@
   <!-- Action buttons: 2 / 1 / 2 -->
   <div class="plant-action-grid">
     <div class="plant-action-row">
-      <%= link_to "javascript:history.back()", class: "plant-action-btn" do %>
+      <%= link_to care_plant_path, class: "plant-action-btn" do %>
         <%= image_tag "arrosoir (1).svg", class: "plant-action-icon", alt: "water" %>
       <% end %>
       <%= link_to plant_chats_path(@plant), class: "plant-action-btn", data: { turbo_method: :post } do %>

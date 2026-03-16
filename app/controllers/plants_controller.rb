@@ -171,6 +171,7 @@ class PlantsController < ApplicationController
   ### CARING FOR THE PLANT
   def care
     @plant = Plant.find(params[:id])
+    @plant.avatar_updating!
   end
 
   def water
@@ -178,8 +179,8 @@ class PlantsController < ApplicationController
     @plant.update(last_watered: Date.today)
 
     if @plant.save
-      redirect_to plant_path(@plant),
-                  notice: "#{@plant.nickanme} has been watered!"
+      redirect_to care_plant_path(@plant),
+                  notice: "#{@plant.nickname} has been watered!"
     else
       flash[:alert] = "Could not water the virtual plant: #{@plant.errors.full_messages.join(', ')}"
       redirect_to care_plant_path(@plant)
@@ -191,8 +192,8 @@ class PlantsController < ApplicationController
     @plant.update(last_repot: Date.today)
 
     if @plant.save
-      redirect_to plant_path(@plant),
-                  notice: "#{@plant.nickanme} has been watered!"
+      redirect_to care_plant_path(@plant),
+                  notice: "#{@plant.nickname} has been repotted!"
     else
       flash[:alert] = "Could not repot the virtual plant: #{@plant.errors.full_messages.join(', ')}"
       redirect_to care_plant_path(@plant)

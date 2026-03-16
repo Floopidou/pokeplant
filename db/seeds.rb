@@ -84,7 +84,9 @@ monstera_manon = Plant.create!(
   description: "Tropical plant with large split leaves, perfect for brightening up any interior.",
   watering_interval: 7,
   repot_interval: 365,
-  mood_points: 90
+  mood_points: 90,
+  last_watered: Date.new(2026, 3, 5),
+  last_repot: Date.new(2025, 6, 5)
 )
 
 golden_pothos = Plant.create!(
@@ -106,9 +108,10 @@ golden_pothos = Plant.create!(
   optimal_placement: "bright indirect light, tolerates low light",
   origin_region: "Southeast Asia",
   description: "One of the easiest houseplants to grow, with heart-shaped golden-green leaves. Nearly impossible to kill.",
-  watering_interval: 7,
+  watering_interval: 4,
   repot_interval: 548,
-  mood_points: 75
+  mood_points: 75,
+  last_watered: Date.new(2026, 3, 12)
 )
 
 ficus = Plant.create!(
@@ -132,7 +135,9 @@ ficus = Plant.create!(
   description: "Indoor tree with large violin-shaped leaves. Does not like to be moved.",
   watering_interval: 10,
   repot_interval: 730,
-  mood_points: 85
+  mood_points: 85,
+  last_watered: Date.new(2026, 3, 12),
+  last_repot: Date.new(2026, 1, 12)
 )
 
 monstera_bob = Plant.create!(
@@ -156,7 +161,9 @@ monstera_bob = Plant.create!(
   description: "A lively Monstera that loves attention and thrives with regular care.",
   watering_interval: 7,
   repot_interval: 365,
-  mood_points: 95
+  mood_points: 95,
+  last_watered: Date.new(2026, 3, 15),
+  last_repot: Date.new(2025, 2, 12)
 )
 
 # --- PlantPotPairs (chaque plante associée au pot basique) ---
