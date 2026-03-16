@@ -177,6 +177,7 @@ class PlantsController < ApplicationController
   def water
     @plant = Plant.find(params[:id])
     @plant.update(last_watered: Date.today)
+    @plant.update(mood_points: [@plant.mood_points + 20, 100].min)
 
     if @plant.save
       redirect_to care_plant_path(@plant),
@@ -190,6 +191,7 @@ class PlantsController < ApplicationController
   def repot
     @plant = Plant.find(params[:id])
     @plant.update(last_repot: Date.today)
+    @plant.update(mood_points: [@plant.mood_points + 20, 100].min)
 
     if @plant.save
       redirect_to care_plant_path(@plant),
@@ -200,11 +202,22 @@ class PlantsController < ApplicationController
     end
   end
 
+  def pet
+    @plant = Plant.find(params[:id])
+    @plant.update(mood_points: [@plant.mood_points + 10, 100].min)
+
+    if @plant.save
+      redirect_to care_plant_path(@plant),
+                  notice: "#{@plant.nickname} smiles ❤️"
+    else
+      flash[:alert] = "Could not pet the virtual plant: #{@plant.errors.full_messages.join(', ')}"
+      redirect_to care_plant_path(@plant)
+    end
+  end
+
   private
 
   ### PLANT CREATION HELPERS
-
-
   def identify_plant(image_path) # rubocop:disable Metrics/MethodLength
     prompt = <<~PROMPT
       You are a botanist expert. Analyze this plant photo and return a JSON object with exactly these fields:
