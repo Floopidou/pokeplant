@@ -29,7 +29,7 @@ class PlantsController < ApplicationController
     @plant = Plant.find(params[:id])
   end
 
-  def test
+  def infos
     @plant = Plant.find(params[:id])
   end
 
