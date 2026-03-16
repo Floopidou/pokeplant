@@ -86,7 +86,8 @@ monstera_manon = Plant.create!(
   repot_interval: 365,
   mood_points: 90,
   last_watered: Date.new(2026, 3, 5),
-  last_repot: Date.new(2025, 6, 5)
+  last_repot: Date.new(2025, 6, 5),
+  last_petting: Date.new(2026, 3, 13)
 )
 
 golden_pothos = Plant.create!(
@@ -111,7 +112,8 @@ golden_pothos = Plant.create!(
   watering_interval: 4,
   repot_interval: 548,
   mood_points: 75,
-  last_watered: Date.new(2026, 3, 12)
+  last_watered: Date.new(2026, 3, 12),
+  last_petting: Date.new(2026, 3, 13)
 )
 
 ficus = Plant.create!(
@@ -137,7 +139,8 @@ ficus = Plant.create!(
   repot_interval: 730,
   mood_points: 85,
   last_watered: Date.new(2026, 3, 12),
-  last_repot: Date.new(2026, 1, 12)
+  last_repot: Date.new(2026, 1, 12),
+  last_petting: Date.new(2026, 3, 13)
 )
 
 monstera_bob = Plant.create!(
@@ -163,7 +166,8 @@ monstera_bob = Plant.create!(
   repot_interval: 365,
   mood_points: 95,
   last_watered: Date.new(2026, 3, 15),
-  last_repot: Date.new(2025, 2, 12)
+  last_repot: Date.new(2025, 2, 12),
+  last_petting: Date.new(2026, 3, 15)
 )
 
 # --- PlantPotPairs (chaque plante associée au pot basique) ---

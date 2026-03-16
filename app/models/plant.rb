@@ -5,6 +5,7 @@ class Plant < ApplicationRecord
     self.input_date ||= Date.today
     self.last_repot ||= Date.today
     self.last_watered ||= Date.today
+    self.last_petting ||= Date.today
   end
 
   belongs_to :user
@@ -17,7 +18,7 @@ class Plant < ApplicationRecord
             :watering_interval, :repot_interval, :mood_points, :light_need, :toxicity,
             :temperature_min, :temperature_max, :type_of_soil,
             :ideal_pot_size, :plant_size,
-            :last_repot, :last_watered, :input_date,
+            :last_repot, :last_watered, :input_date, :last_petting,
             :description, :optimal_placement, :origin_region,
             presence: true
 
@@ -39,7 +40,7 @@ class Plant < ApplicationRecord
                                 troublemaker] },
             allow_nil: true
   # dates last_repot, last_watered, input_date <=today
-  validates :last_repot, :last_watered, comparison: { less_than_or_equal_to: ->(_) { Date.today } }
+  validates :last_repot, :last_watered, :last_petting, comparison: { less_than_or_equal_to: ->(_) { Date.today } }
 
   def mood
     return "thirsty" if needs_water?
@@ -57,6 +58,7 @@ class Plant < ApplicationRecord
   # updating the avatar
   def avatar_updating!
     self.avatar_img = "#{plant_type}_#{pot_color}_#{mood}.svg"
+    save
   end
 
   def plant_type
@@ -68,8 +70,16 @@ class Plant < ApplicationRecord
       return "undefined"
     end
   end
-  
+
   private
+
+  def petting_mood_impact!
+    return unless self.last_petting < Date.today
+
+    self.mood_points = [self.mood_points - 20, 0].max
+    self.last_petting = Date.today
+    save
+  end
 
   def needs_water?
     (Date.today - self.last_watered).to_i >= watering_interval
@@ -83,6 +93,4 @@ class Plant < ApplicationRecord
   def pot_color
     return "pink" # todo
   end
-
-
 end
