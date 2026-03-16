@@ -6,17 +6,6 @@
 
 <div class="garden-page care-page" data-controller="care">
 
-  <!-- Top badges -->
-  <div class="garden-header">
-    <div class="garden-badge">
-      <%= image_tag "leaf_coin.png", class: "garden-badge-icon", alt: "plants" %>
-      <%= current_user.plants.count %>/6
-    </div>
-    <div class="garden-badge">
-      <%= image_tag "leaf_coin.png", class: "garden-badge-icon garden-coin-icon", alt: "coins" %>
-      <%= current_user.leaf_coins %>
-    </div>
-  </div>
 
   <!-- Nav: back + info button -->
   <div class="care-nav">
@@ -30,6 +19,9 @@
   <h1 class="garden-title care-plant-name"><%= @plant.nickname %></h1>
   <p class="care-plant-species"><%= @plant.common_name %></p>
 
+  <!-- WATER / POT tab card — frame wraps avatar+mood too so they refresh on action -->
+  <%= turbo_frame_tag "care-bottom" do %>
+
   <!-- Avatar -->
   <div class="care-avatar-zone">
     <% avatar = File.exist?(Rails.root.join("app/assets/images/avatars/#{@plant.avatar_img}")) ? "avatars/#{@plant.avatar_img}" : "avatars/happy_monstera.svg" %>
@@ -37,18 +29,22 @@
   </div>
 
   <!-- Hearts + mood -->
+  <% full_hearts = (@plant.mood_points / 20).floor %>
+  <% has_half    = (@plant.mood_points % 20) >= 10 %>
   <div class="care-mood">
     <div class="care-hearts">
-      <%# Heart 1 — filled (pink) %>
-      <svg class="care-heart-svg" width="32" height="28" viewBox="0 0 32 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0.964844 11.0947L15.9185 26.0483L29.9074 11.577V5.30615L25.566 1.44714H20.2599L15.9185 6.27091L11.5771 1.44714H5.78861L0.964844 6.27091V11.0947Z" fill="#F2A0B0"/>
-        <rect x="14.6244" y="4.84363" width="2.42186" height="2.42186" fill="#333"/><rect x="2.42188" y="12.4819" width="2.42186" height="2.42186" fill="#333"/><rect x="4.93689" y="14.9038" width="2.42186" height="2.42186" fill="#333"/><rect x="7.35876" y="17.3256" width="2.42186" height="2.42186" fill="#333"/><rect x="9.78064" y="19.7474" width="2.42186" height="2.42186" fill="#333"/><rect x="12.3888" y="22.1692" width="2.42186" height="2.42186" fill="#333"/><rect x="14.8107" y="24.5912" width="2.42186" height="2.42186" fill="#333"/><rect x="12.2025" y="2.42188" width="2.42186" height="2.42186" fill="#333"/><rect x="2.42188" y="2.42188" width="2.42186" height="2.42186" fill="#333"/><rect x="0" y="4.84363" width="2.42186" height="7.63818" fill="#333"/><rect x="4.84375" y="0" width="7.35874" height="2.42186" fill="#333"/>
-        <rect width="2.42186" height="2.42186" transform="matrix(-1 0 0 1 29.3418 12.4819)" fill="#333"/><rect width="2.42186" height="2.42186" transform="matrix(-1 0 0 1 26.9199 14.9038)" fill="#333"/><rect width="2.42186" height="2.42186" transform="matrix(-1 0 0 1 24.498 17.3256)" fill="#333"/><rect width="2.42186" height="2.42186" transform="matrix(-1 0 0 1 22.0763 19.7474)" fill="#333"/><rect width="2.42186" height="2.42186" transform="matrix(-1 0 0 1 19.6544 22.1692)" fill="#333"/><rect width="2.42186" height="2.42186" transform="matrix(-1 0 0 1 19.4681 2.42188)" fill="#333"/><rect width="2.42186" height="2.42186" transform="matrix(-1 0 0 1 29.3418 2.42188)" fill="#333"/><rect width="2.42186" height="7.63818" transform="matrix(-1 0 0 1 31.7637 4.84363)" fill="#333"/><rect width="7.45189" height="2.42186" transform="matrix(-1 0 0 1 26.9199 0)" fill="#333"/>
-      </svg>
-      <%# Hearts 2–5 — empty (light pink) %>
-      <% 4.times do %>
+      <% 5.times do |i| %>
+        <% heart_type = if i < full_hearts then :full elsif i == full_hearts && has_half then :half else :empty end %>
         <svg class="care-heart-svg" width="32" height="28" viewBox="0 0 32 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0.964844 11.0947L15.9185 26.0483L29.9074 11.577V5.30615L25.566 1.44714H20.2599L15.9185 6.27091L11.5771 1.44714H5.78861L0.964844 6.27091V11.0947Z" fill="#F9DFE4"/>
+          <% if heart_type == :half %>
+            <defs><clipPath id="hh-<%= i %>"><rect x="0" y="0" width="16" height="28"/></clipPath></defs>
+            <path d="M0.964844 11.0947L15.9185 26.0483L29.9074 11.577V5.30615L25.566 1.44714H20.2599L15.9185 6.27091L11.5771 1.44714H5.78861L0.964844 6.27091V11.0947Z" fill="#F9DFE4"/>
+            <g clip-path="url(#hh-<%= i %>)">
+              <path d="M0.964844 11.0947L15.9185 26.0483L29.9074 11.577V5.30615L25.566 1.44714H20.2599L15.9185 6.27091L11.5771 1.44714H5.78861L0.964844 6.27091V11.0947Z" fill="#F2A0B0"/>
+            </g>
+          <% else %>
+            <path d="M0.964844 11.0947L15.9185 26.0483L29.9074 11.577V5.30615L25.566 1.44714H20.2599L15.9185 6.27091L11.5771 1.44714H5.78861L0.964844 6.27091V11.0947Z" fill="<%= heart_type == :full ? '#F2A0B0' : '#F9DFE4' %>"/>
+          <% end %>
           <rect x="14.6244" y="4.84363" width="2.42186" height="2.42186" fill="#333"/><rect x="2.42188" y="12.4819" width="2.42186" height="2.42186" fill="#333"/><rect x="4.93689" y="14.9038" width="2.42186" height="2.42186" fill="#333"/><rect x="7.35876" y="17.3256" width="2.42186" height="2.42186" fill="#333"/><rect x="9.78064" y="19.7474" width="2.42186" height="2.42186" fill="#333"/><rect x="12.3888" y="22.1692" width="2.42186" height="2.42186" fill="#333"/><rect x="14.8107" y="24.5912" width="2.42186" height="2.42186" fill="#333"/><rect x="12.2025" y="2.42188" width="2.42186" height="2.42186" fill="#333"/><rect x="2.42188" y="2.42188" width="2.42186" height="2.42186" fill="#333"/><rect x="0" y="4.84363" width="2.42186" height="7.63818" fill="#333"/><rect x="4.84375" y="0" width="7.35874" height="2.42186" fill="#333"/>
           <rect width="2.42186" height="2.42186" transform="matrix(-1 0 0 1 29.3418 12.4819)" fill="#333"/><rect width="2.42186" height="2.42186" transform="matrix(-1 0 0 1 26.9199 14.9038)" fill="#333"/><rect width="2.42186" height="2.42186" transform="matrix(-1 0 0 1 24.498 17.3256)" fill="#333"/><rect width="2.42186" height="2.42186" transform="matrix(-1 0 0 1 22.0763 19.7474)" fill="#333"/><rect width="2.42186" height="2.42186" transform="matrix(-1 0 0 1 19.6544 22.1692)" fill="#333"/><rect width="2.42186" height="2.42186" transform="matrix(-1 0 0 1 19.4681 2.42188)" fill="#333"/><rect width="2.42186" height="2.42186" transform="matrix(-1 0 0 1 29.3418 2.42188)" fill="#333"/><rect width="2.42186" height="7.63818" transform="matrix(-1 0 0 1 31.7637 4.84363)" fill="#333"/><rect width="7.45189" height="2.42186" transform="matrix(-1 0 0 1 26.9199 0)" fill="#333"/>
         </svg>
@@ -61,20 +57,21 @@
   <div class="care-bottom">
 
     <div class="care-tab-nav">
-      <button class="care-tab care-tab--water care-tab--active"
+      <button class="care-tab care-tab--water <%= @active_tab == 'water' ? 'care-tab--active' : 'care-tab--inactive' %>"
               data-care-target="waterTab"
               data-action="click->care#showWater">
-        <span class="care-tab-arrow">&#9656;</span> WATER
+        <% if @active_tab == "water" %><span class="care-tab-arrow">&#9656;</span> <% end %>WATER
       </button>
-      <button class="care-tab care-tab--pot care-tab--inactive"
+      <button class="care-tab care-tab--pot <%= @active_tab == 'pot' ? 'care-tab--active' : 'care-tab--inactive' %>"
               data-care-target="potTab"
               data-action="click->care#showPot">
-        POT
+        <% if @active_tab == "pot" %><span class="care-tab-arrow">&#9656;</span> <% end %>POT
       </button>
     </div>
 
     <%# Water panel %>
-    <div class="care-panel care-panel--water" data-care-target="waterPanel">
+    <div class="care-panel care-panel--water" data-care-target="waterPanel"
+         style="<%= @active_tab == 'water' ? '' : 'display:none' %>">
       <% days_since_watered = (Date.today - @plant.last_watered).to_i %>
       <% days_remaining = [@plant.watering_interval - days_since_watered, 0].max %>
       <% water_pct = (days_remaining.to_f / @plant.watering_interval).clamp(0.0, 1.0) %>
@@ -124,7 +121,8 @@
     </div>
 
     <%# Pot panel %>
-    <div class="care-panel care-panel--pot" data-care-target="potPanel" style="display:none">
+    <div class="care-panel care-panel--pot" data-care-target="potPanel"
+         style="<%= @active_tab == 'pot' ? '' : 'display:none' %>">
       <% days_since_repot = (Date.today - @plant.last_repot).to_i %>
       <% repot_days_remaining = [@plant.repot_interval - days_since_repot, 0].max %>
       <% repot_pct = (repot_days_remaining.to_f / @plant.repot_interval).clamp(0.0, 1.0) %>
@@ -174,5 +172,7 @@
     </div>
 
   </div>
+
+  <% end %>
 
 </div>

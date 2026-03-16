@@ -6,11 +6,11 @@
   <!-- Top badges -->
   <div class="garden-header">
     <div class="garden-badge">
-      <%= image_tag "leaf_coin.png", class: "garden-badge-icon", alt: "plants" %>
-      <%= @total_plant_count %>/6
+      <%= image_tag "pot-mini.svg", class: "garden-badge-icon", alt: "plants" %>
+      <%= @total_plant_count %>
     </div>
     <div class="garden-badge">
-      <%= image_tag "leaf_coin.png", class: "garden-badge-icon garden-coin-icon", alt: "coins" %>
+      <%= image_tag "leaf_coin.svg", class: "garden-badge-icon garden-coin-icon", alt: "coins" %>
       <%= current_user.leaf_coins %>
     </div>
   </div>
@@ -25,7 +25,7 @@
       <% slots.each_with_index do |plant, i| %>
         <div class="<%= "garden-slot garden-slot--#{i + 1}" %>">
           <% if plant %>
-            <%= link_to plant_menu_plant_path(plant), class: "garden-tile", data: { turbo_frame: "_top" } do %>
+            <%= link_to plant_path(plant), class: "garden-tile", data: { turbo_frame: "_top" } do %>
               <div class="tile-wrapper">
                 <% avatar = File.exist?(Rails.root.join("app/assets/images/avatars/#{plant.avatar_img}")) ? "avatars/#{plant.avatar_img}" : "avatars/undefined_pink_happy.svg" %>
                 <%= image_tag "tile.svg", class: "tile-base", alt: "" %>
