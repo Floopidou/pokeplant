@@ -8,8 +8,8 @@ class Plant < ApplicationRecord
   end
 
   belongs_to :user
-  has_many :plantpotpairs
-  has_many :chats
+  has_many :plant_pot_pairs, dependent: :destroy
+  has_many :chats, dependent: :destroy
   has_one_attached :photo
 
   # presence de tout sauf photo, nickanme (défini après) personality et personality tags (défini après)
@@ -42,20 +42,47 @@ class Plant < ApplicationRecord
   validates :last_repot, :last_watered, comparison: { less_than_or_equal_to: ->(_) { Date.today } }
 
   def mood
-    return :thirsty if needs_water?
-    return :grumpy if needs_repot?
-    return :lonely if mood_points <= 60
+    return "thirsty" if needs_water?
+    return "grumpy" if needs_repot?
+    return "lonely" if mood_points <= 60
 
-    :happy
+    "happy"
   end
 
+  # getting the right avatar for the plant at creation
+  def avatar_setting!
+    self.avatar_img = "#{plant_type}_pink_#{mood}.svg"
+  end
+
+  # updating the avatar
+  def avatar_updating!
+    self.avatar_img = "#{plant_type}_#{pot_color}_#{mood}.svg"
+  end
+
+  def plant_type
+    if common_name.downcase.include?("swiss") || common_name.downcase.include?("monstera")
+      return "monstera"
+    elsif common_name.downcase.include?("pothos")
+      return "pothos"
+    else
+      return "undefined"
+    end
+  end
+  
   private
 
   def needs_water?
-    (Date.today - last_watered).to_i > watering_interval
+    (Date.today - self.last_watered).to_i >= watering_interval
   end
 
   def needs_repot?
-    (Date.today - last_repot).to_i > repot_interval
+    (Date.today - self.last_repot).to_i >= repot_interval
   end
+
+  ### avatars infos
+  def pot_color
+    return "pink" # todo
+  end
+
+
 end

@@ -5,7 +5,7 @@
 
   <h1 class="garden-title">Name your plant</h1>
 
-  <% avatar = File.exist?(Rails.root.join("app/assets/images/avatars/#{@plant.avatar_img}")) ? "avatars/#{@plant.avatar_img}" : "avatars/happy_monstera.svg" %>
+  <% avatar = File.exist?(Rails.root.join("app/assets/images/avatars/#{@plant.avatar_img}")) ? "avatars/#{@plant.avatar_img}" : "avatars/undefined/undefined_pink_happy.svg" %>
   <%= image_tag avatar, class: "name-avatar", alt: @plant.common_name %>
 
   <form action="<%= apply_name_plant_path(@plant) %>" method="post" class="name-form">

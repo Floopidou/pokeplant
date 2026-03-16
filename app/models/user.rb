@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   attr_writer :login
-  
+
   before_validation do
     self.leaf_coins ||= 0
   end
@@ -9,9 +9,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_many :plants
-  has_many :chats
-  
+  has_many :plants, dependent: :destroy
+  has_many :chats, dependent: :destroy
+
   def login
     @login || username || email
   end
