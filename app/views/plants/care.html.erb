@@ -1,1 +1,120 @@
-<h1>Care</h1>
+<% content_for :body_class, "garden-body" %>
+<% content_for :hide_navbar, "true" %>
+
+<div class="garden-page care-page" data-controller="care">
+
+  <!-- Top badges -->
+  <div class="garden-header">
+    <div class="garden-badge">
+      <%= image_tag "leaf_coin.png", class: "garden-badge-icon", alt: "plants" %>
+      <%= current_user.plants.count %>/6
+    </div>
+    <div class="garden-badge">
+      <%= image_tag "leaf_coin.png", class: "garden-badge-icon garden-coin-icon", alt: "coins" %>
+      <%= current_user.leaf_coins %>
+    </div>
+  </div>
+
+  <!-- Nav: back + info button -->
+  <div class="care-nav">
+    <%= link_to plant_menu_plant_path(@plant), class: "care-back-btn" do %>&#8592;<% end %>
+    <%= link_to infos_plant_path(@plant), class: "care-help-btn" do %>
+      <%= image_tag "info_page.svg", class: "care-help-icon", alt: "info" %>
+    <% end %>
+  </div>
+
+  <!-- Plant name + species -->
+  <h1 class="garden-title care-plant-name"><%= @plant.nickname %></h1>
+  <p class="care-plant-species"><%= @plant.common_name %></p>
+
+  <!-- Avatar -->
+  <div class="care-avatar-zone">
+    <% avatar = File.exist?(Rails.root.join("app/assets/images/avatars/#{@plant.avatar_img}")) ? "avatars/#{@plant.avatar_img}" : "avatars/happy_monstera.svg" %>
+    <%= image_tag avatar, class: "care-avatar", alt: @plant.nickname %>
+  </div>
+
+  <!-- Hearts + mood -->
+  <div class="care-mood">
+    <div class="care-hearts">
+      <%# Heart 1 — filled (pink) %>
+      <svg class="care-heart-svg" width="32" height="28" viewBox="0 0 32 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0.964844 11.0947L15.9185 26.0483L29.9074 11.577V5.30615L25.566 1.44714H20.2599L15.9185 6.27091L11.5771 1.44714H5.78861L0.964844 6.27091V11.0947Z" fill="#F2A0B0"/>
+        <rect x="14.6244" y="4.84363" width="2.42186" height="2.42186" fill="#333"/><rect x="2.42188" y="12.4819" width="2.42186" height="2.42186" fill="#333"/><rect x="4.93689" y="14.9038" width="2.42186" height="2.42186" fill="#333"/><rect x="7.35876" y="17.3256" width="2.42186" height="2.42186" fill="#333"/><rect x="9.78064" y="19.7474" width="2.42186" height="2.42186" fill="#333"/><rect x="12.3888" y="22.1692" width="2.42186" height="2.42186" fill="#333"/><rect x="14.8107" y="24.5912" width="2.42186" height="2.42186" fill="#333"/><rect x="12.2025" y="2.42188" width="2.42186" height="2.42186" fill="#333"/><rect x="2.42188" y="2.42188" width="2.42186" height="2.42186" fill="#333"/><rect x="0" y="4.84363" width="2.42186" height="7.63818" fill="#333"/><rect x="4.84375" y="0" width="7.35874" height="2.42186" fill="#333"/>
+        <rect width="2.42186" height="2.42186" transform="matrix(-1 0 0 1 29.3418 12.4819)" fill="#333"/><rect width="2.42186" height="2.42186" transform="matrix(-1 0 0 1 26.9199 14.9038)" fill="#333"/><rect width="2.42186" height="2.42186" transform="matrix(-1 0 0 1 24.498 17.3256)" fill="#333"/><rect width="2.42186" height="2.42186" transform="matrix(-1 0 0 1 22.0763 19.7474)" fill="#333"/><rect width="2.42186" height="2.42186" transform="matrix(-1 0 0 1 19.6544 22.1692)" fill="#333"/><rect width="2.42186" height="2.42186" transform="matrix(-1 0 0 1 19.4681 2.42188)" fill="#333"/><rect width="2.42186" height="2.42186" transform="matrix(-1 0 0 1 29.3418 2.42188)" fill="#333"/><rect width="2.42186" height="7.63818" transform="matrix(-1 0 0 1 31.7637 4.84363)" fill="#333"/><rect width="7.45189" height="2.42186" transform="matrix(-1 0 0 1 26.9199 0)" fill="#333"/>
+      </svg>
+      <%# Hearts 2–5 — empty (light pink) %>
+      <% 4.times do %>
+        <svg class="care-heart-svg" width="32" height="28" viewBox="0 0 32 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0.964844 11.0947L15.9185 26.0483L29.9074 11.577V5.30615L25.566 1.44714H20.2599L15.9185 6.27091L11.5771 1.44714H5.78861L0.964844 6.27091V11.0947Z" fill="#F9DFE4"/>
+          <rect x="14.6244" y="4.84363" width="2.42186" height="2.42186" fill="#333"/><rect x="2.42188" y="12.4819" width="2.42186" height="2.42186" fill="#333"/><rect x="4.93689" y="14.9038" width="2.42186" height="2.42186" fill="#333"/><rect x="7.35876" y="17.3256" width="2.42186" height="2.42186" fill="#333"/><rect x="9.78064" y="19.7474" width="2.42186" height="2.42186" fill="#333"/><rect x="12.3888" y="22.1692" width="2.42186" height="2.42186" fill="#333"/><rect x="14.8107" y="24.5912" width="2.42186" height="2.42186" fill="#333"/><rect x="12.2025" y="2.42188" width="2.42186" height="2.42186" fill="#333"/><rect x="2.42188" y="2.42188" width="2.42186" height="2.42186" fill="#333"/><rect x="0" y="4.84363" width="2.42186" height="7.63818" fill="#333"/><rect x="4.84375" y="0" width="7.35874" height="2.42186" fill="#333"/>
+          <rect width="2.42186" height="2.42186" transform="matrix(-1 0 0 1 29.3418 12.4819)" fill="#333"/><rect width="2.42186" height="2.42186" transform="matrix(-1 0 0 1 26.9199 14.9038)" fill="#333"/><rect width="2.42186" height="2.42186" transform="matrix(-1 0 0 1 24.498 17.3256)" fill="#333"/><rect width="2.42186" height="2.42186" transform="matrix(-1 0 0 1 22.0763 19.7474)" fill="#333"/><rect width="2.42186" height="2.42186" transform="matrix(-1 0 0 1 19.6544 22.1692)" fill="#333"/><rect width="2.42186" height="2.42186" transform="matrix(-1 0 0 1 19.4681 2.42188)" fill="#333"/><rect width="2.42186" height="2.42186" transform="matrix(-1 0 0 1 29.3418 2.42188)" fill="#333"/><rect width="2.42186" height="7.63818" transform="matrix(-1 0 0 1 31.7637 4.84363)" fill="#333"/><rect width="7.45189" height="2.42186" transform="matrix(-1 0 0 1 26.9199 0)" fill="#333"/>
+        </svg>
+      <% end %>
+    </div>
+    <p class="care-mood-text"><%= @plant.nickname %> is thirsty :(</p>
+  </div>
+
+  <!-- WATER / POT tab card -->
+  <div class="care-bottom">
+
+    <div class="care-tab-nav">
+      <button class="care-tab care-tab--water care-tab--active"
+              data-care-target="waterTab"
+              data-action="click->care#showWater">
+        <span class="care-tab-arrow">&#9656;</span> WATER
+      </button>
+      <button class="care-tab care-tab--pot care-tab--inactive"
+              data-care-target="potTab"
+              data-action="click->care#showPot">
+        POT
+      </button>
+    </div>
+
+    <%# Water panel %>
+    <div class="care-panel care-panel--water" data-care-target="waterPanel">
+      <div class="care-bar-wrap">
+        <div class="care-bar-indicator-row">
+          <div class="care-bar-indicator" style="left:15%">&#9660;</div>
+        </div>
+        <div class="care-bar-cells">
+          <% 20.times do |i| %>
+            <div class="care-bar-cell <%= i < 3 ? 'care-bar-cell--water' : '' %>"></div>
+          <% end %>
+        </div>
+        <div class="care-bar-labels">
+          <span>dry</span>
+          <span>hydrated</span>
+        </div>
+      </div>
+      <%# TODO backend: form action: water_plant_path(@plant), method: :patch %>
+      <button class="care-action-btn" type="button">
+        WATER <%= image_tag "water-drop.svg", class: "care-btn-icon", alt: "" %>
+      </button>
+    </div>
+
+    <%# Pot panel %>
+    <div class="care-panel care-panel--pot" data-care-target="potPanel" style="display:none">
+      <div class="care-bar-wrap">
+        <div class="care-bar-indicator-row">
+          <div class="care-bar-indicator" style="left:5%">&#9660;</div>
+        </div>
+        <div class="care-bar-cells">
+          <% 20.times do |i| %>
+            <div class="care-bar-cell <%= i < 1 ? 'care-bar-cell--pot' : '' %>"></div>
+          <% end %>
+        </div>
+        <div class="care-bar-labels care-bar-labels--3">
+          <span>S</span>
+          <span>M</span>
+          <span>XL</span>
+        </div>
+      </div>
+      <%# TODO backend: form action: repot_plant_path(@plant), method: :patch %>
+      <button class="care-action-btn" type="button">
+        POT <%= image_tag "pot-mini.svg", class: "care-btn-icon", alt: "" %>
+      </button>
+    </div>
+
+  </div>
+
+</div>

@@ -3,19 +3,19 @@
 
     <!-- Header -->
     <div class="chats-index-header">
-      <%= link_to plant_menu_plant_path(@plant), class: "chat-back-link" do %>
-        <%= image_tag "cross.svg", alt: "Close", class: "chat-close-icon" %>
-      <% end %>
       <div class="chats-plant-info">
         <%= image_tag "avatars/monstera_avatar.svg", alt: @plant.common_name, class: "chats-plant-avatar" %>
         <h1 class="chats-title">Chats with <%= @plant.nickname || @plant.common_name %></h1>
       </div>
+      <%= link_to plant_menu_plant_path(@plant), class: "chat-back-link" do %>
+        <%= image_tag "cross.svg", alt: "Close", class: "chat-close-icon" %>
+      <% end %>
     </div>
 
     <!-- Bouton nouvelle conversation -->
     <div class="chats-new">
       <%= button_to plant_chats_path(@plant), method: :post, class: "pixel-btn pixel-btn--green chats-new-btn" do %>
-        🌱 NEW CHAT
+        NEW CHAT
       <% end %>
     </div>
 
@@ -25,7 +25,6 @@
         <% @chats.each do |chat| %>
           <div class="chat-item">
             <%= link_to plant_chat_path(@plant, chat), class: "chat-item-link" do %>
-              <div class="chat-item-icon">💬</div>
               <div class="chat-item-info">
                 <span class="chat-item-date"><%= chat.created_at.strftime("%d/%m/%Y à %H:%M") %></span>
                 <span class="chat-item-preview">
@@ -38,9 +37,22 @@
                 <span class="chat-item-count"><%= chat.messages.count %> message<%= chat.messages.count > 1 ? 's' : '' %></span>
               </div>
             <% end %>
-            <%= button_to plant_chat_path(@plant, chat), method: :delete, class: "chat-item-delete", data: { turbo_confirm: "Supprimer cette conversation ?" } do %>
-              🗑️
-            <% end %>
+
+<!----delete--------->
+            <%# button_to plant_chat_path(@plant, chat), method: :delete, class: "chat-item-delete", data: { turbo_confirm: "Supprimer cette conversation ?" } do %>
+              <!--🗑️-->
+            <%# end %>
+           <div data-controller="confirm-modal"
+                data-confirm-modal-title-value="Delete ?"
+                data-confirm-modal-message-value="This conversation will be lost forever 🥺"
+                data-confirm-modal-url-value="<%= plant_chat_path(@plant, chat) %>">
+              <button type="button"
+                      class="chat-item-delete"
+                      data-action="click->confirm-modal#open">
+                🗑️
+              </button>
+            </div>
+<!----fin delete----->
           </div>
         <% end %>
       <% else %>
