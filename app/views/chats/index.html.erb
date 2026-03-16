@@ -4,7 +4,7 @@
     <!-- Header -->
     <div class="chats-index-header">
       <div class="chats-plant-info">
-        <%= image_tag "avatars/monstera_avatar.svg", alt: @plant.common_name, class: "chats-plant-avatar" %>
+        <%= image_tag "avatars/#{@plant.avatar_img}", alt: @plant.common_name, class: "chats-plant-avatar" %>
         <h1 class="chats-title">Chats with <%= @plant.nickname || @plant.common_name %></h1>
       </div>
       <%= link_to plant_menu_plant_path(@plant), class: "chat-back-link" do %>

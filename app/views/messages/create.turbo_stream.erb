@@ -15,8 +15,7 @@
 <%= turbo_stream.append "chat-messages" do %>
   <div class="chat-message chat-message--plant">
     <div class="chat-message-avatar">
-      <%# <%= image_tag "avatars/#{@plant.avatar_img}", alt: @plant.common_name, class: "chat-message-avatar-img" %>
-      <%= image_tag "avatars/monstera_avatar.svg", alt: @plant.common_name, class: "chat-message-avatar-img" %>
+<%= image_tag "avatars/#{@plant.avatar_img}", alt: @plant.common_name, class: "chat-message-avatar-img" %>
     </div>
     <div class="chat-bubble chat-bubble--plant">
       <p><%= @plant_message.content %></p>
@@ -25,24 +24,26 @@
   </div>
 <% end %>
 
-<%# Réactiver le bouton et vider l'input %>
-<%= turbo_stream.replace "chat-input" do %>
-  <input type="text"
-         class="chat-input pixel-input"
-         placeholder="Parle à ta plante..."
-         autocomplete="off"
-         name="message[content]"
-         id="chat-input"
-         required
-         data-chat-form-target="input">
-<% end %>
-
-<%# Réactiver le bouton %>
-<%= turbo_stream.replace "submit-button" do %>
-  <button type="submit"
-          class="chat-send-btn pixel-btn pixel-btn--pink"
-          id="submit-button"
-          data-chat-form-target="button">
-    ✨ Envoyer
-  </button>
+<%# Remplacer tout le formulaire %>
+<%= turbo_stream.replace "chat-form" do %>
+  <%= form_with model: Message.new,
+                url: plant_chat_messages_path(@plant, @chat),
+                id: "chat-form",
+                class: "chat-form",
+                data: { action: "submit->chat-form#submit" } do |f| %>
+    <div class="chat-input-wrapper">
+      <%= f.text_field :content,
+                       class: "chat-input pixel-input",
+                       placeholder: "Parle à ta plante...",
+                       autocomplete: "off",
+                       id: "chat-input",
+                       required: true,
+                       data: { chat_form_target: "input" } %>
+      <button type="submit"
+              class="chat-send-btn pixel-btn pixel-btn--pink"
+              data-chat-form-target="button">
+        ✨ Envoyer
+      </button>
+    </div>
+  <% end %>
 <% end %>

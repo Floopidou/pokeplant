@@ -1,14 +1,13 @@
 <div class="chat-page">
   <div class="chat-container"
        data-controller="chat-form"
-       data-chat-form-target="container"
-       >
+       data-plant-avatar="<%= asset_path("avatars/#{@plant.avatar_img}") %>">
 
     <!-- Header avec la plante -->
     <div class="chat-header">
       <div class="chat-plant-avatar">
-        <%# image_tag "avatars/#{@plant.avatar_img}", alt: @plant.common_name, class: "chat-avatar-img" %>
-        <%= image_tag "avatars/monstera_avatar.svg", alt: @plant.common_name, class: "chat-avatar-img" %>
+        <%= image_tag "avatars/#{@plant.avatar_img}", alt: @plant.common_name, class: "chat-avatar-img" %>
+        <%# image_tag "avatars/monstera_avatar.svg", alt: @plant.common_name, class: "chat-avatar-img" %>
 
       </div>
       <div class="chat-plant-info">
@@ -52,7 +51,7 @@
           <div class="chat-message chat-message--plant">
             <div class="chat-message-avatar">
               <%# image_tag "avatars/#{@plant.avatar_img}", alt: @plant.common_name, class: "chat-message-avatar-img" %>
-              <%= image_tag "avatars/monstera_avatar.svg", alt: @plant.common_name, class: "chat-message-avatar-img" %>
+              <%= image_tag "avatars/#{@plant.avatar_img}", alt: @plant.common_name, class: "chat-message-avatar-img" %>
             </div>
             <div class="chat-bubble chat-bubble--plant">
               <p><%= message.content %></p>
@@ -67,6 +66,7 @@
     <div class="chat-input-area">
       <%= form_with model: Message.new,
                     url: plant_chat_messages_path(@plant, @chat),
+                    id: "chat-form",
                     class: "chat-form",
                     data: { action: "submit->chat-form#submit" } do |f| %>
         <div class="chat-input-wrapper">
