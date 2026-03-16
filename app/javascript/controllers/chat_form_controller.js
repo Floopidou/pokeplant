@@ -28,10 +28,12 @@ export default class extends Controller {
   }
 
   showTypingIndicator() {
+    const container = this.element.closest('.chat-container')
+    const avatarPath = container?.dataset.plantAvatar || ""
     const typingHTML = `
       <div class="chat-message chat-message--plant" id="typing-indicator">
         <div class="chat-message-avatar">
-          <img src="${this.element.dataset.plantAvatar}" alt="Plant" class="chat-message-avatar-img">
+          <img src="${avatarPath}" alt="Plant" class="chat-message-avatar-img">
         </div>
         <div class="chat-bubble chat-bubble--plant">
           <div class="chat-typing">
