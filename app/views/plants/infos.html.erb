@@ -3,49 +3,19 @@
 
 <div class="infos-page">
 
-  <%= image_tag "Info page plant.svg", class: "infos-bg", alt: "" %>
+  <% infos_bg = case @plant.common_name.downcase
+               when /golden pothos/ then "golden pothos.svg"
+               when /monstera/      then "Info page plant.svg"
+               else "Info page plant.svg"
+               end %>
+  <%= image_tag infos_bg, class: "infos-bg", alt: "" %>
 
   <div class="infos-top">
     <%= link_to plants_path, class: "infos-back" do %>
       <%= image_tag "arrow.svg", alt: "back" %>
     <% end %>
 
-    <h1 class="infos-title"><%= @plant.common_name.upcase %></h1>
-  </div>
-
-  <div class="infos-bottom">
-    <div class="infos-card">
-      <%= image_tag "cadre_infos.svg", class: "infos-card-bg", alt: "" %>
-
-      <div class="infos-card-content">
-
-        <p class="infos-label">common name:</p>
-        <p class="infos-value infos-underline"><%= @plant.common_name %></p>
-
-        <p class="infos-quote">"<%= @plant.description %>"</p>
-
-        <p class="infos-label">origin region:</p>
-        <p class="infos-value"><%= @plant.origin_region %></p>
-
-        <div class="infos-row">
-          <span class="infos-icon">☀️</span>
-          <div>
-            <p class="infos-row-text">light need: <%= @plant.light_need %></p>
-            <p class="infos-row-text">optimal placement: "<%= @plant.optimal_placement %>"</p>
-          </div>
-        </div>
-
-        <div class="infos-row">
-          <span class="infos-icon">🪴</span>
-          <div>
-            <p class="infos-row-text">ideal pot size: "<%= @plant.ideal_pot_size %>"</p>
-            <p class="infos-row-text">repot interval: <%= @plant.repot_interval %></p>
-            <p class="infos-row-text">type of soil: "<%= @plant.type_of_soil %>"</p>
-          </div>
-        </div>
-
-      </div>
-    </div>
+    <h1 class="infos-title"><%= @plant.common_name %></h1>
   </div>
 
 </div>

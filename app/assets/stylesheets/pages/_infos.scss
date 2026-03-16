@@ -21,14 +21,15 @@
   overflow-x: hidden;
 }
 
-// ── Background SVG (first in DOM = no white line) ────────────
+// ── Background SVG ────────────────────────────────────────────
 
 .infos-bg {
   width: 100%;
   height: auto;
   display: block;
-  position: sticky;
+  position: absolute;
   top: 0;
+  left: 0;
   z-index: 1;
 }
 
@@ -63,12 +64,15 @@
 
 .infos-title {
   font-family: "PressStart2P", monospace;
-  font-size: 1.50rem;
+  font-size: 1.6rem;
   color: $pp-dark-green;
   text-align: center;
-  margin: 8px 0 12px;
+  margin: 52px 0 12px;
   letter-spacing: 1px;
+  text-shadow: 3px 3px 0px #FFFFFF;
+  text-transform: capitalize;
 }
+
 
 // ── Bottom section ───────────────────────────────────────────
 
