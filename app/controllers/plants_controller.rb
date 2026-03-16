@@ -157,13 +157,13 @@ class PlantsController < ApplicationController
   def water
     @plant = Plant.find(params[:id])
     @plant.update(last_watered: Date.today)
-    redirect_to plant_path(@plant)
+    redirect_to care_plant_path(@plant)
   end
 
   def repot
     @plant = Plant.find(params[:id])
     @plant.update(last_repot: Date.today)
-    redirect_to plant_path(@plant)
+    redirect_to care_plant_path(@plant)
   end
 
   def care

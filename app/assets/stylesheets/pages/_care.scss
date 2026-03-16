@@ -162,7 +162,6 @@
   line-height: 1;
   margin-right: 6px;
   margin-bottom: 10px;
-
 }
 
 // ── Panel ─────────────────────────────────────────────────────
@@ -182,61 +181,34 @@
   &--pot   { background: $pp-lightpink;   justify-content: center; }
 }
 
-// ── Progress bar ──────────────────────────────────────────────
+// ── Water gauge ───────────────────────────────────────────────
 
-.care-bar-wrap {
+.care-water-wrap {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  align-items: center;
+  gap: 8px;
 }
 
-.care-bar-indicator-row {
-  position: relative;
-  width: 100%;
-  height: 12px;
-}
-
-.care-bar-indicator {
-  position: absolute;
-  font-size: 0.5rem;
-  color: rgba(0, 0, 0, 0.45);
-  transform: translateX(-50%);
-  line-height: 1;
-}
-
-// 20-cell pixel bar
-.care-bar-cells {
-  display: flex;
-  gap: 2px;
-  width: 100%;
-  padding: 3px;
-  background: $pp-cream;
-
-  .care-panel--water & { border: 2px solid $pp-skyblue; }
-  .care-panel--pot   & { border: 2px solid $pp-brown; }
-}
-
-.care-bar-cell {
-  flex: 1;
-  height: 16px;
-  background: $pp-cream;
-  border: 1px solid #ddd;
-
-  &--water { background: #7ec8e3; border-color: #5ab0cb; }
-  &--pot   { background: $pp-brown; border-color: darken($pp-brown, 10%); }
-}
-
-.care-bar-labels {
-  display: flex;
-  justify-content: space-between;
+.care-water-countdown {
   font-family: $pixel-font;
-  font-size: 0.38rem;
+  font-size: 0.48rem;
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+  margin: 0;
   letter-spacing: 0.5px;
 
-  .care-panel--water & { color: rgba(255, 255, 255, 0.8); }
-  .care-panel--pot   & { color: rgba(0, 0, 0, 0.55); }
+  &--pot { color: rgba($pp-brown, 0.9); text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5); }
 }
+
+.care-water-gauge {
+  width: 100%;
+  height: auto;
+  display: block;
+  image-rendering: pixelated;
+}
+
 
 // ── Action button ──────────────────────────────────────────────
 
