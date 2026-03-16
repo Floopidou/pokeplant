@@ -8,8 +8,8 @@ class Plant < ApplicationRecord
   end
 
   belongs_to :user
-  has_many :plantpotpairs
-  has_many :chats
+  has_many :plantpotpairs, dependent: :destroy
+  has_many :chats, dependent: :destroy
   has_one_attached :photo
 
   # presence de tout sauf photo, nickanme (défini après) personality et personality tags (défini après)

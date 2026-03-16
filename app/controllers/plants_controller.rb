@@ -17,6 +17,8 @@ class PlantsController < ApplicationController
     frantic restless serene jovial sulky gallant furtive
     Tuesday Wednesday puzzle blip zigzag meander rumble tangle flurry lurk
   ].freeze
+
+  #### THE GARDEN AND INFOS PAGES
   def index
     per_page = 6
     @current_page = (params[:page] || 1).to_i.clamp(1, 4)
@@ -27,6 +29,10 @@ class PlantsController < ApplicationController
 
   def show
     @plant = Plant.find(params[:id])
+    plants = current_user.plants.order(:position_in_garden).to_a
+    idx = plants.index(@plant)
+    @prev_plant = plants[(idx - 1) % plants.size]
+    @next_plant = plants[(idx + 1) % plants.size]
   end
 
   def infos
@@ -138,7 +144,7 @@ class PlantsController < ApplicationController
     @plant.personality = personality_setter(@plant.input_date, string_of_tags)
 
     if @plant.save
-      redirect_to plant_menu_plant_path(@plant), notice: "Personality of #{@plant.nickname} has been generated!"
+      redirect_to plant_path(@plant), notice: "Personality of #{@plant.nickname} has been generated!"
     else
       flash[:alert] = "Could not save the plant: #{@plant.errors.full_messages.join(', ')}"
       redirect_to select_tags_plant_path(@plant)
@@ -166,13 +172,6 @@ class PlantsController < ApplicationController
     redirect_to plant_path(@plant)
   end
 
-  def plant_menu
-    @plant = Plant.find(params[:id])
-    plants = current_user.plants.order(:position_in_garden).to_a
-    idx = plants.index(@plant)
-    @prev_plant = plants[(idx - 1) % plants.size]
-    @next_plant = plants[(idx + 1) % plants.size]
-  end
   private
 
   def get_avatar(name)
