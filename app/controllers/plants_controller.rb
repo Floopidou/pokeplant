@@ -29,7 +29,7 @@ class PlantsController < ApplicationController
     @plant = Plant.find(params[:id])
   end
 
-  def test
+  def infos
     @plant = Plant.find(params[:id])
   end
 
@@ -173,6 +173,7 @@ class PlantsController < ApplicationController
     @prev_plant = plants[(idx - 1) % plants.size]
     @next_plant = plants[(idx + 1) % plants.size]
   end
+
   private
 
   def get_avatar(name)
