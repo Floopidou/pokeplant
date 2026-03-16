@@ -5,7 +5,9 @@
 
   <h1 class="garden-title">New plant</h1>
 
-  <form action="<%= plants_path %>" method="post" enctype="multipart/form-data">
+  <form action="<%= plants_path %>" method="post" enctype="multipart/form-data"
+        data-turbo="false"
+        data-action="submit->plant-upload#submitWithLoader">
     <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
 
     <div class="plant-photo-preview" data-plant-upload-target="preview"
@@ -27,5 +29,49 @@
       Identify my plant
     </button>
   </form>
+
+  <!-- Kawaii loader overlay (hidden until form submit) -->
+  <div class="kawaii-loader" data-plant-upload-target="loader" style="display:none">
+    <div class="kawaii-blob b1"></div>
+    <div class="kawaii-blob b2"></div>
+    <div class="kawaii-blob b3"></div>
+    <div class="kawaii-blob b4"></div>
+
+    <div class="kawaii-twinkle" style="left:7%;top:10%;animation-duration:2.1s;animation-delay:0s;">
+      <svg width="8" height="8" viewBox="0 0 8 8" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges"><rect x="3" y="0" width="2" height="8" fill="#f48fb1"/><rect x="0" y="3" width="8" height="2" fill="#f48fb1"/></svg>
+    </div>
+    <div class="kawaii-twinkle" style="right:8%;top:14%;animation-duration:2.6s;animation-delay:0.5s;">
+      <svg width="8" height="8" viewBox="0 0 8 8" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges"><rect x="3" y="0" width="2" height="8" fill="#ce93d8"/><rect x="0" y="3" width="8" height="2" fill="#ce93d8"/></svg>
+    </div>
+    <div class="kawaii-twinkle" style="left:6%;bottom:22%;animation-duration:1.9s;animation-delay:0.9s;">
+      <svg width="6" height="6" viewBox="0 0 6 6" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges"><rect x="2" y="0" width="2" height="6" fill="#80cbc4"/><rect x="0" y="2" width="6" height="2" fill="#80cbc4"/></svg>
+    </div>
+    <div class="kawaii-twinkle" style="right:6%;bottom:20%;animation-duration:2.3s;animation-delay:0.3s;">
+      <svg width="6" height="6" viewBox="0 0 6 6" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges"><rect x="2" y="0" width="2" height="6" fill="#fff176"/><rect x="0" y="2" width="6" height="2" fill="#fff176"/></svg>
+    </div>
+    <div class="kawaii-twinkle" style="left:50%;top:8%;animation-duration:2.4s;animation-delay:0.7s;">
+      <svg width="6" height="6" viewBox="0 0 6 6" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges"><rect x="2" y="0" width="2" height="6" fill="#B1F542"/><rect x="0" y="2" width="6" height="2" fill="#B1F542"/></svg>
+    </div>
+
+    <div class="kawaii-content">
+      <div class="kawaii-stage" data-plant-upload-target="loaderStage">
+        <div class="kawaii-pop p1">&#9825;</div>
+        <div class="kawaii-pop p2">&#9825;</div>
+        <div class="kawaii-pop p3">&#9825;</div>
+        <div class="kawaii-pop p4">&#9826;</div>
+        <div class="kawaii-pop p5">&#9826;</div>
+        <div class="kawaii-pop p6">&#9826;</div>
+        <canvas data-plant-upload-target="loaderCanvas" width="160" height="160"></canvas>
+      </div>
+
+      <div class="kawaii-ui">
+        <div class="kawaii-lbl">generating avatar</div>
+        <div class="kawaii-bar-outer">
+          <div class="kawaii-bar-inner" data-plant-upload-target="loaderBar"></div>
+        </div>
+        <div class="kawaii-sublbl" data-plant-upload-target="loaderSubLabel" style="color:#ab6fc8;">assembling...</div>
+      </div>
+    </div>
+  </div>
 
 </div>
