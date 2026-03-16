@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
   #test chat
   get 'chat_test', to: 'chats#test'
-  get 'plants/:id/test', to: 'plants#test'
+
   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
@@ -39,6 +39,10 @@ Rails.application.routes.draw do
       get :select_tags
       patch :apply_tags
 
+      #infos page
+      get :infos
+      get :care
+
       # other useful routes
       get :plant_reminders # builds a list of reminders linked to my plants
       patch :update_name # change name of my plant
@@ -46,7 +50,7 @@ Rails.application.routes.draw do
       patch :repot # repots the plant
       patch :pet # pets the plant
 
-      get :plant_menu 
+      get :plant_menu
     end
   end
 
