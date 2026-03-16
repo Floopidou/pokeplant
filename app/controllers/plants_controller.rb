@@ -23,12 +23,19 @@ class PlantsController < ApplicationController
     per_page = 6
     @current_page = (params[:page] || 1).to_i.clamp(1, 4)
     all_plants = current_user.plants.order(position_in_garden: :asc)
+
+    # updating moods
+    all_plants.each do |p|
+      p.avatar_updating!
+    end
+
     @total_plant_count = all_plants.count
     @paged_plants = all_plants.offset((@current_page - 1) * per_page).limit(per_page)
   end
 
   def show
     @plant = Plant.find(params[:id])
+    @plant.avatar_updating!
     plants = current_user.plants.order(:position_in_garden).to_a
     idx = plants.index(@plant)
     @prev_plant = plants[(idx - 1) % plants.size]
@@ -76,17 +83,14 @@ class PlantsController < ApplicationController
     # j'en fais un hash avec ces arguments
     partial_plant_hash = plant_data.slice(*array_of_ai_generated_plant_columns)
 
-    # je cherche l'avatar
-
     @plant = Plant.new(
       user: current_user,
       position_in_garden: next_pos,
       **partial_plant_hash # le ** imbrique le hash dans l'autre hash
     )
 
-    # avatar_img: avatar, # Il va falloir faire un finder sur base du nom de plante (un SEVRVICE)
-    correct_avatar = get_avatar(@plant.common_name)
-    @plant.avatar_img = correct_avatar
+    # je met l'avatar correspondant à la plant
+    @plant.avatar_setting
 
     # ---> j'upload la photo
     @plant.photo.attach(params[:photo])
@@ -130,7 +134,7 @@ class PlantsController < ApplicationController
     selected = Array(params[:selected_tags]).first(3)
     missing = 3 - selected.size
 
-    if missing > 0
+    if missing.positive?
       flash[:alert] = if missing == 3
                         "Please check 3 words."
                       else
@@ -158,31 +162,47 @@ class PlantsController < ApplicationController
   end
 
   def destroy
+    @plant = Plant.find(params[:id])
+    @plant.destroy
+
+    redirect_to plants_path
+  end
+
+  ### CARING FOR THE PLANT
+  def care
+    @plant = Plant.find(params[:id])
   end
 
   def water
     @plant = Plant.find(params[:id])
     @plant.update(last_watered: Date.today)
-    redirect_to plant_path(@plant)
+
+    if @plant.save
+      redirect_to plant_path(@plant),
+                  notice: "#{@plant.nickanme} has been watered!"
+    else
+      flash[:alert] = "Could not water the virtual plant: #{@plant.errors.full_messages.join(', ')}"
+      redirect_to care_plant_path(@plant)
+    end
   end
 
   def repot
     @plant = Plant.find(params[:id])
     @plant.update(last_repot: Date.today)
-    redirect_to plant_path(@plant)
+
+    if @plant.save
+      redirect_to plant_path(@plant),
+                  notice: "#{@plant.nickanme} has been watered!"
+    else
+      flash[:alert] = "Could not repot the virtual plant: #{@plant.errors.full_messages.join(', ')}"
+      redirect_to care_plant_path(@plant)
+    end
   end
 
   private
 
-  def get_avatar(name)
-    if name.downcase.include?("swiss")
-      return "happy_monstera.svg"
-    elsif name.downcase.include?("pothos")
-      return "happy_pothos.svg"
-    else
-      return "happy_undefined.svg"
-    end
-  end
+  ### PLANT CREATION HELPERS
+
 
   def identify_plant(image_path) # rubocop:disable Metrics/MethodLength
     prompt = <<~PROMPT

@@ -23,7 +23,7 @@
   <div class="plant-menu-avatar-row">
     <%= link_to plant_path(@prev_plant), class: "plant-show-arrow" do %>&#8249;<% end %>
     <div class="plant-menu-avatar-wrap">
-      <% avatar = File.exist?(Rails.root.join("app/assets/images/avatars/#{@plant.avatar_img}")) ? "avatars/#{@plant.avatar_img}" : "avatars/happy_monstera.svg" %>
+      <% avatar = File.exist?(Rails.root.join("app/assets/images/avatars/#{@plant.avatar_img}")) ? "avatars/#{@plant.avatar_img}" : "avatars/undefined_pink_happy.svg" %>
       <%= image_tag avatar, class: "plant-menu-avatar", alt: @plant.nickname %>
       <%= link_to infos_plant_path(@plant), class: "plant-info-btn" do %>
         <%= image_tag "info_page.svg", class: "plant-info-icon", alt: "info" %>
