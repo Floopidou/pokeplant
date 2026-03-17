@@ -25,7 +25,7 @@
   <!-- Avatar -->
   <div class="care-avatar-zone">
     <% avatar = File.exist?(Rails.root.join("app/assets/images/avatars/#{@plant.avatar_img}")) ? "avatars/#{@plant.avatar_img}" : "avatars/happy_monstera.svg" %>
-    <%= image_tag avatar, class: "care-avatar", alt: @plant.nickname %>
+    <%= image_tag avatar, class: "care-avatar plant-menu-avatar", alt: @plant.nickname %>
   </div>
 
   <!-- Hearts + mood -->
@@ -115,9 +115,12 @@
           <path d="M3.85714 7L3.85714 5.83333L2.57143 5.83333L2.57143 3.49999L1.28571 3.49999L1.28571 1.16666L-2.54983e-07 1.16666L-3.0598e-07 5.85212e-07L9 1.91809e-07L9 1.16666L7.71429 1.16666L7.71429 3.49999L6.42857 3.49999L6.42857 5.83333L5.14286 5.83333L5.14286 7L3.85714 7Z" fill="#1A120A" fill-opacity="0.56"/>
         </svg>
       </div>
+
       <%= button_to water_plant_path(@plant), method: :patch, class: "care-action-btn" do %>
         WATER <%= image_tag "water-drop.svg", class: "care-btn-icon", alt: "" %>
       <% end %>
+
+</div>
     </div>
 
     <%# Pot panel %>
@@ -171,7 +174,6 @@
       <% end %>
     </div>
 
-  </div>
 
   <% end %>
 
