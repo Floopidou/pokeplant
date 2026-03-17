@@ -10,6 +10,7 @@ class Plant < ApplicationRecord
 
   belongs_to :user
   has_many :plant_pot_pairs, dependent: :destroy
+  has_many :pots, through: :plant_pot_pairs, dependent: :destroy
   has_many :chats, dependent: :destroy
   has_one_attached :photo
 
@@ -65,7 +66,7 @@ class Plant < ApplicationRecord
 
   # getting the right avatar for the plant at creation
   def avatar_setting!
-    self.avatar_img = "#{plant_type}_pink_#{mood}.png"
+    self.avatar_img = "#{plant_type}_pink_happy.png"
   end
 
   # updating the avatar
@@ -105,6 +106,9 @@ class Plant < ApplicationRecord
 
   ### avatars infos
   def pot_color
-    return "pink" # todo
+    # get equipped plant pot pairs
+    equipped_pot = self.plant_pot_pairs.find_by(equipped: true)
+    # return the color of this plant pot pair
+    return equipped_pot.pot.color
   end
 end

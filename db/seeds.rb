@@ -32,32 +32,46 @@ bob = User.create!(
 # --- Pots ---
 puts "Creating pots..."
 
-pot_basique = Pot.create!(
-  color: "terracotta",
+Pot.create!(
+  color: "green",
   pot_size: "medium",
-  pot_img: "pot_basique.png",
+  pot_img: "green_pot.png",
+  leaf_coin_value: 20
+)
+
+pot_basique = Pot.create!(
+  color: "pink",
+  pot_size: "medium",
+  pot_img: "pink_pot.png",
   leaf_coin_value: 0
 )
 
 Pot.create!(
-  color: "white",
-  pot_size: "large",
-  pot_img: "pot_blanc.png",
+  color: "blue",
+  pot_size: "medium",
+  pot_img: "blue_pot.png",
   leaf_coin_value: 20
 )
 
 Pot.create!(
-  color: "black",
-  pot_size: "small",
-  pot_img: "pot_noir.png",
-  leaf_coin_value: 30
+  color: "purple",
+  pot_size: "medium",
+  pot_img: "purple_pot.png",
+  leaf_coin_value: 100
 )
 
 Pot.create!(
-  color: "gold",
-  pot_size: "very_large",
-  pot_img: "pot_dore.png",
-  leaf_coin_value: 100
+  color: "red",
+  pot_size: "medium",
+  pot_img: "red_pot.png",
+  leaf_coin_value: 80
+)
+
+Pot.create!(
+  color: "yellow",
+  pot_size: "medium",
+  pot_img: "yellow_pot.png",
+  leaf_coin_value: 40
 )
 
 # --- Plants ---

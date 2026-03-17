@@ -83,9 +83,9 @@
 
   <!-- Bottom nav -->
   <div class="garden-bottom-nav">
-    <%= link_to pots_path, class: "garden-nav-btn" do %>
+    <button class="garden-nav-btn" disabled>
       <%= image_tag "shop.svg", alt: "shop", class: "garden-nav-icon" %>
-    <% end %>
+    </button>
     <%= link_to new_plant_path, class: "garden-nav-btn garden-nav-btn--main" do %>
       <%= image_tag "new_photo_button.svg", alt: "add plant", class: "garden-nav-icon--main" %>
     <% end %>

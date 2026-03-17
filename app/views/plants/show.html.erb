@@ -37,9 +37,9 @@
       <% end %>
     </div>
     <div class="plant-action-row">
-      <button class="plant-action-btn" type="button">
+      <%= link_to plant_pots_path(@plant), class: "plant-action-btn" do %>
         <%= image_tag "paint.svg", class: "plant-action-icon", alt: "paint" %>
-      </button>
+      <% end %>
       <button class="plant-action-btn" type="button"
               data-action="click->coming-soon#open">
         <%= image_tag "sword.svg", class: "plant-action-icon", alt: "sword" %>

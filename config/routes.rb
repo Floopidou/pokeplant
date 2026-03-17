@@ -52,13 +52,12 @@ Rails.application.routes.draw do
 
       #get :plant_menu
     end
+
+    resources :pots, only: [:index] do
+      resources :plant_pot_pairs, only: [:create, :update] # buying a new pot = creating a plant_pot_pairs
+    end
+
+    resources :plant_pot_pairs, only: [:destroy]
   end
-
-
-  resources :pots, only: [:index, :show] do
-    resources :plant_pot_pairs, only: [:create] # buying a new pot = creating a plant_pot_pairs
-  end
-
-  resources :plant_pot_pairs, only: [:destroy]
 
 end
