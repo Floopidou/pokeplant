@@ -12,6 +12,7 @@
       </div>
       <div class="chat-plant-info">
         <h1 class="chat-plant-name"><%= @plant.nickname || @plant.common_name %></h1>
+        <span class="chat-plant-personality"><%= @plant.personality.capitalize %></span>
         <span class="chat-plant-status">
           <% case @plant.mood %>
           <% when :happy %>

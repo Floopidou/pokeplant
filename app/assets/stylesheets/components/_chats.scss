@@ -85,6 +85,15 @@
   text-overflow: ellipsis;
 }
 
+.chat-plant-personality {
+  font-family: $departure-font;
+  font-size: 10px;
+  color: $pp-medium-green;
+  opacity: 0.7;
+  display: block;
+  margin-bottom: 2px;
+}
+
 .chat-plant-status {
   font-family: $departure-font;
   font-size: 11px;
