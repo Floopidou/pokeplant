@@ -1,11 +1,18 @@
-<%# Supprimer l'indicateur de typing %>
+<%# Supprimer les messages temporaires %>
+<%= turbo_stream.remove "temp-user-message" %>
+<%= turbo_stream.remove "temp-photo-message" %>
 <%= turbo_stream.remove "typing-indicator" %>
 
 <%# Ajouter le message de l'utilisateur %>
 <%= turbo_stream.append "chat-messages" do %>
   <div class="chat-message chat-message--user">
-    <div class="chat-bubble chat-bubble--user">
-      <p><%= @user_message.content %></p>
+    <div class="chat-bubble chat-bubble--user <%= 'chat-bubble--photo' if @user_message.image.attached? %>">
+      <% if @user_message.image.attached? %>
+        <%= image_tag @user_message.image, class: "chat-photo", alt: "Photo" %>
+      <% end %>
+      <% if @user_message.content.present? && @user_message.content != "📷 Photo" %>
+        <p><%= @user_message.content %></p>
+      <% end %>
       <span class="chat-time"><%= @user_message.created_at.strftime("%H:%M") %></span>
     </div>
   </div>
@@ -15,7 +22,7 @@
 <%= turbo_stream.append "chat-messages" do %>
   <div class="chat-message chat-message--plant">
     <div class="chat-message-avatar">
-<%= image_tag "avatars/#{@plant.avatar_img}", alt: @plant.common_name, class: "chat-message-avatar-img" %>
+      <%= image_tag "avatars/#{@plant.avatar_img}", alt: @plant.common_name, class: "chat-message-avatar-img" %>
     </div>
     <div class="chat-bubble chat-bubble--plant">
       <p><%= @plant_message.content %></p>
@@ -24,7 +31,7 @@
   </div>
 <% end %>
 
-<%# Remplacer tout le formulaire %>
+<%# Remplacer le formulaire %>
 <%= turbo_stream.replace "chat-form" do %>
   <%= form_with model: Message.new,
                 url: plant_chat_messages_path(@plant, @chat),
@@ -34,7 +41,7 @@
     <div class="chat-input-wrapper">
       <%= f.text_field :content,
                        class: "chat-input pixel-input",
-                       placeholder: "Parle à ta plante...",
+                       placeholder: "Talk to your plant...",
                        autocomplete: "off",
                        id: "chat-input",
                        required: true,
@@ -42,7 +49,12 @@
       <button type="submit"
               class="chat-send-btn pixel-btn pixel-btn--pink"
               data-chat-form-target="button">
-        ✨ Envoyer
+        SEND
+      </button>
+      <button type="button"
+              class="chat-add-btn pixel-btn pixel-btn--green"
+              data-action="click->photo-modal#open">
+        +
       </button>
     </div>
   <% end %>

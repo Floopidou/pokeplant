@@ -3,11 +3,18 @@ class MessagesController < ApplicationController
   before_action :set_chat
 
   def create
-    # 1. Sauvegarder le message de l'utilisateur
-    @user_message = @chat.messages.create!(
+    # 1. Sauvegarder le message de l'utilisateur (texte ou image)
+    @user_message = @chat.messages.new(
       role: "user",
-      content: message_params[:content]
+      content: message_params[:content].presence || "📷 Photo"
     )
+
+    # Attacher l'image si présente
+    if message_params[:image].present?
+      @user_message.image.attach(message_params[:image])
+    end
+
+    @user_message.save!
 
     # 2. Appeler l'IA et obtenir la réponse
     ai_response = generate_plant_response(@user_message.content)
@@ -33,7 +40,7 @@ class MessagesController < ApplicationController
   end
 
   def message_params
-    params.require(:message).permit(:content)
+    params.require(:message).permit(:content, :image)
   end
 
   def generate_plant_response(user_content)
