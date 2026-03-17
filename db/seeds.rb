@@ -98,9 +98,9 @@ monstera_manon = Plant.create!(
   description: "Tropical plant with large split leaves, perfect for brightening up any interior.",
   watering_interval: 7,
   repot_interval: 365,
-  mood_points: 90,
-  last_watered: Date.new(2026, 3, 5),
-  last_repot: Date.new(2025, 6, 5),
+  mood_points: 20,
+  last_watered: Date.new(2026, 3, 14),
+  last_repot: Date.new(2024, 6, 5),
   last_petting: Date.new(2026, 3, 13)
 )
 
