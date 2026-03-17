@@ -1,0 +1,62 @@
+<%
+  fills = [
+    "M1.55171 10.4737V0.969727H29.4817V10.4737L26.1844 13.674V19.6867L23.8569 23.0809H7.56441L4.46108 19.6867V13.674L1.55171 10.4737Z",
+    "M48.3207 10.4737V0.969727H76.2507V10.4737L72.9534 13.674V19.6867L70.6259 23.0809H54.3334L51.2301 19.6867V13.674L48.3207 10.4737Z",
+    "M95.0898 10.4737V0.969727H123.02V10.4737L119.722 13.674V19.6867L117.395 23.0809H101.102L97.9991 19.6867V13.674L95.0898 10.4737Z",
+    "M141.859 10.4737V0.969727H169.789V10.4737L166.491 13.674V19.6867L164.164 23.0809H147.872L144.768 19.6867V13.674L141.859 10.4737Z",
+    "M188.628 10.4737V0.969727H216.558V10.4737L213.26 13.674V19.6867L210.933 23.0809H194.641L191.537 19.6867V13.674L188.628 10.4737Z"
+  ]
+%>
+<svg class="toxicity-pots-img" width="218" height="25" viewBox="0 0 218 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+  <%# ── Pot 1 ── %>
+  <% if toxicity_val >= 1 %><path d="<%= fills[0] %>" fill="#864B39"/><% end %>
+  <rect x="6.01271" y="21.5293" width="18.8139" height="2.90937" fill="#6B3520"/>
+  <rect x="2.90947" width="12.2194" height="2.90937" transform="rotate(90 2.90947 0)" fill="#6B3520"/>
+  <rect x="6.01271" y="12.2197" width="9.30999" height="2.90937" transform="rotate(90 6.01271 12.2197)" fill="#6B3520"/>
+  <rect x="27.7359" y="12.2197" width="9.30999" height="2.90937" transform="rotate(90 27.7359 12.2197)" fill="#6B3520"/>
+  <rect x="29.0996" y="12.9326" width="25.8663" height="3.23329" transform="rotate(-180 29.0996 12.9326)" fill="#6B3520"/>
+  <rect x="30.6454" width="12.2194" height="2.90937" transform="rotate(90 30.6454 0)" fill="#6B3520"/>
+  <rect width="30.6454" height="2.90937" fill="#6B3520"/>
+
+  <%# ── Pot 2 ── %>
+  <% if toxicity_val >= 2 %><path d="<%= fills[1] %>" fill="#864B39"/><% end %>
+  <rect x="52.7817" y="21.5293" width="18.8139" height="2.90937" fill="#6B3520"/>
+  <rect x="49.6785" width="12.2194" height="2.90937" transform="rotate(90 49.6785 0)" fill="#6B3520"/>
+  <rect x="52.7817" y="12.2197" width="9.30999" height="2.90937" transform="rotate(90 52.7817 12.2197)" fill="#6B3520"/>
+  <rect x="74.505" y="12.2197" width="9.30999" height="2.90937" transform="rotate(90 74.505 12.2197)" fill="#6B3520"/>
+  <rect x="75.8686" y="12.9326" width="25.8663" height="3.23329" transform="rotate(-180 75.8686 12.9326)" fill="#6B3520"/>
+  <rect x="77.4144" width="12.2194" height="2.90937" transform="rotate(90 77.4144 0)" fill="#6B3520"/>
+  <rect x="46.769" width="30.6454" height="2.90937" fill="#6B3520"/>
+
+  <%# ── Pot 3 ── %>
+  <% if toxicity_val >= 3 %><path d="<%= fills[2] %>" fill="#864B39"/><% end %>
+  <rect x="99.5508" y="21.5293" width="18.8139" height="2.90937" fill="#6B3520"/>
+  <rect x="96.4475" width="12.2194" height="2.90937" transform="rotate(90 96.4475 0)" fill="#6B3520"/>
+  <rect x="99.5508" y="12.2197" width="9.30999" height="2.90937" transform="rotate(90 99.5508 12.2197)" fill="#6B3520"/>
+  <rect x="121.274" y="12.2197" width="9.30999" height="2.90937" transform="rotate(90 121.274 12.2197)" fill="#6B3520"/>
+  <rect x="122.638" y="12.9326" width="25.8663" height="3.23329" transform="rotate(-180 122.638 12.9326)" fill="#6B3520"/>
+  <rect x="124.183" width="12.2194" height="2.90937" transform="rotate(90 124.183 0)" fill="#6B3520"/>
+  <rect x="93.5381" width="30.6454" height="2.90937" fill="#6B3520"/>
+
+  <%# ── Pot 4 ── %>
+  <% if toxicity_val >= 4 %><path d="<%= fills[3] %>" fill="#864B39"/><% end %>
+  <rect x="146.32" y="21.5293" width="18.8139" height="2.90937" fill="#6B3520"/>
+  <rect x="143.217" width="12.2194" height="2.90937" transform="rotate(90 143.217 0)" fill="#6B3520"/>
+  <rect x="146.32" y="12.2197" width="9.30999" height="2.90937" transform="rotate(90 146.32 12.2197)" fill="#6B3520"/>
+  <rect x="168.043" y="12.2197" width="9.30999" height="2.90937" transform="rotate(90 168.043 12.2197)" fill="#6B3520"/>
+  <rect x="169.407" y="12.9326" width="25.8663" height="3.23329" transform="rotate(-180 169.407 12.9326)" fill="#6B3520"/>
+  <rect x="170.953" width="12.2194" height="2.90937" transform="rotate(90 170.953 0)" fill="#6B3520"/>
+  <rect x="140.307" width="30.6454" height="2.90937" fill="#6B3520"/>
+
+  <%# ── Pot 5 ── %>
+  <% if toxicity_val >= 5 %><path d="<%= fills[4] %>" fill="#864B39"/><% end %>
+  <rect x="193.089" y="21.5293" width="18.8139" height="2.90937" fill="#6B3520"/>
+  <rect x="189.986" width="12.2194" height="2.90937" transform="rotate(90 189.986 0)" fill="#6B3520"/>
+  <rect x="193.089" y="12.2197" width="9.30999" height="2.90937" transform="rotate(90 193.089 12.2197)" fill="#6B3520"/>
+  <rect x="214.812" y="12.2197" width="9.30999" height="2.90937" transform="rotate(90 214.812 12.2197)" fill="#6B3520"/>
+  <rect x="216.176" y="12.9326" width="25.8663" height="3.23329" transform="rotate(-180 216.176 12.9326)" fill="#6B3520"/>
+  <rect x="217.722" width="12.2194" height="2.90937" transform="rotate(90 217.722 0)" fill="#6B3520"/>
+  <rect x="187.076" width="30.6454" height="2.90937" fill="#6B3520"/>
+
+</svg>

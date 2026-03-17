@@ -1,12 +1,19 @@
 <% content_for :body_class, "infos-body" %>
 <% content_for :hide_navbar, "true" %>
 
+<% light_need  = @plant.light_need.to_i.clamp(0, 10) %>
+<% water_val   = @plant.watering_interval.to_i.clamp(0, 10) %>
+<% light_fill_x = light_need > 0 ? (51.0 + light_need * 13.837).round(3) : nil %>
+<% water_fill_x = water_val  > 0 ? (53.3386 + water_val * 13.8).round(3) : nil %>
+<% light_ind_d  = (light_need * 14.1).round(2) %>
+<% water_ind_d  = (water_val  * 14.1).round(2) %>
+
 <div class="infos-page">
 
   <% infos_bg = case @plant.common_name.downcase
                when /golden pothos/ then "golden pothos.svg"
                when /monstera/      then "Info page plant.svg"
-               else "Info page plant.svg"
+               else                      "bg undefined plant.svg"
                end %>
   <%= image_tag infos_bg, class: "infos-bg", alt: "" %>
 
@@ -14,8 +21,283 @@
     <%= link_to plants_path, class: "infos-back" do %>
       <%= image_tag "arrow.svg", alt: "back" %>
     <% end %>
-
     <h1 class="infos-title"><%= @plant.common_name %></h1>
+  </div>
+
+  <div class="infos-card">
+    <%= image_tag "card_care.svg", class: "infos-card-bg", alt: "" %>
+    <div class="infos-card-content">
+
+      <%# ── Light gauge (sun icon + yellow bar) ── %>
+      <div class="infos-gauge-line">
+        <div class="infos-gauge-container">
+          <svg class="infos-gauge-svg" viewBox="0 0 192 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9.83678 25.0774L6.21528 21.2274L5.97058 12.6274L10.0325 8.12743H17.716L21.9737 12.6274L21.4843 21.3774L17.9118 25.0774H9.83678Z" fill="#FFDA71"/>
+            <rect width="2.15333" height="2.19999" transform="matrix(1 0 0 -1 6.8515 24.1277)" fill="#F7C948"/>
+            <rect x="20.9459" y="24.1277" width="2.15333" height="2.19999" transform="rotate(-180 20.9459 24.1277)" fill="#F7C948"/>
+            <rect width="2.15333" height="2.19999" transform="matrix(1 0 0 -1 6.8515 11.5276)" fill="#F7C948"/>
+            <rect width="2.15333" height="2.19999" transform="matrix(1 0 0 -1 0 17.8276)" fill="#F7C948"/>
+            <rect width="2.15333" height="2.19999" transform="matrix(1 0 0 -1 25.6442 17.8276)" fill="#F7C948"/>
+            <rect width="2.15333" height="2.19999" transform="matrix(1 0 0 -1 2.54486 27.7275)" fill="#F7C948"/>
+            <rect width="2.15333" height="2.19999" transform="matrix(1 0 0 -1 23.0994 27.7275)" fill="#F7C948"/>
+            <rect width="2.15333" height="2.19999" transform="matrix(1 0 0 -1 2.54486 7.12744)" fill="#F7C948"/>
+            <rect width="2.15333" height="2.19999" transform="matrix(1 0 0 -1 23.0994 7.12744)" fill="#F7C948"/>
+            <rect width="2.15333" height="2.19999" transform="matrix(1 0 0 -1 12.8221 5.42749)" fill="#F7C948"/>
+            <rect width="2.15333" height="2.19999" transform="matrix(1 0 0 -1 12.8221 30.2275)" fill="#F7C948"/>
+            <rect x="20.9459" y="11.5276" width="2.15333" height="2.19999" transform="rotate(-180 20.9459 11.5276)" fill="#F7C948"/>
+            <rect width="2.15333" height="10.4" transform="matrix(1 0 0 -1 4.69818 21.9277)" fill="#F7C948"/>
+            <rect x="23.0994" y="21.9277" width="2.15333" height="10.4" transform="rotate(-180 23.0994 21.9277)" fill="#F7C948"/>
+            <rect width="9.78786" height="2.19999" transform="matrix(1 0 0 -1 9.00482 26.3276)" fill="#F7C948"/>
+            <rect width="9.78786" height="2.19999" transform="matrix(1 0 0 -1 9.00482 9.32764)" fill="#F7C948"/>
+            <path d="M190.252 11.2275H51.8841V30.2275H190.252V11.2275Z" fill="#FFFDE5" stroke="#F7C948" stroke-width="2.5"/>
+            <% if light_fill_x %>
+              <path d="M<%= light_fill_x %> 13H53.3386V29H<%= light_fill_x %>V13Z" fill="#F7C948"/>
+            <% end %>
+            <path d="M67.3596 12.9548H65.5389V28.5003H67.3596V12.9548Z" fill="black" fill-opacity="0.57"/>
+            <path d="M81.0143 12.9548H79.1937V28.5003H81.0143V12.9548Z" fill="black" fill-opacity="0.57"/>
+            <path d="M94.669 12.9548H92.8484V28.5003H94.669V12.9548Z" fill="black" fill-opacity="0.57"/>
+            <path d="M108.324 12.9548H106.503V28.5003H108.324V12.9548Z" fill="black" fill-opacity="0.57"/>
+            <path d="M121.979 12.9548H120.158V28.5003H121.979V12.9548Z" fill="black" fill-opacity="0.57"/>
+            <path d="M135.633 12.9548H133.813V28.5003H135.633V12.9548Z" fill="black" fill-opacity="0.57"/>
+            <path d="M149.288 12.9548H147.468V28.5003H149.288V12.9548Z" fill="black" fill-opacity="0.57"/>
+            <path d="M162.943 12.9548H161.122V28.5003H162.943V12.9548Z" fill="black" fill-opacity="0.57"/>
+            <path d="M176.598 12.9548H174.777V28.5003H176.598V12.9548Z" fill="black" fill-opacity="0.57"/>
+            <path d="M64.6286 14.6819H54.6151V18.1364H64.6286V14.6819Z" fill="white" fill-opacity="0.3"/>
+            <path d="M78.2833 14.6819H68.2698V18.1364H78.2833V14.6819Z" fill="white" fill-opacity="0.3"/>
+            <path d="M91.9381 14.6819H81.9246V18.1364H91.9381V14.6819Z" fill="white" fill-opacity="0.3"/>
+            <path d="M105.593 14.6819H95.5794V18.1364H105.593V14.6819Z" fill="white" fill-opacity="0.3"/>
+            <path d="M119.248 14.6819H109.234V18.1364H119.248V14.6819Z" fill="white" fill-opacity="0.3"/>
+            <path d="M132.902 14.6819H122.889V18.1364H132.902V14.6819Z" fill="white" fill-opacity="0.3"/>
+            <path d="M146.557 14.6819H136.544V18.1364H146.557V14.6819Z" fill="white" fill-opacity="0.3"/>
+            <path d="M160.212 14.6819H150.198V18.1364H160.212V14.6819Z" fill="white" fill-opacity="0.3"/>
+            <path d="M173.867 14.6819H163.853V18.1364H173.867V14.6819Z" fill="white" fill-opacity="0.3"/>
+            <path d="M187.521 14.6819H177.508V18.1364H187.521V14.6819Z" fill="white" fill-opacity="0.3"/>
+            <path d="M<%= 49.51+light_ind_d %> 6.045L<%= 49.51+light_ind_d %> 5.038L<%= 48.34+light_ind_d %> 5.038L<%= 48.34+light_ind_d %> 3.023L<%= 47.17+light_ind_d %> 3.023L<%= 47.17+light_ind_d %> 1.008L<%= 46.0+light_ind_d %> 1.008L<%= 46.0+light_ind_d %> 0L<%= 54.19+light_ind_d %> 0L<%= 54.19+light_ind_d %> 1.008L<%= 53.02+light_ind_d %> 1.008L<%= 53.02+light_ind_d %> 3.023L<%= 51.85+light_ind_d %> 3.023L<%= 51.85+light_ind_d %> 5.038L<%= 50.68+light_ind_d %> 5.038L<%= 50.68+light_ind_d %> 6.045Z" fill="#1A120A" fill-opacity="0.56"/>
+          </svg>
+        </div>
+        <span class="infos-gauge-label">Light power <%= light_need %></span>
+      </div>
+
+      <%# ── Water interval gauge (blue drop icon + blue bar) ── %>
+      <div class="infos-gauge-line">
+        <div class="infos-gauge-container">
+          <svg class="infos-gauge-svg" viewBox="0 0 190 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g clip-path="url(#clip_lg)">
+              <path d="M12 5.00024H9.60001V7.08358H12V5.00024Z" fill="#3A9AE0"/>
+              <path d="M14.4 5.00024H12V7.08358H14.4V5.00024Z" fill="#3A9AE0"/>
+              <path d="M9.6 7.0835H7.2V9.16683H9.6V7.0835Z" fill="#3A9AE0"/>
+              <path d="M12 7.0835H9.60001V9.16683H12V7.0835Z" fill="#6EC6F5"/>
+              <path d="M14.4 7.0835H12V9.16683H14.4V7.0835Z" fill="#6EC6F5"/>
+              <path d="M16.8 7.0835H14.4V9.16683H16.8V7.0835Z" fill="#3A9AE0"/>
+              <path d="M7.2 9.16699H4.8V11.2503H7.2V9.16699Z" fill="#3A9AE0"/>
+              <path d="M9.6 9.16699H7.2V11.2503H9.6V9.16699Z" fill="#6EC6F5"/>
+              <path d="M12 9.16699H9.60001V11.2503H12V9.16699Z" fill="#6EC6F5"/>
+              <path d="M14.4 9.16699H12V11.2503H14.4V9.16699Z" fill="#6EC6F5"/>
+              <path d="M16.8 9.16699H14.4V11.2503H16.8V9.16699Z" fill="#6EC6F5"/>
+              <path d="M19.2 9.16699H16.8V11.2503H19.2V9.16699Z" fill="#3A9AE0"/>
+              <path d="M7.2 11.2502H4.8V13.3336H7.2V11.2502Z" fill="#3A9AE0"/>
+              <path d="M9.6 11.2502H7.2V13.3336H9.6V11.2502Z" fill="#6EC6F5"/>
+              <path d="M12 11.2502H9.60001V13.3336H12V11.2502Z" fill="#6EC6F5"/>
+              <path d="M14.4 11.2502H12V13.3336H14.4V11.2502Z" fill="#6EC6F5"/>
+              <path d="M16.8 11.2502H14.4V13.3336H16.8V11.2502Z" fill="#6EC6F5"/>
+              <path d="M19.2 11.2502H16.8V13.3336H19.2V11.2502Z" fill="#3A9AE0"/>
+              <path d="M4.79999 13.3335H2.39999V15.4168H4.79999V13.3335Z" fill="#3A9AE0"/>
+              <path d="M7.2 13.3335H4.8V15.4168H7.2V13.3335Z" fill="#6EC6F5"/>
+              <path d="M9.6 13.3335H7.2V15.4168H9.6V13.3335Z" fill="#6EC6F5"/>
+              <path d="M12 13.3335H9.60001V15.4168H12V13.3335Z" fill="#6EC6F5"/>
+              <path d="M14.4 13.3335H12V15.4168H14.4V13.3335Z" fill="#6EC6F5"/>
+              <path d="M16.8 13.3335H14.4V15.4168H16.8V13.3335Z" fill="#6EC6F5"/>
+              <path d="M19.2 13.3335H16.8V15.4168H19.2V13.3335Z" fill="#6EC6F5"/>
+              <path d="M21.6 13.3335H19.2V15.4168H21.6V13.3335Z" fill="#3A9AE0"/>
+              <path d="M4.79999 15.417H2.39999V17.5003H4.79999V15.417Z" fill="#3A9AE0"/>
+              <path d="M7.2 15.417H4.8V17.5003H7.2V15.417Z" fill="#6EC6F5"/>
+              <path d="M9.6 15.417H7.2V17.5003H9.6V15.417Z" fill="#6EC6F5"/>
+              <path d="M12 15.417H9.60001V17.5003H12V15.417Z" fill="#6EC6F5"/>
+              <path d="M14.4 15.417H12V17.5003H14.4V15.417Z" fill="#6EC6F5"/>
+              <path d="M16.8 15.417H14.4V17.5003H16.8V15.417Z" fill="#6EC6F5"/>
+              <path d="M19.2 15.417H16.8V17.5003H19.2V15.417Z" fill="#6EC6F5"/>
+              <path d="M21.6 15.417H19.2V17.5003H21.6V15.417Z" fill="#3A9AE0"/>
+              <path d="M2.4 17.5002H0V19.5836H2.4V17.5002Z" fill="#3A9AE0"/>
+              <path d="M4.79999 17.5002H2.39999V19.5836H4.79999V17.5002Z" fill="#6EC6F5"/>
+              <path d="M7.2 17.5002H4.8V19.5836H7.2V17.5002Z" fill="#6EC6F5"/>
+              <path d="M9.6 17.5002H7.2V19.5836H9.6V17.5002Z" fill="#6EC6F5"/>
+              <path d="M12 17.5002H9.60001V19.5836H12V17.5002Z" fill="#6EC6F5"/>
+              <path d="M14.4 17.5002H12V19.5836H14.4V17.5002Z" fill="#6EC6F5"/>
+              <path d="M16.8 17.5002H14.4V19.5836H16.8V17.5002Z" fill="#6EC6F5"/>
+              <path d="M19.2 17.5002H16.8V19.5836H19.2V17.5002Z" fill="#6EC6F5"/>
+              <path d="M21.6 17.5002H19.2V19.5836H21.6V17.5002Z" fill="#6EC6F5"/>
+              <path d="M24 17.5002H21.6V19.5836H24V17.5002Z" fill="#3A9AE0"/>
+              <path d="M2.4 19.5835H0V21.6668H2.4V19.5835Z" fill="#3A9AE0"/>
+              <path d="M4.79999 19.5835H2.39999V21.6668H4.79999V19.5835Z" fill="#6EC6F5"/>
+              <path d="M7.2 19.5835H4.8V21.6668H7.2V19.5835Z" fill="#6EC6F5"/>
+              <path d="M9.6 19.5835H7.2V21.6668H9.6V19.5835Z" fill="#6EC6F5"/>
+              <path d="M12 19.5835H9.60001V21.6668H12V19.5835Z" fill="#6EC6F5"/>
+              <path d="M14.4 19.5835H12V21.6668H14.4V19.5835Z" fill="#6EC6F5"/>
+              <path d="M16.8 19.5835H14.4V21.6668H16.8V19.5835Z" fill="#6EC6F5"/>
+              <path d="M19.2 19.5835H16.8V21.6668H19.2V19.5835Z" fill="#6EC6F5"/>
+              <path d="M21.6 19.5835H19.2V21.6668H21.6V19.5835Z" fill="#6EC6F5"/>
+              <path d="M24 19.5835H21.6V21.6668H24V19.5835Z" fill="#3A9AE0"/>
+              <path d="M2.4 21.667H0V23.7503H2.4V21.667Z" fill="#3A9AE0"/>
+              <path d="M4.79999 21.667H2.39999V23.7503H4.79999V21.667Z" fill="#6EC6F5"/>
+              <path d="M7.2 21.667H4.8V23.7503H7.2V21.667Z" fill="#6EC6F5"/>
+              <path d="M9.6 21.667H7.2V23.7503H9.6V21.667Z" fill="#6EC6F5"/>
+              <path d="M12 21.667H9.60001V23.7503H12V21.667Z" fill="#6EC6F5"/>
+              <path d="M14.4 21.667H12V23.7503H14.4V21.667Z" fill="#6EC6F5"/>
+              <path d="M16.8 21.667H14.4V23.7503H16.8V21.667Z" fill="#6EC6F5"/>
+              <path d="M19.2 21.667H16.8V23.7503H19.2V21.667Z" fill="#6EC6F5"/>
+              <path d="M21.6 21.667H19.2V23.7503H21.6V21.667Z" fill="#6EC6F5"/>
+              <path d="M24 21.667H21.6V23.7503H24V21.667Z" fill="#3A9AE0"/>
+              <path d="M4.79999 23.7502H2.39999V25.8336H4.79999V23.7502Z" fill="#3A9AE0"/>
+              <path d="M7.2 23.7502H4.8V25.8336H7.2V23.7502Z" fill="#6EC6F5"/>
+              <path d="M9.6 23.7502H7.2V25.8336H9.6V23.7502Z" fill="#6EC6F5"/>
+              <path d="M12 23.7502H9.60001V25.8336H12V23.7502Z" fill="#6EC6F5"/>
+              <path d="M14.4 23.7502H12V25.8336H14.4V23.7502Z" fill="#6EC6F5"/>
+              <path d="M16.8 23.7502H14.4V25.8336H16.8V23.7502Z" fill="#6EC6F5"/>
+              <path d="M19.2 23.7502H16.8V25.8336H19.2V23.7502Z" fill="#6EC6F5"/>
+              <path d="M21.6 23.7502H19.2V25.8336H21.6V23.7502Z" fill="#3A9AE0"/>
+              <path d="M7.2 25.8335H4.8V27.9168H7.2V25.8335Z" fill="#3A9AE0"/>
+              <path d="M9.6 25.8335H7.2V27.9168H9.6V25.8335Z" fill="#6EC6F5"/>
+              <path d="M12 25.8335H9.60001V27.9168H12V25.8335Z" fill="#6EC6F5"/>
+              <path d="M14.4 25.8335H12V27.9168H14.4V25.8335Z" fill="#6EC6F5"/>
+              <path d="M16.8 25.8335H14.4V27.9168H16.8V25.8335Z" fill="#6EC6F5"/>
+              <path d="M19.2 25.8335H16.8V27.9168H19.2V25.8335Z" fill="#3A9AE0"/>
+              <path d="M9.6 27.917H7.2V30.0003H9.6V27.917Z" fill="#3A9AE0"/>
+              <path d="M12 27.917H9.60001V30.0003H12V27.917Z" fill="#3A9AE0"/>
+              <path d="M14.4 27.917H12V30.0003H14.4V27.917Z" fill="#3A9AE0"/>
+              <path d="M16.8 27.917H14.4V30.0003H16.8V27.917Z" fill="#3A9AE0"/>
+              <path d="M14.9333 23.0559H9.06667V24.9078H14.9333V23.0559Z" fill="white" fill-opacity="0.3"/>
+            </g>
+            <path d="M187.914 11.2275H49.5455V30.2275H187.914V11.2275Z" fill="#FFFDE5" stroke="#6EC6F5" stroke-width="2.5"/>
+            <% if water_fill_x %>
+              <path d="M<%= water_fill_x %> 13H51.0V29H<%= water_fill_x %>V13Z" fill="#6EC6F5"/>
+            <% end %>
+            <path d="M65.021 12.9548H63.2003V28.5003H65.021V12.9548Z" fill="black" fill-opacity="0.57"/>
+            <path d="M78.6756 12.9548H76.855V28.5003H78.6756V12.9548Z" fill="black" fill-opacity="0.57"/>
+            <path d="M92.3304 12.9548H90.5097V28.5003H92.3304V12.9548Z" fill="black" fill-opacity="0.57"/>
+            <path d="M105.985 12.9548H104.165V28.5003H105.985V12.9548Z" fill="black" fill-opacity="0.57"/>
+            <path d="M119.64 12.9548H117.819V28.5003H119.64V12.9548Z" fill="black" fill-opacity="0.57"/>
+            <path d="M133.295 12.9548H131.474V28.5003H133.295V12.9548Z" fill="black" fill-opacity="0.57"/>
+            <path d="M146.95 12.9548H145.129V28.5003H146.95V12.9548Z" fill="black" fill-opacity="0.57"/>
+            <path d="M160.604 12.9548H158.784V28.5003H160.604V12.9548Z" fill="black" fill-opacity="0.57"/>
+            <path d="M174.259 12.9548H172.438V28.5003H174.259V12.9548Z" fill="black" fill-opacity="0.57"/>
+            <path d="M62.29 14.6821H52.2765V18.1367H62.29V14.6821Z" fill="white" fill-opacity="0.3"/>
+            <path d="M75.9447 14.6821H65.9312V18.1367H75.9447V14.6821Z" fill="white" fill-opacity="0.3"/>
+            <path d="M89.5994 14.6821H79.5859V18.1367H89.5994V14.6821Z" fill="white" fill-opacity="0.3"/>
+            <path d="M103.254 14.6821H93.2408V18.1367H103.254V14.6821Z" fill="white" fill-opacity="0.3"/>
+            <path d="M116.909 14.6821H106.895V18.1367H116.909V14.6821Z" fill="white" fill-opacity="0.3"/>
+            <path d="M130.564 14.6821H120.55V18.1367H130.564V14.6821Z" fill="white" fill-opacity="0.3"/>
+            <path d="M144.219 14.6821H134.205V18.1367H144.219V14.6821Z" fill="white" fill-opacity="0.3"/>
+            <path d="M157.873 14.6821H147.86V18.1367H157.873V14.6821Z" fill="white" fill-opacity="0.3"/>
+            <path d="M171.528 14.6821H161.515V18.1367H171.528V14.6821Z" fill="white" fill-opacity="0.3"/>
+            <path d="M185.183 14.6821H175.169V18.1367H185.183V14.6821Z" fill="white" fill-opacity="0.3"/>
+            <path d="M<%= 49.51+water_ind_d %> 6.045L<%= 49.51+water_ind_d %> 5.038L<%= 48.34+water_ind_d %> 5.038L<%= 48.34+water_ind_d %> 3.023L<%= 47.17+water_ind_d %> 3.023L<%= 47.17+water_ind_d %> 1.008L<%= 46.0+water_ind_d %> 1.008L<%= 46.0+water_ind_d %> 0L<%= 54.19+water_ind_d %> 0L<%= 54.19+water_ind_d %> 1.008L<%= 53.02+water_ind_d %> 1.008L<%= 53.02+water_ind_d %> 3.023L<%= 51.85+water_ind_d %> 3.023L<%= 51.85+water_ind_d %> 5.038L<%= 50.68+water_ind_d %> 5.038L<%= 50.68+water_ind_d %> 6.045Z" fill="#1A120A" fill-opacity="0.56"/>
+            <defs>
+              <clipPath id="clip_lg">
+                <rect width="24" height="25" fill="white" transform="translate(0 5.00024)"/>
+              </clipPath>
+            </defs>
+          </svg>
+        </div>
+        <span class="infos-gauge-label">Every <%= water_val %> days</span>
+      </div>
+
+      <%# ── Temperature row ── %>
+      <div class="infos-temp-row">
+        <div class="infos-temp-item">
+          <svg class="infos-thermo-svg" viewBox="0 0 12 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0.399631 34.8791L2.31331 32.8179L2.5867 17.0155H9.41332L9.13994 32.2683L11.6004 34.8791L11.5511 36.9L8.31979 40.513H3.68023L0.399631 37.2151L0.399631 34.8791Z" fill="#6EC6F5"/>
+            <path d="M1.06404 33.0278H2.12815V34.1667H1.06404V33.0278Z" fill="black"/>
+            <path d="M3.1923 29.6112H5.32053V30.7501H3.1923V29.6112Z" fill="black"/>
+            <path d="M3.1923 25.625H5.32053V26.7639H3.1923V25.625Z" fill="black"/>
+            <path d="M3.1923 21.6388H5.32053V22.7777H3.1923V21.6388Z" fill="black"/>
+            <path d="M3.1923 17.6527H5.32053V18.7916H3.1923V17.6527Z" fill="black"/>
+            <path d="M3.1923 13.6666H5.32053V14.8055H3.1923V13.6666Z" fill="black"/>
+            <path d="M3.1923 9.68038H5.32053V10.8193H3.1923V9.68038Z" fill="black"/>
+            <path d="M3.1923 5.69427H5.32053V6.83316H3.1923V5.69427Z" fill="black"/>
+            <path d="M9.87188 33.0278H10.936V34.1667H9.87188V33.0278Z" fill="black"/>
+            <path d="M3.1923 1.13904L4.25641 1.13904V2.27794H3.1923V1.13904Z" fill="black"/>
+            <path d="M7.74358 1.13904H8.8077V2.27794L7.74358 2.27794V1.13904Z" fill="black"/>
+            <path d="M4.25656 0L7.74375 0L7.74358 1.13904H4.25641L4.25656 0Z" fill="black"/>
+            <path d="M2.12829 2.27761L3.1923 2.27794L3.19241 33.0277L2.12815 33.0278L2.12829 2.27761Z" fill="black"/>
+            <path d="M8.8077 2.27794L9.87196 2.27761L9.87192 17.6527L9.87188 33.0278L8.80784 33.0277L8.8077 2.27794Z" fill="black"/>
+            <path d="M1.06404 37.5835H2.12815V38.7224H1.06404V37.5835Z" fill="black"/>
+            <path d="M9.87188 37.5835H10.936V38.7224H9.87188V37.5835Z" fill="black"/>
+            <path d="M2.12815 38.7224L3.19241 38.7225V39.8614H2.12829L2.12815 38.7224Z" fill="black"/>
+            <path d="M3.19241 39.8614L8.80772 39.8611V41H3.1923L3.19241 39.8614Z" fill="black"/>
+            <path d="M8.80784 38.7225L9.87188 38.7224L9.87196 39.8614L8.80772 39.8611L8.80784 38.7225Z" fill="black"/>
+            <path d="M0 34.1668L1.06404 34.1667L1.06404 37.5835L0 37.5835L0 34.1668Z" fill="black"/>
+            <path d="M10.936 34.1667L12 34.1668V37.5835L10.936 37.5835V34.1667Z" fill="black"/>
+          </svg>
+          <span class="infos-temp-value"><%= @plant.temperature_min.to_i %>°C</span>
+        </div>
+        <div class="infos-temp-item">
+          <svg class="infos-thermo-svg" viewBox="0 0 12 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0.399631 34.8791L2.31331 32.8179L2.5867 17.0155H9.41332L9.13994 32.2683L11.6004 34.8791L11.5511 36.9L8.31979 40.513H3.68023L0.399631 37.2151L0.399631 34.8791Z" fill="#FD5E6E"/>
+            <path d="M1.06404 33.0278H2.12815V34.1667H1.06404V33.0278Z" fill="black"/>
+            <path d="M3.1923 29.6112H5.32053V30.7501H3.1923V29.6112Z" fill="black"/>
+            <path d="M3.1923 25.625H5.32053V26.7639H3.1923V25.625Z" fill="black"/>
+            <path d="M3.1923 21.6388H5.32053V22.7777H3.1923V21.6388Z" fill="black"/>
+            <path d="M3.1923 17.6527H5.32053V18.7916H3.1923V17.6527Z" fill="black"/>
+            <path d="M3.1923 13.6666H5.32053V14.8055H3.1923V13.6666Z" fill="black"/>
+            <path d="M3.1923 9.68038H5.32053V10.8193H3.1923V9.68038Z" fill="black"/>
+            <path d="M3.1923 5.69427H5.32053V6.83316H3.1923V5.69427Z" fill="black"/>
+            <path d="M9.87188 33.0278H10.936V34.1667H9.87188V33.0278Z" fill="black"/>
+            <path d="M3.1923 1.13904L4.25641 1.13904V2.27794H3.1923V1.13904Z" fill="black"/>
+            <path d="M7.74358 1.13904H8.8077V2.27794L7.74358 2.27794V1.13904Z" fill="black"/>
+            <path d="M4.25656 0L7.74375 0L7.74358 1.13904H4.25641L4.25656 0Z" fill="black"/>
+            <path d="M2.12829 2.27761L3.1923 2.27794L3.19241 33.0277L2.12815 33.0278L2.12829 2.27761Z" fill="black"/>
+            <path d="M8.8077 2.27794L9.87196 2.27761L9.87192 17.6527L9.87188 33.0278L8.80784 33.0277L8.8077 2.27794Z" fill="black"/>
+            <path d="M1.06404 37.5835H2.12815V38.7224H1.06404V37.5835Z" fill="black"/>
+            <path d="M9.87188 37.5835H10.936V38.7224H9.87188V37.5835Z" fill="black"/>
+            <path d="M2.12815 38.7224L3.19241 38.7225V39.8614H2.12829L2.12815 38.7224Z" fill="black"/>
+            <path d="M3.19241 39.8614L8.80772 39.8611V41H3.1923L3.19241 39.8614Z" fill="black"/>
+            <path d="M8.80784 38.7225L9.87188 38.7224L9.87196 39.8614L8.80772 39.8611L8.80784 38.7225Z" fill="black"/>
+            <path d="M0 34.1668L1.06404 34.1667L1.06404 37.5835L0 37.5835L0 34.1668Z" fill="black"/>
+            <path d="M10.936 34.1667L12 34.1668V37.5835L10.936 37.5835V34.1667Z" fill="black"/>
+          </svg>
+          <span class="infos-temp-value"><%= @plant.temperature_max.to_i %>°C</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+<div class="slides-wrapper" data-controller="slide">
+    <div class="slides-track" data-slide-target="track">
+
+      <%# ── Slide 1 : description ── %>
+      <div class="slide plant-description-card" style="background-image: url('<%= asset_path('card_slide.svg') %>');">
+        <div class="card-content">
+          <h2 class="scientific-name"><%= @plant.scientific_name %></h2>
+          <h3 class="origin-region"><%= @plant.origin_region %></h3>
+          <p class="description-text"><%= @plant.description %></p>
+          <div class="plant-icon-footer">
+            <%= image_tag "plant icon.svg", alt: "icon plant", class: "icon-mini-plant" %>
+          </div>
+        </div>
+      </div>
+
+      <%# ── Slide 2 : toxicity + type of soil ── %>
+      <% toxicity_val = @plant.toxicity.to_i.clamp(0, 5) %>
+      <div class="slide plant-description-card" style="background-image: url('<%= asset_path('card_slide.svg') %>');">
+        <div class="card-content">
+          <h2 class="scientific-name">Toxicity</h2>
+          <div class="toxicity-row">
+            <%= render "toxicity_pots", toxicity_val: toxicity_val %>
+          </div>
+          <h2 class="scientific-name">Type of soil</h2>
+          <p class="description-text"><%= @plant.type_of_soil %></p>
+          <div class="plant-icon-footer">
+            <%= image_tag "maggot.svg", alt: "icon", class: "icon-mini-plant" %>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="slides-dots">
+      <span class="slides-dot active" data-slide-target="dot"></span>
+      <span class="slides-dot" data-slide-target="dot"></span>
+    </div>
   </div>
 
 </div>
