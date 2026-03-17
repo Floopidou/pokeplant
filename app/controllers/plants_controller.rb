@@ -31,6 +31,12 @@ class PlantsController < ApplicationController
 
     @total_plant_count = all_plants.count
     @paged_plants = all_plants.offset((@current_page - 1) * per_page).limit(per_page)
+
+    thirsty = all_plants.select(&:needs_water?)
+    grumpy  = all_plants.select(&:needs_repot?)
+    lonely  = all_plants.select { |p| p.mood_points <= 60 && !p.needs_water? && !p.needs_repot? }
+    @reminder_count = thirsty.size + grumpy.size + lonely.size
+    @reminders = { thirsty: thirsty, grumpy: grumpy, lonely: lonely }
   end
 
   def show
@@ -205,14 +211,16 @@ class PlantsController < ApplicationController
 
   def pet
     @plant = Plant.find(params[:id])
-    @plant.update(mood_points: [@plant.mood_points + 10, 100].min)
+    @plant.mood_points = [@plant.mood_points + 10, 100].min
 
-    if @plant.save
-      redirect_to care_plant_path(@plant),
-                  notice: "#{@plant.nickname} smiles ❤️"
-    else
-      flash[:alert] = "Could not pet the virtual plant: #{@plant.errors.full_messages.join(', ')}"
-      redirect_to care_plant_path(@plant)
+    respond_to do |format|
+      if @plant.save
+        format.turbo_stream
+        format.html { redirect_to care_plant_path(@plant), notice: "#{@plant.nickname} smiles ❤️" }
+      else
+        format.turbo_stream { head :unprocessable_entity }
+        format.html { redirect_to care_plant_path(@plant), alert: @plant.errors.full_messages.join(", ") }
+      end
     end
   end
 

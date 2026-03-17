@@ -467,6 +467,12 @@
   justify-content: center;
 }
 
+.new-plant-back {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+}
+
 .plant-photo-preview {
   width: 260px;
   height: 260px;
@@ -623,6 +629,57 @@
   }
 }
 
+// ── Coming soon overlay ───────────────────────────────────────
+
+.coming-soon-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(0, 0, 0, 0.5);
+  align-items: center;
+  justify-content: center;
+
+  &.is-open { display: flex; }
+}
+
+.coming-soon-panel {
+  background: $pp-cream;
+  border: 4px solid $pp-dark-green;
+  box-shadow: 4px 4px 0 $pp-dark-green;
+  padding: 36px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+}
+
+.coming-soon-text {
+  font-size: 2.2rem;
+  margin: 0;
+  line-height: 1;
+}
+
+.coming-soon-title {
+  font-family: $pixel-font;
+  font-size: 0.85rem;
+  color: $pp-dark-green;
+  text-shadow: 0 2px 0 white;
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+.coming-soon-subtitle {
+  font-family: $pixel-font;
+  font-size: 0.5rem;
+  color: $pp-brown;
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+// ── Plant action icon ─────────────────────────────────────────
+
 .plant-action-icon {
   width: 40px;
   height: 40px;
@@ -683,3 +740,171 @@
   }
 }
 **/
+
+// ── Reminders badge ───────────────────────────────────────────
+
+.garden-badge--bell {
+  position: fixed;
+  top: 90px;
+  right: calc(50% - 190px + 16px);
+  background: none;
+  cursor: pointer;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  z-index: 100;
+  pointer-events: auto;
+
+  &:active { opacity: 0.8; }
+}
+
+.garden-badge-count {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: #e53e3e;
+  color: white;
+  font-family: $pixel-font;
+  font-size: 0.45rem;
+  line-height: 1;
+  min-width: 14px;
+  height: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 2px;
+  border: 1.5px solid white;
+}
+
+// ── Reminders overlay ─────────────────────────────────────────
+
+.reminders-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(0, 0, 0, 0.45);
+  align-items: flex-end;
+  justify-content: center;
+
+  &.is-open { display: flex; }
+}
+
+.reminders-panel {
+  width: 380px;
+  max-width: 100vw;
+  max-height: 75vh;
+  background: $pp-cream;
+  border: 4px solid $pp-dark-green;
+  border-bottom: none;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.reminders-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px 12px;
+  border-bottom: 2px solid $pp-dark-green;
+  flex-shrink: 0;
+}
+
+.reminders-title {
+  font-family: $pixel-font;
+  font-size: 0.85rem;
+  color: $pp-dark-green;
+  margin: 0;
+  text-shadow: 0 2px 0 white;
+}
+
+.reminders-close-btn {
+  background: $pp-cream;
+  border: 2px solid black;
+  box-shadow: 2px 3px 0 black;
+  font-family: $pixel-font;
+  font-size: 0.7rem;
+  cursor: pointer;
+  padding: 4px 8px;
+  line-height: 1;
+
+  &:active {
+    transform: translate(2px, 3px);
+    box-shadow: none;
+  }
+}
+
+.reminders-body {
+  overflow-y: auto;
+  padding: 12px 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.reminders-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.reminders-section-title {
+  font-family: $pixel-font;
+  font-size: 0.6rem;
+  color: $pp-dark-green;
+  margin: 0;
+  letter-spacing: 0.5px;
+  text-shadow: 0 1px 0 white;
+}
+
+.reminders-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: white;
+  border: 1.5px solid $pp-dark-green;
+  padding: 8px 12px;
+}
+
+.reminders-avatar {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  flex-shrink: 0;
+}
+
+.reminders-plant-name {
+  font-family: $pixel-font;
+  font-size: 0.55rem;
+  color: black;
+  flex: 1;
+}
+
+.reminders-care-link {
+  font-family: $pixel-font;
+  font-size: 0.5rem;
+  color: $pp-cream;
+  background: $pp-dark-green;
+  border: 1.5px solid black;
+  box-shadow: 2px 2px 0 black;
+  padding: 4px 10px;
+  text-decoration: none;
+  flex-shrink: 0;
+
+  &:active {
+    transform: translate(2px, 2px);
+    box-shadow: none;
+  }
+}
+
+.reminders-empty {
+  font-family: $pixel-font;
+  font-size: 0.55rem;
+  color: $pp-dark-green;
+  text-align: center;
+  margin: 24px 0;
+}

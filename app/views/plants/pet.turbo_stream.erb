@@ -1,0 +1,25 @@
+<%= turbo_stream.replace "care-mood" do %>
+  <% full_hearts = (@plant.mood_points / 20).floor %>
+  <% has_half    = (@plant.mood_points % 20) >= 10 %>
+  <div id="care-mood" class="care-mood">
+    <div class="care-hearts">
+      <% 5.times do |i| %>
+        <% heart_type = if i < full_hearts then :full elsif i == full_hearts && has_half then :half else :empty end %>
+        <svg class="care-heart-svg" width="32" height="28" viewBox="0 0 32 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <% if heart_type == :half %>
+            <defs><clipPath id="hh-<%= i %>"><rect x="0" y="0" width="16" height="28"/></clipPath></defs>
+            <path d="M0.964844 11.0947L15.9185 26.0483L29.9074 11.577V5.30615L25.566 1.44714H20.2599L15.9185 6.27091L11.5771 1.44714H5.78861L0.964844 6.27091V11.0947Z" fill="#F9DFE4"/>
+            <g clip-path="url(#hh-<%= i %>)">
+              <path d="M0.964844 11.0947L15.9185 26.0483L29.9074 11.577V5.30615L25.566 1.44714H20.2599L15.9185 6.27091L11.5771 1.44714H5.78861L0.964844 6.27091V11.0947Z" fill="#F2A0B0"/>
+            </g>
+          <% else %>
+            <path d="M0.964844 11.0947L15.9185 26.0483L29.9074 11.577V5.30615L25.566 1.44714H20.2599L15.9185 6.27091L11.5771 1.44714H5.78861L0.964844 6.27091V11.0947Z" fill="<%= heart_type == :full ? '#F2A0B0' : '#F9DFE4' %>"/>
+          <% end %>
+          <rect x="14.6244" y="4.84363" width="2.42186" height="2.42186" fill="#333"/><rect x="2.42188" y="12.4819" width="2.42186" height="2.42186" fill="#333"/><rect x="4.93689" y="14.9038" width="2.42186" height="2.42186" fill="#333"/><rect x="7.35876" y="17.3256" width="2.42186" height="2.42186" fill="#333"/><rect x="9.78064" y="19.7474" width="2.42186" height="2.42186" fill="#333"/><rect x="12.3888" y="22.1692" width="2.42186" height="2.42186" fill="#333"/><rect x="14.8107" y="24.5912" width="2.42186" height="2.42186" fill="#333"/><rect x="12.2025" y="2.42188" width="2.42186" height="2.42186" fill="#333"/><rect x="2.42188" y="2.42188" width="2.42186" height="2.42186" fill="#333"/><rect x="0" y="4.84363" width="2.42186" height="7.63818" fill="#333"/><rect x="4.84375" y="0" width="7.35874" height="2.42186" fill="#333"/>
+          <rect width="2.42186" height="2.42186" transform="matrix(-1 0 0 1 29.3418 12.4819)" fill="#333"/><rect width="2.42186" height="2.42186" transform="matrix(-1 0 0 1 26.9199 14.9038)" fill="#333"/><rect width="2.42186" height="2.42186" transform="matrix(-1 0 0 1 24.498 17.3256)" fill="#333"/><rect width="2.42186" height="2.42186" transform="matrix(-1 0 0 1 22.0763 19.7474)" fill="#333"/><rect width="2.42186" height="2.42186" transform="matrix(-1 0 0 1 19.6544 22.1692)" fill="#333"/><rect width="2.42186" height="2.42186" transform="matrix(-1 0 0 1 19.4681 2.42188)" fill="#333"/><rect width="2.42186" height="2.42186" transform="matrix(-1 0 0 1 29.3418 2.42188)" fill="#333"/><rect width="2.42186" height="7.63818" transform="matrix(-1 0 0 1 31.7637 4.84363)" fill="#333"/><rect width="7.45189" height="2.42186" transform="matrix(-1 0 0 1 26.9199 0)" fill="#333"/>
+        </svg>
+      <% end %>
+    </div>
+    <p class="care-mood-text"><%= @plant.mood_sentence %></p>
+  </div>
+<% end %>

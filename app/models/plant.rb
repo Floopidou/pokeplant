@@ -85,6 +85,14 @@ class Plant < ApplicationRecord
     end
   end
 
+  def needs_water?
+    (Date.today - self.last_watered).to_i >= watering_interval
+  end
+
+  def needs_repot?
+    (Date.today - self.last_repot).to_i >= repot_interval
+  end
+
   private
 
   def no_petting_mood_impact!
@@ -93,14 +101,6 @@ class Plant < ApplicationRecord
     self.mood_points = [self.mood_points - 20, 0].max
     self.last_petting = Date.today
     save
-  end
-
-  def needs_water?
-    (Date.today - self.last_watered).to_i >= watering_interval
-  end
-
-  def needs_repot?
-    (Date.today - self.last_repot).to_i >= repot_interval
   end
 
   ### avatars infos

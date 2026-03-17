@@ -1,7 +1,7 @@
 <% content_for :body_class, "garden-body" %>
 <% content_for :hide_navbar, "true" %>
 
-<div class="garden-page plant-menu-page">
+<div class="garden-page plant-menu-page" data-controller="coming-soon">
 
 
   <!-- Title -->
@@ -40,9 +40,20 @@
       <button class="plant-action-btn" type="button">
         <%= image_tag "paint.svg", class: "plant-action-icon", alt: "paint" %>
       </button>
-      <button class="plant-action-btn" type="button">
+      <button class="plant-action-btn" type="button"
+              data-action="click->coming-soon#open">
         <%= image_tag "sword.svg", class: "plant-action-icon", alt: "sword" %>
       </button>
+    </div>
+  </div>
+
+  <!-- Coming soon overlay -->
+  <div class="coming-soon-overlay" data-coming-soon-target="overlay"
+       data-action="click->coming-soon#close">
+    <div class="coming-soon-panel">
+      <p class="coming-soon-text">⚔️</p>
+      <p class="coming-soon-title">Coming soon...</p>
+      <p class="coming-soon-subtitle">Something exciting is growing 🌱</p>
     </div>
   </div>
 

@@ -1,7 +1,7 @@
 <% content_for :body_class, "garden-body" %>
 <% content_for :hide_navbar, "true" %>
 
-<div class="garden-page">
+<div class="garden-page" data-controller="reminders">
 
   <!-- Top badges -->
   <div class="garden-header">
@@ -14,6 +14,30 @@
       <%= current_user.leaf_coins %>
     </div>
   </div>
+
+  <button class="garden-badge--bell" data-action="click->reminders#open">
+    <svg width="38" height="33" viewBox="0 0 60 52" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+      <rect x="4" y="4" width="56" height="48" fill="#864B39"/>
+      <rect x="0" y="0" width="56" height="48" fill="#864B39"/>
+      <rect x="4" y="4" width="48" height="24" fill="#FFFDE5"/>
+      <rect x="4" y="28" width="48" height="16" fill="#F9DFE4"/>
+      <rect x="8"  y="8"  width="4" height="4" fill="#F2A0B0"/>
+      <rect x="12" y="12" width="4" height="4" fill="#F2A0B0"/>
+      <rect x="16" y="16" width="4" height="4" fill="#F2A0B0"/>
+      <rect x="20" y="20" width="4" height="4" fill="#F2A0B0"/>
+      <rect x="24" y="24" width="4" height="4" fill="#F2A0B0"/>
+      <rect x="44" y="8"  width="4" height="4" fill="#F2A0B0"/>
+      <rect x="40" y="12" width="4" height="4" fill="#F2A0B0"/>
+      <rect x="36" y="16" width="4" height="4" fill="#F2A0B0"/>
+      <rect x="32" y="20" width="4" height="4" fill="#F2A0B0"/>
+      <rect x="28" y="24" width="4" height="4" fill="#F2A0B0"/>
+    </svg>
+    <% if @reminder_count > 0 %>
+      <span class="garden-badge-count"><%= @reminder_count %></span>
+    <% end %>
+  </button>
+
+  <%= render "plants/reminders_popup", reminders: @reminders %>
 
   <!-- Title -->
   <h1 class="garden-title">The Garden</h1>

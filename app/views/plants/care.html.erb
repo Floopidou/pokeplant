@@ -23,7 +23,7 @@
   <%= turbo_frame_tag "care-bottom" do %>
 
  <!-- Hidden pet form -->
-  <%= form_with url: pet_plant_path(@plant), method: :patch, data: { care_target: "petForm", turbo_frame: "_top" }, style: "display:none" do |f| %>
+  <%= form_with url: pet_plant_path(@plant), method: :patch, data: { care_target: "petForm" }, style: "display:none" do |f| %>
     <%= f.submit style: "display:none" %>
   <% end %>
 
@@ -37,7 +37,7 @@
   <!-- Hearts + mood -->
   <% full_hearts = (@plant.mood_points / 20).floor %>
   <% has_half    = (@plant.mood_points % 20) >= 10 %>
-  <div class="care-mood">
+  <div id="care-mood" class="care-mood">
     <div class="care-hearts">
       <% 5.times do |i| %>
         <% heart_type = if i < full_hearts then :full elsif i == full_hearts && has_half then :half else :empty end %>
@@ -126,7 +126,6 @@
         WATER <%= image_tag "water-drop.svg", class: "care-btn-icon", alt: "" %>
       <% end %>
 
-</div>
     </div>
 
     <%# Pot panel %>
@@ -180,6 +179,7 @@
       <% end %>
     </div>
 
+  </div>
 
   <% end %>
 
