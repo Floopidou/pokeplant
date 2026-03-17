@@ -42,6 +42,19 @@ class Plant < ApplicationRecord
   # dates last_repot, last_watered, input_date <=today
   validates :last_repot, :last_watered, :last_petting, comparison: { less_than_or_equal_to: ->(_) { Date.today } }
 
+  def mood_sentence
+    case mood
+    when "thirsty"
+      "#{nickname} is thirsty ⚠️"
+    when "grumpy"
+      "#{nickname} lacks space 🌀"
+    when "lonely"
+      "#{nickname} feels lonely 🥺"
+    else
+      "#{nickname} is happy ❤️"
+    end
+  end
+
   def mood
     return "thirsty" if needs_water?
     return "grumpy" if needs_repot?
@@ -57,6 +70,7 @@ class Plant < ApplicationRecord
 
   # updating the avatar
   def avatar_updating!
+    no_petting_mood_impact!
     self.avatar_img = "#{plant_type}_#{pot_color}_#{mood}.svg"
     save
   end
@@ -73,7 +87,7 @@ class Plant < ApplicationRecord
 
   private
 
-  def petting_mood_impact!
+  def no_petting_mood_impact!
     return unless self.last_petting < Date.today
 
     self.mood_points = [self.mood_points - 20, 0].max
