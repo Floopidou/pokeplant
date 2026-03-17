@@ -189,7 +189,7 @@ class PlantsController < ApplicationController
     @plant = Plant.find(params[:id])
     current_user.update(leaf_coins: current_user.leaf_coins + 10) if @plant.needs_water?
     @plant.update(last_watered: Date.today)
-    @plant.update(mood_points: [@plant.mood_points + 20, 100].min)
+    @plant.update(mood_points: [@plant.mood_points + 20, 100].min) if @plant.needs_water?
 
     if @plant.save
       redirect_to care_plant_path(@plant, tab: "water"),
@@ -204,7 +204,7 @@ class PlantsController < ApplicationController
     @plant = Plant.find(params[:id])
     current_user.update(leaf_coins: current_user.leaf_coins + 10) if @plant.needs_repot?
     @plant.update(last_repot: Date.today)
-    @plant.update(mood_points: [@plant.mood_points + 20, 100].min)
+    @plant.update(mood_points: [@plant.mood_points + 20, 100].min) if @plant.needs_repot?
 
     if @plant.save
       redirect_to care_plant_path(@plant, tab: "pot"),
