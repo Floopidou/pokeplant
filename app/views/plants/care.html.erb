@@ -22,8 +22,14 @@
   <!-- WATER / POT tab card — frame wraps avatar+mood too so they refresh on action -->
   <%= turbo_frame_tag "care-bottom" do %>
 
-  <!-- Avatar -->
-  <div class="care-avatar-zone">
+ <!-- Hidden pet form -->
+  <%= form_with url: pet_plant_path(@plant), method: :patch, data: { care_target: "petForm" }, style: "display:none" do |f| %>
+    <%= f.submit %>
+  <% end %>
+
+  <!-- Avatar (rub to pet) -->
+  <div class="care-avatar-zone"
+       data-action="mousedown->care#startRub touchstart->care#startRub mousemove->care#trackRub touchmove->care#trackRub mouseup->care#stopRub touchend->care#stopRub">
     <% avatar = File.exist?(Rails.root.join("app/assets/images/avatars/#{@plant.avatar_img}")) ? "avatars/#{@plant.avatar_img}" : "avatars/happy_monstera.svg" %>
     <%= image_tag avatar, class: "care-avatar plant-menu-avatar", alt: @plant.nickname %>
   </div>

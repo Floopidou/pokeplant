@@ -1,7 +1,36 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["waterTab", "potTab", "waterPanel", "potPanel"]
+  static targets = ["waterTab", "potTab", "waterPanel", "potPanel", "petForm"]
+
+  startRub(event) {
+    event.preventDefault()
+    this.rubbing = true
+    this.rubDistance = 0
+    this.rubPetted = false
+    const point = event.touches ? event.touches[0] : event
+    this.lastX = point.clientX
+    this.lastY = point.clientY
+  }
+
+  trackRub(event) {
+    if (!this.rubbing || this.rubPetted) return
+    const point = event.touches ? event.touches[0] : event
+    const dx = point.clientX - this.lastX
+    const dy = point.clientY - this.lastY
+    this.rubDistance += Math.sqrt(dx * dx + dy * dy)
+    this.lastX = point.clientX
+    this.lastY = point.clientY
+    if (this.rubDistance > 50) {
+      this.rubPetted = true
+      this.petFormTarget.requestSubmit()
+    }
+  }
+
+  stopRub() {
+    this.rubbing = false
+    this.rubDistance = 0
+  }
 
   showWater() {
     this.waterPanelTarget.style.display = "flex"
