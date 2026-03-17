@@ -65,13 +65,13 @@ class Plant < ApplicationRecord
 
   # getting the right avatar for the plant at creation
   def avatar_setting!
-    self.avatar_img = "#{plant_type}_pink_#{mood}.svg"
+    self.avatar_img = "#{plant_type}_pink_#{mood}.png"
   end
 
   # updating the avatar
   def avatar_updating!
     no_petting_mood_impact!
-    self.avatar_img = "#{plant_type}_#{pot_color}_#{mood}.svg"
+    self.avatar_img = "#{plant_type}_#{pot_color}_#{mood}.png"
     save
   end
 

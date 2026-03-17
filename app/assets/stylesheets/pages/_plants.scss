@@ -175,7 +175,7 @@
   align-items: center;
   text-decoration: none;
 
-  &:hover .tile-plant { transform: translateX(-50%) translateY(-8px); }
+  &:hover .tile-plant-wrap { transform: translateX(-50%) translateY(-8px); }
 }
 
 .tile-wrapper {
@@ -187,16 +187,21 @@
     display: block;
   }
 
-  .tile-plant {
+  .tile-plant-wrap {
     position: absolute;
     bottom: 30%;
     left: 50%;
     transform: translateX(-50%);
+    z-index: 2;
+    will-change: transform;
+  }
+
+  .tile-plant {
+    display: block;
     width: 125px;
     height: 125px;
     object-fit: contain;
-    z-index: 2;
-    transition: transform 0.15s ease;
+    image-rendering: pixelated;
   }
 }
 
@@ -630,28 +635,23 @@
   image-rendering: pixelated;
 }
 
-//test bouncing plant
-.tile-plant {
+.tile-plant-wrap {
   animation: bounce 2s ease-in-out infinite;
   animation-delay: var(--bounce-delay, 0s);
 }
 
 @keyframes bounce {
-  0%, 100% {
-    transform: translateY(0) translateX(-50%);
-  }
-  50% {
-    transform: translateY(-2px) translateX(-50%);
-  }
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50%       { transform: translateX(-50%) translateY(-3px); }
 }
 
 // Délais aléatoires pour chaque slot
-.garden-slot--1 .tile-plant { --bounce-delay: 0.0s; }
-.garden-slot--2 .tile-plant { --bounce-delay: 0.3s; }
-.garden-slot--3 .tile-plant { --bounce-delay: 0.7s; }
-.garden-slot--4 .tile-plant { --bounce-delay: 0.2s; }
-.garden-slot--5 .tile-plant { --bounce-delay: 0.5s; }
-.garden-slot--6 .tile-plant { --bounce-delay: 0.9s; }
+.garden-slot--1 .tile-plant-wrap { --bounce-delay: 0.0s; }
+.garden-slot--2 .tile-plant-wrap { --bounce-delay: 0.3s; }
+.garden-slot--3 .tile-plant-wrap { --bounce-delay: 0.7s; }
+.garden-slot--4 .tile-plant-wrap { --bounce-delay: 0.2s; }
+.garden-slot--5 .tile-plant-wrap { --bounce-delay: 0.5s; }
+.garden-slot--6 .tile-plant-wrap { --bounce-delay: 0.9s; }
 
 
 
