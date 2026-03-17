@@ -97,7 +97,8 @@
         <svg class="care-water-gauge" viewBox="0 0 159 37" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M157 13H5.00002V35H157V13Z" fill="#FFFDE5" stroke="#6EC6F5" stroke-width="2.5"/>
           <% if fill_width > 0 %>
-            <rect x="6.25" y="14.25" width="<%= fill_width %>" height="19.5" fill="#3A9AE0"/>
+            <rect data-care-target="waterFill" data-fill-width="<%= fill_width %>"
+                  x="6.25" y="14.25" width="<%= fill_width %>" height="19.5" fill="#3A9AE0"/>
           <% end %>
           <path d="M22.0001 15H20.0001V33H22.0001V15Z" fill="black" fill-opacity="0.57"/>
           <path d="M37.0001 15H35.0001V33H37.0001V15Z" fill="black" fill-opacity="0.57"/>
@@ -122,7 +123,7 @@
         </svg>
       </div>
 
-      <%= button_to water_plant_path(@plant), method: :patch, class: "care-action-btn" do %>
+      <%= button_to water_plant_path(@plant), method: :patch, class: "care-action-btn", data: { sound: "water" } do %>
         WATER <%= image_tag "water-drop.svg", class: "care-btn-icon", alt: "" %>
       <% end %>
 
@@ -150,7 +151,8 @@
         <svg class="care-water-gauge" viewBox="0 0 159 37" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M157 13H5.00002V35H157V13Z" fill="#FFFDE5" stroke="#F2A0B0" stroke-width="2.5"/>
           <% if repot_fill_width > 0 %>
-            <rect x="6.25" y="14.25" width="<%= repot_fill_width %>" height="19.5" fill="#864B39"/>
+            <rect data-care-target="repotFill" data-fill-width="<%= repot_fill_width %>"
+                  x="6.25" y="14.25" width="<%= repot_fill_width %>" height="19.5" fill="#864B39"/>
           <% end %>
           <path d="M22.0001 15H20.0001V33H22.0001V15Z" fill="black" fill-opacity="0.57"/>
           <path d="M37.0001 15H35.0001V33H37.0001V15Z" fill="black" fill-opacity="0.57"/>
@@ -174,7 +176,7 @@
         </svg>
       </div>
       <%# TODO backend: form action: repot_plant_path(@plant), method: :patch %>
-      <%= button_to repot_plant_path(@plant), method: :patch, class: "care-action-btn" do %>
+      <%= button_to repot_plant_path(@plant), method: :patch, class: "care-action-btn", data: { sound: "repot" } do %>
         POT <%= image_tag "pot-mini.svg", class: "care-btn-icon", alt: "" %>
       <% end %>
     </div>

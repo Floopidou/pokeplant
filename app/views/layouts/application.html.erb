@@ -23,7 +23,19 @@
     <%= javascript_importmap_tags %>
   </head>
 
+  <% bgm_tracks = Dir.glob(Rails.root.join("public/sounds/bgm/*.mp3")).map { |f| "/sounds/bgm/#{File.basename(f)}" }.to_json %>
   <body class="<%= content_for(:body_class) %>">
+    <div id="pp-audio"
+         data-turbo-permanent
+         data-controller="audio"
+         data-audio-bgm-tracks-value="<%= bgm_tracks %>"
+         data-audio-water-url-value="/sounds/sfx/water.mp3"
+         data-audio-click-url-value="/sounds/sfx/click.mp3"
+        data-audio-reminders-url-value="/sounds/sfx/reminders.mp3">
+      <audio id="pp-music" data-audio-target="music"></audio>
+      <%= render "shared/audio_settings" %>
+    </div>
+
     <%= render "shared/flashes" %>
     <%= link_to "Skip to main content", "#main-content", class: "visually-hidden-focusable" %>
     <% unless content_for?(:hide_navbar) %>
