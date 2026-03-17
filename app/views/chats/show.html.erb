@@ -39,53 +39,62 @@
 
     <!-- Zone des messages -->
     <div class="chat-messages" id="chat-messages" data-chat-form-target="messages">
-
-      <% @messages.each do |message| %>
-        <% if message.role == "user" %>
-          <div class="chat-message chat-message--user">
-            <div class="chat-bubble chat-bubble--user">
-              <p><%= message.content %></p>
-              <span class="chat-time"><%= message.created_at.strftime("%H:%M") %></span>
-            </div>
-          </div>
-        <% else %>
-          <div class="chat-message chat-message--plant">
-            <div class="chat-message-avatar">
-              <%# image_tag "avatars/#{@plant.avatar_img}", alt: @plant.common_name, class: "chat-message-avatar-img" %>
-              <%= image_tag "avatars/#{@plant.avatar_img}", alt: @plant.common_name, class: "chat-message-avatar-img" %>
-            </div>
-            <div class="chat-bubble chat-bubble--plant">
-              <p><%= message.content %></p>
-              <span class="chat-time"><%= message.created_at.strftime("%H:%M") %></span>
-            </div>
-          </div>
-        <% end %>
-      <% end %>
-    </div>
+  <% @messages.each do |message| %>
+    <% if message.role == "user" %>
+      <div class="chat-message chat-message--user">
+        <div class="chat-bubble chat-bubble--user <%= 'chat-bubble--photo' if message.image.attached? %>">
+          <% if message.image.attached? %>
+            <%= image_tag message.image, class: "chat-photo", alt: "Photo" %>
+          <% end %>
+          <% if message.content.present? && message.content != "📷 Photo" %>
+            <p><%= message.content %></p>
+          <% end %>
+          <span class="chat-time"><%= message.created_at.strftime("%H:%M") %></span>
+        </div>
+      </div>
+    <% else %>
+      <div class="chat-message chat-message--plant">
+        <div class="chat-message-avatar">
+          <%= image_tag "avatars/#{@plant.avatar_img}", alt: @plant.common_name, class: "chat-message-avatar-img" %>
+        </div>
+        <div class="chat-bubble chat-bubble--plant">
+          <p><%= message.content %></p>
+          <span class="chat-time"><%= message.created_at.strftime("%H:%M") %></span>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
 
     <!-- Zone de saisie -->
-    <div class="chat-input-area">
-      <%= form_with model: Message.new,
-                    url: plant_chat_messages_path(@plant, @chat),
-                    id: "chat-form",
-                    class: "chat-form",
-                    data: { action: "submit->chat-form#submit" } do |f| %>
-        <div class="chat-input-wrapper">
-          <%= f.text_field :content,
-                           class: "chat-input pixel-input",
-                           placeholder: "Talk to your plant...",
-                           autocomplete: "off",
-                           id: "chat-input",
-                           required: true,
-                           data: { chat_form_target: "input" } %>
-          <button type="submit"
-                  class="chat-send-btn pixel-btn pixel-btn--pink"
-                  data-chat-form-target="button">
-            SEND
-          </button>
-        </div>
-      <% end %>
-    </div>
+<div class="chat-input-area" data-controller="photo-modal" data-photo-modal-url-value="<%= plant_chat_messages_path(@plant, @chat) %>">
 
+  <%= form_with model: Message.new,
+                url: plant_chat_messages_path(@plant, @chat),
+                id: "chat-form",
+                class: "chat-form",
+                data: { action: "submit->chat-form#submit" } do |f| %>
+    <div class="chat-input-wrapper">
+      <%= f.text_field :content,
+                       class: "chat-input pixel-input",
+                       placeholder: "Talk to your plant...",
+                       autocomplete: "off",
+                       id: "chat-input",
+                       required: true,
+                       data: { chat_form_target: "input" } %>
+      <button type="submit"
+              class="chat-send-btn pixel-btn pixel-btn--pink"
+              data-chat-form-target="button">
+        SEND
+      </button>
+      <button type="button"
+              class="chat-add-btn pixel-btn pixel-btn--green"
+              data-action="click->photo-modal#open">
+        +
+      </button>
+    </div>
+  <% end %>
+</div>
+<!--fin saisie-->
   </div>
 </div>
