@@ -200,7 +200,7 @@ turbo-frame#care-bottom {
 .care-panel {
   border: 4px solid $pp-dark-green;
   border-bottom: none;
-  padding: 24px 24px 48px;
+  padding: 60px 24px 48px;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -209,8 +209,8 @@ turbo-frame#care-bottom {
   position: relative;
   z-index: 0;
 
-  &--water { background: $pp-medium-green; justify-content: center; }
-  &--pot   { background: $pp-lightpink;   justify-content: center; }
+  &--water { background: $pp-medium-green; justify-content: flex-start; }
+  &--pot   { background: $pp-lightpink;   justify-content: flex-start; }
 }
 
 // ── Water gauge ───────────────────────────────────────────────

@@ -3,6 +3,8 @@
 
 <div class="garden-page new-plant-page" data-controller="plant-upload">
 
+  <%= link_to plants_path, class: "care-back-btn new-plant-back" do %>&#8592;<% end %>
+
   <h1 class="garden-title">New plant</h1>
 
   <form action="<%= plants_path %>" method="post" enctype="multipart/form-data"

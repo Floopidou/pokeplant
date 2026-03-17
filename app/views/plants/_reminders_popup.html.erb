@@ -1,0 +1,60 @@
+<div class="reminders-overlay" data-reminders-target="overlay"
+     data-action="click->reminders#backdropClick">
+  <div class="reminders-panel">
+
+    <div class="reminders-panel-header">
+      <h2 class="reminders-title">Reminders</h2>
+      <button class="reminders-close-btn" data-action="click->reminders#close">✕</button>
+    </div>
+
+    <div class="reminders-body">
+
+      <% if reminders[:thirsty].any? %>
+        <div class="reminders-section">
+          <p class="reminders-section-title">💧 Needs water</p>
+          <% reminders[:thirsty].each do |plant| %>
+            <div class="reminders-row">
+              <% avatar = File.exist?(Rails.root.join("app/assets/images/avatars/#{plant.avatar_img}")) ? "avatars/#{plant.avatar_img}" : "avatars/undefined_pink_happy.svg" %>
+              <%= image_tag avatar, class: "reminders-avatar", alt: plant.nickname %>
+              <span class="reminders-plant-name"><%= plant.nickname %></span>
+              <%= link_to "Care", care_plant_path(plant), class: "reminders-care-link" %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+
+      <% if reminders[:grumpy].any? %>
+        <div class="reminders-section">
+          <p class="reminders-section-title">🪴 Needs repotting</p>
+          <% reminders[:grumpy].each do |plant| %>
+            <div class="reminders-row">
+              <% avatar = File.exist?(Rails.root.join("app/assets/images/avatars/#{plant.avatar_img}")) ? "avatars/#{plant.avatar_img}" : "avatars/undefined_pink_happy.svg" %>
+              <%= image_tag avatar, class: "reminders-avatar", alt: plant.nickname %>
+              <span class="reminders-plant-name"><%= plant.nickname %></span>
+              <%= link_to "Care", care_plant_path(plant, tab: "pot"), class: "reminders-care-link" %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+
+      <% if reminders[:lonely].any? %>
+        <div class="reminders-section">
+          <p class="reminders-section-title">💕 Feels lonely</p>
+          <% reminders[:lonely].each do |plant| %>
+            <div class="reminders-row">
+              <% avatar = File.exist?(Rails.root.join("app/assets/images/avatars/#{plant.avatar_img}")) ? "avatars/#{plant.avatar_img}" : "avatars/undefined_pink_happy.svg" %>
+              <%= image_tag avatar, class: "reminders-avatar", alt: plant.nickname %>
+              <span class="reminders-plant-name"><%= plant.nickname %></span>
+              <%= link_to "Care", care_plant_path(plant), class: "reminders-care-link" %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+
+      <% if reminders.values.all?(&:empty?) %>
+        <p class="reminders-empty">All plants are happy! ❤️</p>
+      <% end %>
+
+    </div>
+  </div>
+</div>
