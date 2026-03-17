@@ -96,12 +96,16 @@ class PlantsController < ApplicationController
     )
 
     # je met l'avatar correspondant à la plant
-    @plant.avatar_setting
+    @plant.avatar_setting!
 
     # ---> j'upload la photo
     @plant.photo.attach(params[:photo])
 
+
+
     if @plant.save
+      # add a pot link to base pink pot now that the plant exists
+      create_initial_pot_pairing(@plant)
       redirect_to choose_name_plant_path(@plant), notice: "#{@plant.common_name} identified and added to your garden!"
     else
       flash[:alert] = "Could not save the plant: #{@plant.errors.full_messages.join(', ')}"
@@ -302,5 +306,13 @@ class PlantsController < ApplicationController
       - Pilferer: Playful and mischievous, their lively spirit makes them expert thieves of anything enticing.
       - Troublemaker: Free-spirited rebels, joyfully ignoring rules and living life on their own playful terms.
     PROMPT
+  end
+
+  def create_initial_pot_pairing(plant)
+    pink_pot = Pot.find_by(color: "pink")
+    base_pairing = PlantPotPair.create(plant: plant, pot: pink_pot, equipped: true)
+    return if base_pairing.save
+
+    flash[:alert] = "Could not link pot: #{base_pairing.errors.full_messages.join(', ')}"
   end
 end

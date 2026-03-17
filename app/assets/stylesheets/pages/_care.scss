@@ -21,6 +21,12 @@
   padding: 0 16px;
 }
 
+.care-nav-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .care-back-btn {
   font-family: $pixel-font;
   font-size: 1.2rem;
