@@ -31,7 +31,7 @@
   <div class="care-avatar-zone"
        data-action="mousedown->care#startRub touchstart->care#startRub mousemove->care#trackRub touchmove->care#trackRub mouseup->care#stopRub touchend->care#stopRub">
     <% avatar = File.exist?(Rails.root.join("app/assets/images/avatars/#{@plant.avatar_img}")) ? "avatars/#{@plant.avatar_img}" : "avatars/happy_monstera.svg" %>
-    <%= image_tag avatar, class: "care-avatar", alt: @plant.nickname, draggable: "false" %>
+    <%= image_tag avatar, class: "care-avatar plant-menu-avatar", alt: @plant.nickname, draggable: "false" %>
   </div>
 
   <!-- Hearts + mood -->
