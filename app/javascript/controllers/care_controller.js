@@ -1,7 +1,37 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["waterTab", "potTab", "waterPanel", "potPanel", "petForm"]
+  static targets = ["waterTab", "potTab", "waterPanel", "potPanel", "petForm", "waterFill", "repotFill"]
+
+  connect() {
+    const frame = document.getElementById("care-bottom")
+    if (frame) {
+      this._onFrameRender = () => {
+        requestAnimationFrame(() => {
+          if (this.hasWaterFillTarget) this._animateFill(this.waterFillTarget)
+          if (this.hasRepotFillTarget) this._animateFill(this.repotFillTarget)
+        })
+      }
+      frame.addEventListener("turbo:frame-render", this._onFrameRender)
+    }
+  }
+
+  disconnect() {
+    const frame = document.getElementById("care-bottom")
+    if (frame && this._onFrameRender) {
+      frame.removeEventListener("turbo:frame-render", this._onFrameRender)
+    }
+  }
+
+  _animateFill(rect) {
+    const target = parseFloat(rect.dataset.fillWidth)
+    rect.style.transition = "none"
+    rect.style.width = "0"
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      rect.style.transition = "width 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)"
+      rect.style.width = `${target}`
+    }))
+  }
 
   startRub(event) {
     event.preventDefault()
@@ -45,6 +75,7 @@ export default class extends Controller {
       }, i * 100)
     }
 
+    this.element.dispatchEvent(new CustomEvent("plant:petted", { bubbles: true }))
     setTimeout(() => this.petFormTarget.requestSubmit(), 700)
   }
 

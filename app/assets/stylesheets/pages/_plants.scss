@@ -56,7 +56,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 16px 16px 80px;
+  padding: 16px 16px 30px;
   justify-content: center;
 }
 
@@ -125,6 +125,7 @@
   font-size: 1.7rem;
   color: $pp-dark-green;
   margin: 8px 0 20px;
+  margin-bottom: 40px;
   text-align: center;
   text-shadow: 0 3px 0 white, 0 8px 12px rgba(255, 255, 255, 0.4);
 }
@@ -743,6 +744,17 @@
 
 // ── Reminders badge ───────────────────────────────────────────
 
+@keyframes bell-shake {
+  0%   { transform: rotate(0deg); }
+  15%  { transform: rotate(-18deg); }
+  30%  { transform: rotate(18deg); }
+  45%  { transform: rotate(-14deg); }
+  60%  { transform: rotate(14deg); }
+  75%  { transform: rotate(-8deg); }
+  90%  { transform: rotate(8deg); }
+  100% { transform: rotate(0deg); }
+}
+
 .garden-badge--bell {
   position: fixed;
   top: 90px;
@@ -756,8 +768,13 @@
   padding: 4px;
   z-index: 100;
   pointer-events: auto;
+  transform-origin: top center;
 
   &:active { opacity: 0.8; }
+
+  &.is-shaking {
+    animation: bell-shake 0.7s ease-in-out;
+  }
 }
 
 .garden-badge-count {
@@ -907,4 +924,107 @@
   color: $pp-dark-green;
   text-align: center;
   margin: 24px 0;
+}
+
+// ── Audio settings panel ──────────────────────────────────────
+
+.audio-settings-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(0, 0, 0, 0.45);
+  align-items: flex-end;
+  justify-content: center;
+
+  &.is-open { display: flex; }
+}
+
+.audio-settings-panel {
+  width: 380px;
+  max-width: 100vw;
+  background: $pp-cream;
+  border: 4px solid $pp-dark-green;
+  border-bottom: none;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.audio-settings-body {
+  padding: 20px 24px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.audio-setting-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.audio-setting-label {
+  font-family: $pixel-font;
+  font-size: 0.6rem;
+  color: $pp-dark-green;
+  text-shadow: 0 1px 0 white;
+  white-space: nowrap;
+  width: 72px;
+  flex-shrink: 0;
+}
+
+.audio-slider {
+  flex: 1;
+  appearance: none;
+  height: 4px;
+  background: $pp-dark-green;
+  border: none;
+  outline: none;
+  cursor: pointer;
+
+  &::-webkit-slider-thumb {
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    background: $pp-cream;
+    border: 2px solid $pp-dark-green;
+    box-shadow: 1px 1px 0 black;
+    cursor: pointer;
+    border-radius: 0;
+  }
+
+  &::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    background: $pp-cream;
+    border: 2px solid $pp-dark-green;
+    box-shadow: 1px 1px 0 black;
+    cursor: pointer;
+    border-radius: 0;
+  }
+}
+
+.audio-mute-btn {
+  background: $pp-cream;
+  border: 2px solid black;
+  box-shadow: 3px 3px 0 black;
+  font-family: $pixel-font;
+  font-size: 0.6rem;
+  letter-spacing: 1px;
+  color: $pp-dark-green;
+  cursor: pointer;
+  padding: 10px;
+  width: 100%;
+
+  &:active {
+    transform: translate(3px, 3px);
+    box-shadow: none;
+  }
+
+  &.is-muted {
+    background: $pp-brown;
+    color: $pp-cream;
+    border-color: black;
+  }
 }

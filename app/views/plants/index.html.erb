@@ -1,7 +1,7 @@
 <% content_for :body_class, "garden-body" %>
 <% content_for :hide_navbar, "true" %>
 
-<div class="garden-page" data-controller="reminders">
+<div class="garden-page" data-controller="reminders" data-reminders-count-value="<%= @reminder_count %>">
 
   <!-- Top badges -->
   <div class="garden-header">
@@ -15,7 +15,7 @@
     </div>
   </div>
 
-  <button class="garden-badge--bell" data-action="click->reminders#open">
+  <button class="garden-badge--bell" data-reminders-target="bell" data-action="click->reminders#open">
     <svg width="38" height="33" viewBox="0 0 60 52" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
       <rect x="4" y="4" width="56" height="48" fill="#864B39"/>
       <rect x="0" y="0" width="56" height="48" fill="#864B39"/>
@@ -89,7 +89,7 @@
     <%= link_to new_plant_path, class: "garden-nav-btn garden-nav-btn--main" do %>
       <%= image_tag "new_photo_button.svg", alt: "add plant", class: "garden-nav-icon--main" %>
     <% end %>
-    <button class="garden-nav-btn">
+    <button class="garden-nav-btn" data-action="click->reminders#openAudioSettings">
       <%= image_tag "reglage.png", alt: "settings", class: "garden-nav-icon" %>
     </button>
   </div>
