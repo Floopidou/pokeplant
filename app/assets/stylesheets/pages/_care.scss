@@ -62,6 +62,7 @@
 // ── Avatar ───────────────────────────────────────────────────
 
 .care-avatar-zone {
+  position: relative;
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -73,6 +74,31 @@
   object-fit: contain;
   image-rendering: pixelated;
   margin-bottom: 30px;
+
+  &--petted {
+    animation: care-pet-wiggle 0.5s ease-in-out;
+  }
+}
+
+@keyframes care-pet-wiggle {
+  0%,  100% { transform: rotate(0deg); }
+  20%        { transform: rotate(-10deg); }
+  40%        { transform: rotate(10deg); }
+  60%        { transform: rotate(-6deg); }
+  80%        { transform: rotate(6deg); }
+}
+
+.care-pet-heart {
+  position: absolute;
+  pointer-events: none;
+  z-index: 10;
+  animation: care-heart-float 0.9s ease-out forwards;
+}
+
+@keyframes care-heart-float {
+  0%   { opacity: 1; transform: translateY(0) scale(0.7); }
+  50%  { opacity: 1; transform: translateY(-50px) scale(1.2); }
+  100% { opacity: 0; transform: translateY(-90px) scale(1); }
 }
 
 // ── Hearts + mood ────────────────────────────────────────────

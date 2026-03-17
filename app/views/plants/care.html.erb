@@ -23,8 +23,8 @@
   <%= turbo_frame_tag "care-bottom" do %>
 
  <!-- Hidden pet form -->
-  <%= form_with url: pet_plant_path(@plant), method: :patch, data: { care_target: "petForm" }, style: "display:none" do |f| %>
-    <%= f.submit %>
+  <%= form_with url: pet_plant_path(@plant), method: :patch, data: { care_target: "petForm", turbo_frame: "_top" }, style: "display:none" do |f| %>
+    <%= f.submit style: "display:none" %>
   <% end %>
 
   <!-- Avatar (rub to pet) -->
@@ -56,7 +56,7 @@
         </svg>
       <% end %>
     </div>
-    <p class="care-mood-text"><%= @plant.nickname %> is thirsty :(</p>
+    <p class="care-mood-text"><%= @plant.mood_sentence %></p>
   </div>
 
   <!-- WATER / POT tab card -->
