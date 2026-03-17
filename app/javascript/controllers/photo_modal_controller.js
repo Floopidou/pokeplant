@@ -21,14 +21,14 @@ export default class extends Controller {
     this.modal.classList.add("photo-modal-overlay")
     this.modal.innerHTML = `
       <div class="photo-modal">
-        <div class="photo-modal-icon">📸</div>
+        <div class="photo-modal-icon"></div>
         <h2 class="photo-modal-title">Add a photo</h2>
         <div class="photo-modal-buttons">
           <button type="button" class="pixel-btn pixel-btn--green photo-modal-btn" id="take-photo-btn">
-            📷 Take a photo
+            Take a photo
           </button>
           <button type="button" class="pixel-btn pixel-btn--pink photo-modal-btn" id="choose-photo-btn">
-            🖼️ Choose from gallery
+            Choose from gallery
           </button>
           <button type="button" class="pixel-btn pixel-btn--cancel photo-modal-btn" id="cancel-photo-btn">
             Cancel
