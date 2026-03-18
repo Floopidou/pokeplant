@@ -19,10 +19,12 @@
 }
 .chat-container {
   width: 100%;
-  max-width: 600px;
+  max-width: 500px;
   height: 85vh;
   height: 85dvh;
-  max-height: 800px;
+  max-height: 700px;     // Hauteur max fixe
+  min-height: 500px;     // Hauteur min pour éviter l'écrasement
+
   display: flex;
   flex-direction: column;
   background: $pp-cream;
