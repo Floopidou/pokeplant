@@ -30,6 +30,7 @@
   box-shadow: 8px 8px 0 0 $pp-dark-green;
   position: relative;
   z-index: 1;
+
 }
 
 // --- Chat Header ---
@@ -359,17 +360,18 @@
 // Mobile Large
 @media (max-width: 576px) {
   .chat-page {
-    padding: 0;
-    align-items: stretch;
+    padding: 0 12px;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    align-items: center; // Centrer verticalement
   }
 
   .chat-container {
-    height: 100vh;
-    height: 100dvh;
+    height: calc(100vh - 24px);
+    height: calc(100dvh - 24px);
     max-height: none;
-    border: none;
-    border-radius: 0;
-    box-shadow: none;
+    border: 3px solid $pp-dark-green; // Garde une bordure fine
+    box-shadow: 4px 4px 0 0 $pp-dark-green; // Ombre réduite
   }
 
   .chat-header {
