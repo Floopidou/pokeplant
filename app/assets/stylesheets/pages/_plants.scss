@@ -964,11 +964,13 @@
 
 .audio-slider {
   flex: 1;
+  max-width: 250px;
   appearance: none;
   height: 4px;
   background: $pp-dark-green;
   border: none;
   outline: none;
+  margin-left: 20px;
   cursor: pointer;
 
   &::-webkit-slider-thumb {
@@ -1014,5 +1016,32 @@
     background: $pp-brown;
     color: $pp-cream;
     border-color: black;
+  }
+}
+
+.audio-logout-btn {
+  display: block;
+  margin-bottom: 23px;
+  background: $pp-lightpink;
+  border: 2px solid black;
+  box-shadow: 3px 3px 0 black;
+  font-family: $pixel-font;
+  font-size: 0.6rem;
+  letter-spacing: 1px;
+  color: $pp-dark-green;
+  cursor: pointer;
+  padding: 10px;
+  width: 100%;
+  text-align: center;
+  text-decoration: none;
+
+  &:active {
+    transform: translate(3px, 3px);
+    box-shadow: none;
+  }
+
+  &:hover {
+    color: $pp-dark-green;
+    text-decoration: none;
   }
 }

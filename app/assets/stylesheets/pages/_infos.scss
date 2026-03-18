@@ -57,9 +57,9 @@
 }
 
 .infos-back {
-  position: absolute;
-  top: calc(45px + env(safe-area-inset-top, 0px));
-  left: 16px;
+  position: fixed;
+  top: 90px;
+  left: calc(50% - 190px + 16px);
   width: 28px;
   height: 22px;
   display: block;
@@ -96,7 +96,7 @@
 .infos-card {
   position: relative;
   width: 90%;
-  margin: 28vh auto 0;
+  margin: 18vh auto 0;
   z-index: 5;
 }
 
