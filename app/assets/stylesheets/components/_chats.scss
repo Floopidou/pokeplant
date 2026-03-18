@@ -45,6 +45,7 @@
   background: $pp-light-green;
   border-bottom: 4px solid $pp-dark-green;
   flex-shrink: 0;
+  height: 80px !important;
 }
 
 .chat-close-icon {
@@ -91,8 +92,8 @@
 .chat-plant-personality {
   font-family: $departure-font;
   font-size: 10px;
-  color: $pp-medium-green;
-  opacity: 0.7;
+  color: $pp-dark-green;
+  opacity: 1.7;
   display: block;
   margin-bottom: 2px;
 }
@@ -100,7 +101,7 @@
 .chat-plant-status {
   font-family: $departure-font;
   font-size: 11px;
-  color: $pp-medium-green;
+  color: $pp-dark-green;
 }
 
 // --- Chat Messages Area ---
@@ -203,7 +204,7 @@
 }
 
 .chat-bubble--plant {
-  background: #FFFDE5;
+  background: #FFFFFF;
 
   &::before {
 
@@ -676,7 +677,8 @@
 .chat-item {
   display: flex;
   align-items: center;
-  background-color: $pp-cream;
+  //background-color: $pp-cream;
+  background-color:#fff;
   border-radius: 12px;
   border: 2px solid $pp-mint;
   overflow: hidden;
@@ -722,7 +724,7 @@
 
 .chat-item-count {
   font-size: 12px;
-  color: $pp-mint;
+  color: $pp-green;
 }
 
 .chat-item-delete {
@@ -935,4 +937,110 @@
 
 .plus_btn {
   font-size: 15px !important;
+}
+
+
+.pixel-btn--pink-lite {
+  background-color: #f7c4ce !important;
+  border-color: darken($pp-pink, 30%) !important;
+  box-shadow: 5px 5px 0 0 darken($pp-pink, 30%) !important;
+
+  &:hover {
+    background: lighten($pp-pink, 8%) !important;
+    box-shadow: 3px 3px 0 0 darken($pp-pink, 30%) !important;
+  }
+}
+.pixel-btn--pink-no-shadow {
+  background-color: #f7c4ce !important;
+  border-color: darken($pp-pink, 30%) !important;
+  box-shadow: 1px 1px 0 0 darken($pp-pink, 30%) !important;
+
+  &:hover {
+    background: lighten($pp-pink, 8%) !important;
+    box-shadow: 3px 3px 0 0 darken($pp-pink, 30%) !important;
+  }
+}
+
+.chat-input-container {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border: 3px solid $pp-dark-green;
+  box-shadow: 4px 4px 0 0 $pp-dark-green;
+}
+
+.chat-input-container .chat-input {
+  flex: 1;
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  padding-right: 80px !important; // Espace pour le bouton
+}
+
+.chat-input-container .chat-send-btn {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 8px 14px !important;
+  font-size: 10px !important;
+  margin: 0;
+}
+
+// Responsive mobile
+@media (max-width: 576px) {
+  .chat-input-container .chat-send-btn {
+    padding: 6px 10px !important;
+    font-size: 9px !important;
+  }
+
+  .chat-input-container .chat-input {
+    padding-right: 70px !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .chat-input-container .chat-send-btn {
+    padding: 5px 8px !important;
+    font-size: 8px !important;
+  }
+
+  .chat-input-container .chat-input {
+    padding-right: 60px !important;
+  }
+}
+.send-btn {
+  border:none !important;
+  background: transparent !important;
+}
+
+
+
+//********//
+.chats-new-btn {
+  width: 100%;
+  font-family: $pixel-font !important;
+  font-size: 12px !important;
+  padding: 14px 20px !important;
+  text-align: center;
+}
+
+// Ajustement pour les items dans la zone scrollable
+.chat-messages .chats-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.chat-messages .chats-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+  color: $pp-dark-green;
+  font-family: $departure-font;
 }
