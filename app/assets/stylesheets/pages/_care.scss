@@ -1,20 +1,34 @@
 // ── Care page ────────────────────────────────────────────────
 
+.garden-body:has(.care-page) {
+  overflow: hidden;
+  height: 100dvh;
+
+  main {
+    overflow: hidden;
+    height: 100dvh;
+  }
+}
+
 .care-page {
   justify-content: flex-start;
-  padding-top: calc(130px + env(safe-area-inset-top, 0px));
+  padding-top: calc(90px + env(safe-area-inset-top, 0px));
   padding-bottom: 0;
   padding-left: 0;
   padding-right: 0;
   gap: 2px;
   align-items: center;
+  height: 100dvh;
+  max-height: 100dvh;
+  overflow: hidden;
+  overscroll-behavior: none;
 }
 
 // ── Nav row ──────────────────────────────────────────────────
 
 .care-nav {
   position: fixed;
-  top: 90px;
+  top: calc(90px + env(safe-area-inset-top, 0px));
   left: 50%;
   transform: translateX(-50%);
   width: 380px;
@@ -150,6 +164,7 @@
 
 turbo-frame#care-bottom {
   flex: 1;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -158,6 +173,7 @@ turbo-frame#care-bottom {
 .care-bottom {
   width: 100%;
   flex: 1;
+  min-height: 0;
   margin-top: 32px;
   display: flex;
   flex-direction: column;
@@ -191,7 +207,7 @@ turbo-frame#care-bottom {
   &--inactive { height: 48px; }
 
   &--water {
-    &.care-tab--active   { background: $pp-medium-green; color: $pp-brown; text-shadow: 1px 1px 0 white; }
+    &.care-tab--active   { background: $pp-medium-green; color: white; text-shadow: 1px 1px 0 $pp-blue; }
     &.care-tab--inactive { background: $pp-medium-green; color: $pp-dark-green; text-shadow: 1px 1px 0 white; }
   }
 
@@ -213,7 +229,7 @@ turbo-frame#care-bottom {
 .care-panel {
   border: 4px solid $pp-dark-green;
   border-bottom: none;
-  padding: 60px 24px 48px;
+  padding: 30px 24px 48px;
   flex: 1;
   display: flex;
   flex-direction: column;
