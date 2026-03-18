@@ -41,6 +41,10 @@
       <%= render "shared/audio_settings" %>
     </div>
 
+    <div id="page-loader" class="page-loader" data-controller="page-loader" data-turbo-permanent>
+      <%= render "shared/hourglass_loader" %>
+    </div>
+
     <%= render "shared/flashes" %>
 
     <% if user_signed_in? && @reminders %>

@@ -2,7 +2,7 @@
 
 .care-page {
   justify-content: flex-start;
-  padding-top: calc(16px + env(safe-area-inset-top, 0px));
+  padding-top: calc(130px + env(safe-area-inset-top, 0px));
   padding-bottom: 0;
   padding-left: 0;
   padding-right: 0;
@@ -13,12 +13,20 @@
 // ── Nav row ──────────────────────────────────────────────────
 
 .care-nav {
-  width: 100%;
-  max-width: 380px;
+  position: fixed;
+  top: 90px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 380px;
+  max-width: 100vw;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 16px;
+  z-index: 100;
+  pointer-events: none;
+
+  > * { pointer-events: auto; }
 }
 
 .care-nav-right {
