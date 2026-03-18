@@ -5,21 +5,25 @@
 .infos-body {
   margin: 0;
   padding: 0;
+  overflow: hidden;
+  height: 100dvh;
 
   main {
     padding: 0;
     margin: 0;
+    overflow: hidden;
+    height: 100dvh;
   }
 }
 
 .infos-page {
   max-width: 380px;
   margin: 0 auto;
-  min-height: 100vh;
+  height: 100dvh;
   position: relative;
   display: flex;
   flex-direction: column;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 // ── Background SVG ────────────────────────────────────────────
@@ -93,7 +97,7 @@
 .infos-card {
   position: relative;
   width: 90%;
-  margin: 32vh auto 0;
+  margin: 28vh auto 0;
   z-index: 5;
 }
 
@@ -220,8 +224,10 @@ position: absolute;
 
 .slides-wrapper {
   width: 357px;
-  margin: 0 auto 40px;
-  position: relative;
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 10;
 }
 
@@ -293,14 +299,14 @@ position: absolute;
 }
 
 .origin-region {
-  font-family: 'Departure Mono', monospace;
+  font-family: "DepartureMono", monospace;
   font-size: 20px;
   margin-bottom: 20px;
   color: #000;
 }
 
 .description-text {
-  font-family: 'Departure Mono', monospace;
+  font-family: "DepartureMono", monospace;
   font-size: 20px;
   line-height: 1.3;
   color: $pp-dark-green;
