@@ -218,6 +218,7 @@ class PlantsController < ApplicationController
   def pet
     @plant = Plant.find(params[:id])
     @plant.mood_points = [@plant.mood_points + 10, 100].min
+    @plant.avatar_updating!
 
     respond_to do |format|
       if @plant.save

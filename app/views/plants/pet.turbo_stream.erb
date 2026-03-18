@@ -1,3 +1,10 @@
+<%= turbo_stream.replace "care-avatar" do %>
+  <% avatar = File.exist?(Rails.root.join("app/assets/images/avatars/#{@plant.avatar_img}")) ? "avatars/#{@plant.avatar_img}" : "avatars/undefined_pink_happy.png" %>
+  <div id="care-avatar" class="care-avatar-zone"
+       data-action="mousedown->care#startRub touchstart->care#startRub mousemove->care#trackRub touchmove->care#trackRub mouseup->care#stopRub touchend->care#stopRub">
+    <%= image_tag avatar, class: "care-avatar plant-menu-avatar", alt: @plant.nickname %>
+  </div>
+<% end %>
 <%= turbo_stream.replace "care-mood" do %>
   <% full_hearts = (@plant.mood_points / 20).floor %>
   <% has_half    = (@plant.mood_points % 20) >= 10 %>
