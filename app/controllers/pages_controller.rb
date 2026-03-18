@@ -1,4 +1,6 @@
 class PagesController < ApplicationController
+  skip_before_action :load_reminders, only: [:loading, :home]
+
   def home
   end
 

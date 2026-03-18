@@ -19,7 +19,8 @@ Rails.application.routes.draw do
   # static pages
   # root to: "pages#home"
   get "loading", to: "pages#loading"
-  get "", to: "plants#index"
+  get "garden", to: "plants#index", as: :garden
+  get "", to: "pages#loading"
 
   # route with reminders for all plants of current user
   get "all_reminders", to: "pages#reminders", as: :reminders
