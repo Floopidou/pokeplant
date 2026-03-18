@@ -151,7 +151,7 @@ ficus = Plant.create!(
   description: "Indoor tree with large violin-shaped leaves. Does not like to be moved.",
   watering_interval: 10,
   repot_interval: 730,
-  mood_points: 85,
+  mood_points: 70,
   last_watered: Date.new(2026, 3, 12),
   last_repot: Date.new(2026, 1, 12),
   last_petting: Date.new(2026, 3, 13)
