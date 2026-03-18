@@ -20,10 +20,11 @@
 
 .auth-page {
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px 16px;
+  padding: calc(24px + env(safe-area-inset-top, 0px)) 16px calc(24px + env(safe-area-inset-bottom, 0px));
 }
 
 .auth-container {
@@ -420,10 +421,11 @@
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
+  min-height: 100dvh;
 }
 
 .auth-logo {
-  margin-top: 40px;
+  margin-top: calc(40px + env(safe-area-inset-top, 0px));
   margin-bottom: 30px;
   text-align: center;
 }

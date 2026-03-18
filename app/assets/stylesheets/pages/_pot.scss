@@ -2,7 +2,7 @@
 
 .pot-page {
   justify-content: flex-start;
-  padding-top: 16px;
+  padding-top: calc(16px + env(safe-area-inset-top, 0px));
   padding-bottom: 0;
   padding-left: 0;
   padding-right: 0;

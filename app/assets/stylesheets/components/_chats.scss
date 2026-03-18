@@ -8,7 +8,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px 16px;
+  padding: calc(24px + env(safe-area-inset-top, 0px)) 16px calc(24px + env(safe-area-inset-bottom, 0px));
 }
 .chat-page {
   background-image: url('wallpaper.svg');
@@ -927,4 +927,8 @@
 }
 .pixel-btn {
   padding: 10px 14px !important;
+}
+
+.plus_btn {
+  font-size: 15px !important;
 }
