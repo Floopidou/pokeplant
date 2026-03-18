@@ -27,6 +27,7 @@
 .infos-bg {
   width: 100vw;
   height: 100vh;
+  height: 100dvh;
   object-fit: cover;
   display: block;
   position: fixed;
@@ -54,7 +55,7 @@
 
 .infos-back {
   position: absolute;
-  top: 45px;
+  top: calc(45px + env(safe-area-inset-top, 0px));
   left: 16px;
   width: 28px;
   height: 22px;
@@ -69,7 +70,7 @@
   font-size: 1.6rem;
   color: $pp-medium-green;
   text-align: center;
-  margin: 72px 0 12px;
+  margin: calc(72px + env(safe-area-inset-top, 0px)) 0 12px;
   letter-spacing: 1px;
   text-shadow: 3px 3px 0px #FFFFFF;
   text-transform: capitalize;
