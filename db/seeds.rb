@@ -56,7 +56,7 @@ mickael = User.create!(
 perrine = User.create!(
   email: "perrine@example.com",
   password: "000000",
-  username: "mickael",
+  username: "perrine",
   birthdate: Date.new(1996, 9, 26),
   leaf_coins: 90
 )
