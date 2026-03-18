@@ -1,0 +1,154 @@
+// ── Page loader overlay ──────────────────────────────────────
+
+// Hide Turbo's native progress bar
+.turbo-progress-bar { display: none !important; }
+
+.page-loader {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  background: rgba(249, 223, 228, 0.35);
+  pointer-events: none;
+
+  &.is-active {
+    display: flex;
+    pointer-events: auto;
+  }
+}
+
+// ── Hourglass loader ─────────────────────────────────────────
+
+.hourglass-loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+}
+
+.hourglass-loader__spinner {
+  width: 176px;
+  height: 220px;
+  animation: hourglass-flip 5s ease-in-out infinite;
+  transform-origin: center center;
+}
+
+.hourglass-loader__svg {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+@keyframes hourglass-flip {
+  0%   { transform: rotate(0deg); }
+  35%  { transform: rotate(180deg); }
+  50%  { transform: rotate(180deg); }
+  85%  { transform: rotate(360deg); }
+  100% { transform: rotate(360deg); }
+}
+
+// Sand top (drain row by row)
+.hourglass-loader__st1 { animation: hourglass-hide1 5s steps(1) infinite; }
+.hourglass-loader__st2 { animation: hourglass-hide2 5s steps(1) infinite; }
+.hourglass-loader__st3 { animation: hourglass-hide3 5s steps(1) infinite; }
+.hourglass-loader__st4 { animation: hourglass-hide4 5s steps(1) infinite; }
+
+@keyframes hourglass-hide1 {
+  0%   { opacity: 1; } 7%   { opacity: 0; }
+  50%  { opacity: 1; } 57%  { opacity: 0; }
+  100% { opacity: 0; }
+}
+@keyframes hourglass-hide2 {
+  0%   { opacity: 1; } 14%  { opacity: 0; }
+  50%  { opacity: 1; } 64%  { opacity: 0; }
+  100% { opacity: 0; }
+}
+@keyframes hourglass-hide3 {
+  0%   { opacity: 1; } 21%  { opacity: 0; }
+  50%  { opacity: 1; } 71%  { opacity: 0; }
+  100% { opacity: 0; }
+}
+@keyframes hourglass-hide4 {
+  0%   { opacity: 1; } 28%  { opacity: 0; }
+  50%  { opacity: 1; } 78%  { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+// Sand bottom (fill row by row)
+.hourglass-loader__sb1 { animation: hourglass-show1 5s steps(1) infinite; }
+.hourglass-loader__sb2 { animation: hourglass-show2 5s steps(1) infinite; }
+.hourglass-loader__sb3 { animation: hourglass-show3 5s steps(1) infinite; }
+.hourglass-loader__sb4 { animation: hourglass-show4 5s steps(1) infinite; }
+
+@keyframes hourglass-show1 {
+  0%   { opacity: 0; } 7%   { opacity: 1; }
+  50%  { opacity: 0; } 57%  { opacity: 1; }
+  100% { opacity: 1; }
+}
+@keyframes hourglass-show2 {
+  0%   { opacity: 0; } 14%  { opacity: 1; }
+  50%  { opacity: 0; } 64%  { opacity: 1; }
+  100% { opacity: 1; }
+}
+@keyframes hourglass-show3 {
+  0%   { opacity: 0; } 21%  { opacity: 1; }
+  50%  { opacity: 0; } 71%  { opacity: 1; }
+  100% { opacity: 1; }
+}
+@keyframes hourglass-show4 {
+  0%   { opacity: 0; } 28%  { opacity: 1; }
+  50%  { opacity: 0; } 78%  { opacity: 1; }
+  100% { opacity: 1; }
+}
+
+// Sand stream
+.hourglass-loader__stream {
+  animation: hourglass-stream 5s steps(1) infinite;
+}
+@keyframes hourglass-stream {
+  0%   { opacity: 1; } 30%  { opacity: 0; }
+  50%  { opacity: 1; } 80%  { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+// Loading text
+.hourglass-loader__text {
+  display: flex;
+  gap: 3px;
+  font-family: $pixel-font;
+  font-size: 14px;
+  color: $pp-dark-green;
+  letter-spacing: 3px;
+}
+
+.hourglass-loader__letter {
+  display: inline-block;
+  animation: hourglass-bop 1.2s ease-in-out infinite;
+
+  @for $i from 1 through 7 {
+    &:nth-child(#{$i}) { animation-delay: #{($i - 1) * 0.1}s; }
+  }
+}
+
+@keyframes hourglass-bop {
+  0%, 100% { transform: translateY(0); }
+  40%      { transform: translateY(-4px); }
+}
+
+.hourglass-loader__spacer { width: 4px; }
+
+.hourglass-loader__dot {
+  color: $pp-pink;
+  &--1 { animation: hourglass-dot-pulse 1s ease-in-out infinite; }
+  &--2 { animation: hourglass-dot-pulse 1s ease-in-out 0.25s infinite; }
+  &--3 { animation: hourglass-dot-pulse 1s ease-in-out 0.5s  infinite; }
+}
+
+@keyframes hourglass-dot-pulse {
+  0%, 100% { opacity: 0.15; }
+  50%      { opacity: 1; }
+}

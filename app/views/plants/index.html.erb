@@ -1,7 +1,7 @@
 <% content_for :body_class, "garden-body" %>
 <% content_for :hide_navbar, "true" %>
 
-<div class="garden-page">
+<div class="garden-page" data-controller="coming-soon">
 
   <!-- Top badges -->
   <div class="garden-header">
@@ -63,7 +63,7 @@
 
   <!-- Bottom nav -->
   <div class="garden-bottom-nav">
-    <button class="garden-nav-btn" disabled>
+    <button class="garden-nav-btn" type="button" data-action="click->coming-soon#open">
       <%= image_tag "shop.svg", alt: "shop", class: "garden-nav-icon" %>
     </button>
     <%= link_to new_plant_path, class: "garden-nav-btn garden-nav-btn--main" do %>
@@ -72,6 +72,16 @@
     <button class="garden-nav-btn" data-action="click->reminders#openAudioSettings">
       <%= image_tag "reglage.svg", alt: "settings", class: "garden-nav-icon" %>
     </button>
+  </div>
+
+  <!-- Coming soon overlay -->
+  <div class="coming-soon-overlay" data-coming-soon-target="overlay"
+       data-action="click->coming-soon#close">
+    <div class="coming-soon-panel">
+      <p class="coming-soon-text">🛒</p>
+      <p class="coming-soon-title">Coming soon...</p>
+      <p class="coming-soon-subtitle">Something exciting is growing 🌱</p>
+    </div>
   </div>
 
 </div>
