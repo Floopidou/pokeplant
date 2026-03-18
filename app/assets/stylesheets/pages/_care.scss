@@ -245,6 +245,7 @@ turbo-frame#care-bottom {
   height: auto;
   display: block;
   image-rendering: pixelated;
+  overflow: hidden;
 }
 
 
@@ -256,6 +257,7 @@ turbo-frame#care-bottom {
   box-shadow: 3px 3px 0 black;
   font-family: $pixel-font;
   font-size: 0.55rem;
+  color: black;
   letter-spacing: 1px;
   padding: 10px 22px;
   cursor: pointer;

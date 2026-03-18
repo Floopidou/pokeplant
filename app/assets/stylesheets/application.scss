@@ -7,6 +7,9 @@
 @import "bootstrap";
 @import "font-awesome";
 
+// PWA base — fixed body, scroll containers
+@import "config/base";
+
 // Your CSS partials
 @import "components/index";
 @import "pages/index";

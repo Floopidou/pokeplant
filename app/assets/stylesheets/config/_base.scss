@@ -1,0 +1,33 @@
+// ============================================================
+// PWA BASE — Prevents body-level scroll / iOS rubber-band bounce
+// All scrolling happens in child containers, not on body.
+// ============================================================
+
+html, body {
+  height: 100dvh;
+  width: 100%;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  color-scheme: light;
+}
+
+// Application layout — main is the universal scroll container.
+// Pages that fit the viewport won't trigger scroll;
+// pages with taller content (infos, chats list…) scroll here.
+main#main-content {
+  height: 100dvh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  position: relative;
+}
+
+// Devise layout uses a bare <main> (no id)
+.devise-body > main {
+  height: 100dvh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}

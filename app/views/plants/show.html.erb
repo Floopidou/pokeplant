@@ -3,6 +3,13 @@
 
 <div class="garden-page plant-menu-page" data-controller="coming-soon">
 
+  <!-- Nav: back + info button -->
+  <div class="care-nav">
+    <%= link_to plants_path, class: "care-back-btn" do %>&#8592;<% end %>
+    <%= link_to infos_plant_path(@plant), class: "care-help-btn" do %>
+      <%= image_tag "info_page.svg", class: "care-help-icon", alt: "info" %>
+    <% end %>
+  </div>
 
   <!-- Title -->
   <h1 class="garden-title plant-menu-title"><%= @plant.nickname %></h1>
@@ -14,9 +21,6 @@
     <div class="plant-menu-avatar-wrap">
       <% avatar = File.exist?(Rails.root.join("app/assets/images/avatars/#{@plant.avatar_img}")) ? "avatars/#{@plant.avatar_img}" : "avatars/undefined_pink_happy.png" %>
       <%= image_tag avatar, class: "plant-menu-avatar", alt: @plant.nickname %>
-      <%= link_to infos_plant_path(@plant), class: "plant-info-btn" do %>
-        <%= image_tag "info_page.svg", class: "plant-info-icon", alt: "info" %>
-      <% end %>
     </div>
     <%= link_to plant_path(@next_plant), class: "plant-show-arrow" do %>&#8250;<% end %>
   </div>

@@ -146,7 +146,7 @@
   position: relative;
   width: 320px;   // exactly fits the diamond: 0..170+150
   height: 375px;
-  margin: 0 auto;
+  margin-top: 40px;
 }
 
 // Each slot is absolutely placed; later rows have higher z-index
@@ -220,47 +220,35 @@
   text-shadow: 1px 1px 0 rgba(0,0,0,0.6);
 }
 
-// ── Pagination — pixel SVG button style ────────────────────
+// ── Swipeable garden grid ───────────────────────────────────
 
-.garden-pagination {
+.garden-swipe {
   display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 36px;
-  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
 }
 
-.garden-page-btn {
-  // Matches gprovided SVG: cream fill, 1.5px black border, black drop shadow offset 3px/4px
-  background: #FFFDE5;
-  border: 1.5px solid black;
-  box-shadow: 3px 4px 0 black;
-  min-width: 36px;
-  height: 34px;
-  padding: 0 10px;
-  font-family: $pixel-font;
-  font-size: 0.65rem;
-  color: black;
-  display: inline-flex;
-  align-items: center;
+.garden-swipe-track {
+  display: flex;
+  width: 320px;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar { display: none; }
+}
+
+.garden-swipe-slide {
+  flex: 0 0 320px;
+  scroll-snap-align: start;
+}
+
+.garden-swipe-dots {
+  display: flex;
   justify-content: center;
-  text-decoration: none;
-  border-radius: 0;
-
-  &.active {
-    background: #c8e6c8;
-    transform: translate(3px, 4px);
-    box-shadow: none;
-  }
-
-  &.disabled {
-    opacity: 0.35;
-    pointer-events: none;
-  }
-
-  &:hover:not(.active):not(.disabled) {
-    background: #f0f8e8;
-  }
+  gap: 8px;
 }
 
 // ── Bottom nav ──────────────────────────────────────────────
