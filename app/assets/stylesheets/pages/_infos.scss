@@ -250,13 +250,14 @@ position: absolute;
   width: 12px;
   height: 12px;
   border-radius: 0;
-  background-color: #d6c8b0;
+  background-color: $pp-cream;
   display: inline-block;
   image-rendering: pixelated;
   transition: background-color 0.2s;
 
   &.active {
-    background-color: #7a5c3a;
+    background-color: $pp-lightpink;
+    outline: 2px solid $pp-dark-green;
   }
 }
 
@@ -305,6 +306,10 @@ position: absolute;
   flex-grow: 1;
   padding: 0px 5px;
   overflow-y: auto; /* Au cas où la description est longue */
+
+  &--capitalize {
+    text-transform: capitalize;
+  }
 }
 
 .plant-icon-footer {
@@ -314,17 +319,24 @@ position: absolute;
   justify-content: center;
 
   .icon-mini-plant {
-    width: 32px;
+    width: 42px;
     height: auto;
   }
 }
 
 // ── Toxicity pots ─────────────────────────────────────────────
 
-.toxicity-row {
+.toxicity-row,
+.pot-size-row {
   display: flex;
   justify-content: center;
   margin-bottom: 16px;
+}
+
+.pot-size-img {
+  width: 175px;
+  height: auto;
+  image-rendering: pixelated;
 }
 
 .toxicity-pots-img {
@@ -332,4 +344,3 @@ position: absolute;
   height: auto;
   image-rendering: pixelated;
 }
-

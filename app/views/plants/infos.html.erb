@@ -285,9 +285,24 @@
             <%= render "toxicity_pots", toxicity_val: toxicity_val %>
           </div>
           <h2 class="scientific-name">Type of soil</h2>
-          <p class="description-text"><%= @plant.type_of_soil %></p>
+          <p class="description-text description-text--capitalize"><%= @plant.type_of_soil %></p>
           <div class="plant-icon-footer">
             <%= image_tag "maggot.svg", alt: "icon", class: "icon-mini-plant" %>
+          </div>
+        </div>
+      </div>
+
+      <%# ── Slide 3 : ideal pot size + optimal placement ── %>
+      <div class="slide plant-description-card" style="background-image: url('<%= asset_path('card_slide.svg') %>');">
+        <div class="card-content">
+          <h2 class="scientific-name">Ideal pot size</h2>
+          <div class="pot-size-row">
+            <%= render "pot_size", ideal_pot_size: @plant.ideal_pot_size %>
+          </div>
+          <h2 class="scientific-name">Optimal placement</h2>
+          <p class="description-text description-text--capitalize"><%= @plant.optimal_placement %></p>
+          <div class="plant-icon-footer">
+            <%= image_tag "sunlight icon.svg", alt: "icon", class: "icon-mini-plant" %>
           </div>
         </div>
       </div>
@@ -296,6 +311,7 @@
 
     <div class="slides-dots">
       <span class="slides-dot active" data-slide-target="dot"></span>
+      <span class="slides-dot" data-slide-target="dot"></span>
       <span class="slides-dot" data-slide-target="dot"></span>
     </div>
   </div>
