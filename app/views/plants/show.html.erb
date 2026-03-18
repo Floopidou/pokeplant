@@ -26,7 +26,7 @@
   <div class="plant-action-grid">
     <div class="plant-action-row">
       <%= link_to care_plant_path(@plant), class: "plant-action-btn", data: { delayed_nav: "" } do %>
-        <%= image_tag "arrosoir (1).svg", class: "plant-action-icon", alt: "water" %>
+        <%= image_tag "arrosoir.svg", class: "plant-action-icon", alt: "water" %>
       <% end %>
       <%= link_to plant_chats_path(@plant), class: "plant-action-btn", data: { turbo_method: :post } do %>
         <%= image_tag "chat_emote.svg", class: "plant-action-icon", alt: "chat" %>

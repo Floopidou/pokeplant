@@ -298,6 +298,141 @@ habib_3 = Plant.create!(
   last_petting: Date.new(2026, 3, 13)
 )
 
+habib_4 = Plant.create!(
+  user: habib,
+  nickname: "Spiky",
+  common_name: "Cactus",
+  scientific_name: "Echinopsis pachanoi",
+  avatar_img: "undefined_pink_happy.png",
+  position_in_garden: 4,
+  personality: "rustic",
+  personality_tags: "tough,independent,resilient",
+  plant_size: "medium",
+  ideal_pot_size: "small",
+  light_need: 9,
+  toxicity: 2,
+  temperature_min: 5,
+  temperature_max: 40,
+  type_of_soil: "cactus and succulent mix with sand",
+  optimal_placement: "south-facing windowsill with maximum sun",
+  origin_region: "South America (Andes)",
+  description: "Columnar cactus that thrives on neglect. Barely needs watering.",
+  watering_interval: 21,
+  repot_interval: 1095,
+  mood_points: 85,
+  last_watered: Date.new(2026, 2, 25),
+  last_repot: Date.new(2025, 6, 1),
+  last_petting: Date.new(2026, 3, 10)
+)
+
+habib_5 = Plant.create!(
+  user: habib,
+  nickname: "Velvet",
+  common_name: "African Violet",
+  scientific_name: "Saintpaulia ionantha",
+  avatar_img: "undefined_pink_happy.png",
+  position_in_garden: 5,
+  personality: "gentle",
+  personality_tags: "soft,delicate,cheerful",
+  plant_size: "small",
+  ideal_pot_size: "small",
+  light_need: 5,
+  toxicity: 1,
+  temperature_min: 15,
+  temperature_max: 26,
+  type_of_soil: "light African violet mix",
+  optimal_placement: "east-facing windowsill, no direct afternoon sun",
+  origin_region: "East Africa (Tanzania)",
+  description: "Compact flowering plant with fuzzy leaves and vibrant purple blooms.",
+  watering_interval: 5,
+  repot_interval: 365,
+  mood_points: 60,
+  last_watered: Date.new(2026, 3, 15),
+  last_repot: Date.new(2025, 10, 5),
+  last_petting: Date.new(2026, 3, 16)
+)
+
+habib_6 = Plant.create!(
+  user: habib,
+  nickname: "Dracula",
+  common_name: "ZZ Plant",
+  scientific_name: "Zamioculcas zamiifolia",
+  avatar_img: "undefined_pink_happy.png",
+  position_in_garden: 6,
+  personality: "inspector",
+  personality_tags: "watchful,stoic,enduring",
+  plant_size: "medium",
+  ideal_pot_size: "medium",
+  light_need: 3,
+  toxicity: 7,
+  temperature_min: 10,
+  temperature_max: 35,
+  type_of_soil: "well-draining potting mix",
+  optimal_placement: "any room, tolerates low light corners",
+  origin_region: "Eastern Africa",
+  description: "Nearly indestructible glossy plant. Stores water in rhizomes, tolerates neglect perfectly.",
+  watering_interval: 14,
+  repot_interval: 730,
+  mood_points: 78,
+  last_watered: Date.new(2026, 3, 5),
+  last_repot: Date.new(2025, 9, 20),
+  last_petting: Date.new(2026, 3, 11)
+)
+
+habib_7 = Plant.create!(
+  user: habib,
+  nickname: "Bambino",
+  common_name: "Lucky Bamboo",
+  scientific_name: "Dracaena sanderiana",
+  avatar_img: "undefined_pink_happy.png",
+  position_in_garden: 7,
+  personality: "bucolic",
+  personality_tags: "peaceful,zen,harmonious",
+  plant_size: "small",
+  ideal_pot_size: "small",
+  light_need: 4,
+  toxicity: 3,
+  temperature_min: 15,
+  temperature_max: 30,
+  type_of_soil: "grows in water or light well-draining soil",
+  optimal_placement: "indirect light on a desk or shelf",
+  origin_region: "Central Africa",
+  description: "Elegant stalks often grown in water. Symbolizes good fortune and positive energy.",
+  watering_interval: 7,
+  repot_interval: 548,
+  mood_points: 92,
+  last_watered: Date.new(2026, 3, 14),
+  last_repot: Date.new(2025, 12, 1),
+  last_petting: Date.new(2026, 3, 17)
+)
+
+habib_8 = Plant.create!(
+  user: habib,
+  nickname: "Flamingo",
+  common_name: "Anthurium",
+  scientific_name: "Anthurium andraeanum",
+  avatar_img: "undefined_pink_happy.png",
+  position_in_garden: 8,
+  personality: "partygoer",
+  personality_tags: "vibrant,social,flamboyant",
+  plant_size: "small",
+  ideal_pot_size: "small",
+  light_need: 6,
+  toxicity: 6,
+  temperature_min: 16,
+  temperature_max: 28,
+  type_of_soil: "orchid mix or coarse well-draining soil",
+  optimal_placement: "bright indirect light, humid bathroom or kitchen",
+  origin_region: "Colombia and Ecuador",
+  description: "Tropical plant with striking waxy red spathes. Loves humidity and warmth.",
+  watering_interval: 7,
+  repot_interval: 548,
+  mood_points: 55,
+  last_watered: Date.new(2026, 3, 11),
+  last_repot: Date.new(2025, 8, 15),
+  last_petting: Date.new(2026, 3, 14)
+)
+
 # chloe
 chloe_1 = Plant.create!(
   user: chloe,
@@ -545,6 +680,7 @@ perrine_3 = Plant.create!(
 puts "Creating plant-pot pairs..."
 
 [monstera_manon, golden_pothos, ficus, monstera_bob, habib_1, habib_2, habib_3,
+ habib_4, habib_5, habib_6, habib_7, habib_8,
  chloe_1, chloe_2, chloe_3, mickael_1, mickael_2, mickael_3,
  perrine_1, perrine_2, perrine_3].each do |plant|
   PlantPotPair.create!(plant: plant, pot: pot_basique, equipped: true)
