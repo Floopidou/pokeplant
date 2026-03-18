@@ -10,9 +10,16 @@
         <h1 class="chat-plant-name"><%= @plant.nickname || @plant.common_name %></h1>
         <span class="chat-plant-status">Chat History</span>
       </div>
-      <%= link_to plant_path(@plant), class: "chat-back-link" do %>
-        <%= image_tag "cross.svg", alt: "Close", class: "chat-close-icon" %>
-      <% end %>
+
+      <% if @chats.any? %>
+  <%= link_to plant_chat_path(@plant, @chats.first), class: "chat-back-link" do %>
+    <%= image_tag "cross.svg", alt: "Close", class: "chat-close-icon" %>
+  <% end %>
+<% else %>
+  <%= link_to plant_path(@plant), class: "chat-back-link" do %>
+    <%= image_tag "cross.svg", alt: "Close", class: "chat-close-icon" %>
+  <% end %>
+<% end %>
     </div>
 
     <!-- Zone scrollable (comme chat-messages) -->

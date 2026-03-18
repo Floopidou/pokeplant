@@ -28,7 +28,7 @@
       </div>
 
 <!----------->
-<%= link_to plant_chats_path(@plant), class: "pixel-btn pixel-btn--pink-lite" do %>
+<%= link_to plant_chats_path(@plant, from_chat: @chat.id), class: "pixel-btn pixel-btn--pink-lite" do %>
  <%= image_tag "chat_history.svg", alt: "History", class: "btn-icon" %>
 <% end %>
 <!------->
