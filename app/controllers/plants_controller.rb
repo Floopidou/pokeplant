@@ -20,17 +20,13 @@ class PlantsController < ApplicationController
 
   #### THE GARDEN AND INFOS PAGES
   def index
-    per_page = 6
-    @current_page = (params[:page] || 1).to_i.clamp(1, 4)
     all_plants = current_user.plants.order(position_in_garden: :asc)
 
-    # updating moods
-    all_plants.each do |p|
-      p.avatar_updating!
-    end
+    all_plants.each(&:avatar_updating!)
 
     @total_plant_count = all_plants.count
-    @paged_plants = all_plants.offset((@current_page - 1) * per_page).limit(per_page)
+    @plant_pages = all_plants.to_a.each_slice(6).to_a
+    @plant_pages << [] if @plant_pages.empty?
 
     thirsty = all_plants.select(&:needs_water?)
     grumpy  = all_plants.select(&:needs_repot?)

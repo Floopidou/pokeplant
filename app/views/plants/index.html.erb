@@ -42,44 +42,48 @@
   <!-- Title -->
   <h1 class="garden-title">The Garden</h1>
 
-  <%= turbo_frame_tag "garden-grid" do %>
-    <!-- 6 slots in isometric diamond: [1], [2,3], [4,5], [6] -->
-    <% slots = (@paged_plants.to_a + Array.new(6, nil)).first(6) %>
-    <div class="garden-grid">
-      <% slots.each_with_index do |plant, i| %>
-        <div class="<%= "garden-slot garden-slot--#{i + 1}" %>">
-          <% if plant %>
-            <%= link_to plant_path(plant), class: "garden-tile", data: { turbo_frame: "_top" } do %>
-              <div class="tile-wrapper">
-                <% avatar = File.exist?(Rails.root.join("app/assets/images/avatars/#{plant.avatar_img}")) ? "avatars/#{plant.avatar_img}" : "avatars/undefined_pink_happy.png" %>
-                <%= image_tag "tile.svg", class: "tile-base", alt: "" %>
-                <div class="tile-plant-wrap">
-                  <%= image_tag avatar, class: "tile-plant", alt: plant.nickname %>
-                </div>
-                <span class="tile-label"><%= plant.nickname %></span>
+  <!-- Swipeable plant grid -->
+  <div class="garden-swipe" data-controller="slide">
+    <div class="garden-swipe-track" data-slide-target="track">
+      <% @plant_pages.each do |page_plants| %>
+        <div class="garden-swipe-slide">
+          <% slots = (page_plants + Array.new(6, nil)).first(6) %>
+          <div class="garden-grid">
+            <% slots.each_with_index do |plant, i| %>
+              <div class="<%= "garden-slot garden-slot--#{i + 1}" %>">
+                <% if plant %>
+                  <%= link_to plant_path(plant), class: "garden-tile", data: { turbo_frame: "_top" } do %>
+                    <div class="tile-wrapper">
+                      <% avatar = File.exist?(Rails.root.join("app/assets/images/avatars/#{plant.avatar_img}")) ? "avatars/#{plant.avatar_img}" : "avatars/undefined_pink_happy.png" %>
+                      <%= image_tag "tile.svg", class: "tile-base", alt: "" %>
+                      <div class="tile-plant-wrap">
+                        <%= image_tag avatar, class: "tile-plant", alt: plant.nickname %>
+                      </div>
+                      <span class="tile-label"><%= plant.nickname %></span>
+                    </div>
+                  <% end %>
+                <% else %>
+                  <div class="garden-tile garden-tile--empty">
+                    <div class="tile-wrapper">
+                      <%= image_tag "tile.svg", class: "tile-base", alt: "" %>
+                    </div>
+                  </div>
+                <% end %>
               </div>
             <% end %>
-          <% else %>
-            <div class="garden-tile garden-tile--empty">
-              <div class="tile-wrapper">
-                <%= image_tag "tile.svg", class: "tile-base", alt: "" %>
-              </div>
-            </div>
-          <% end %>
+          </div>
         </div>
       <% end %>
     </div>
 
-    <!-- Pagination — always 4 pages -->
-    <div class="garden-pagination">
-      <% (1..4).each do |p| %>
-        <%= link_to plants_path(page: p),
-            class: "garden-page-btn #{'active' if p == @current_page}" do %>
-          <%= p %>
+    <% if @plant_pages.size > 1 %>
+      <div class="garden-swipe-dots">
+        <% @plant_pages.size.times do |i| %>
+          <span class="slides-dot <%= 'active' if i == 0 %>" data-slide-target="dot"></span>
         <% end %>
-      <% end %>
-    </div>
-  <% end %>
+      </div>
+    <% end %>
+  </div>
 
   <!-- Bottom nav -->
   <div class="garden-bottom-nav">
