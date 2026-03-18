@@ -220,6 +220,7 @@
   box-shadow: 3px 3px 0 black;
   font-family: $pixel-font;
   font-size: 0.45rem;
+  color: black;
   letter-spacing: 1px;
   line-height: 24px;
   text-align: center;
@@ -236,5 +237,6 @@
     padding: 0;
     border: none;
     background: transparent;
+    color: inherit;
   }
 }

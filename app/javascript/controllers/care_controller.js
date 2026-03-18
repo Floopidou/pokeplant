@@ -4,29 +4,51 @@ export default class extends Controller {
   static targets = ["waterTab", "potTab", "waterPanel", "potPanel", "petForm", "waterFill", "repotFill"]
 
   connect() {
+    // Initial page load: animate bars from 0 → current value
+    requestAnimationFrame(() => {
+      if (this.hasWaterFillTarget) this._animateFill(this.waterFillTarget, 0)
+      if (this.hasRepotFillTarget) this._animateFill(this.repotFillTarget, 0)
+    })
+
     const frame = document.getElementById("care-bottom")
     if (frame) {
+      // Capture SVG user-unit widths BEFORE the frame replaces the DOM
+      this._beforeRender = () => {
+        this._savedWaterWidth = this._svgWidth(this.hasWaterFillTarget ? this.waterFillTarget : null)
+        this._savedRepotWidth = this._svgWidth(this.hasRepotFillTarget ? this.repotFillTarget : null)
+      }
+
+      // Animate from saved widths AFTER the frame updates the DOM
       this._onFrameRender = () => {
         requestAnimationFrame(() => {
-          if (this.hasWaterFillTarget) this._animateFill(this.waterFillTarget)
-          if (this.hasRepotFillTarget) this._animateFill(this.repotFillTarget)
+          if (this.hasWaterFillTarget) this._animateFill(this.waterFillTarget, this._savedWaterWidth ?? 0)
+          if (this.hasRepotFillTarget) this._animateFill(this.repotFillTarget, this._savedRepotWidth ?? 0)
         })
       }
+
+      frame.addEventListener("turbo:before-frame-render", this._beforeRender)
       frame.addEventListener("turbo:frame-render", this._onFrameRender)
     }
   }
 
   disconnect() {
     const frame = document.getElementById("care-bottom")
-    if (frame && this._onFrameRender) {
-      frame.removeEventListener("turbo:frame-render", this._onFrameRender)
+    if (frame) {
+      if (this._beforeRender) frame.removeEventListener("turbo:before-frame-render", this._beforeRender)
+      if (this._onFrameRender) frame.removeEventListener("turbo:frame-render", this._onFrameRender)
     }
   }
 
-  _animateFill(rect) {
+  // Returns the current width in SVG user units (not CSS pixels)
+  _svgWidth(rect) {
+    if (!rect) return 0
+    return parseFloat(rect.style.width || rect.getAttribute("width") || 0)
+  }
+
+  _animateFill(rect, fromWidth) {
     const target = parseFloat(rect.dataset.fillWidth)
     rect.style.transition = "none"
-    rect.style.width = "0"
+    rect.style.width = `${fromWidth}`
     requestAnimationFrame(() => requestAnimationFrame(() => {
       rect.style.transition = "width 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)"
       rect.style.width = `${target}`
