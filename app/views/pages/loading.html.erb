@@ -1,7 +1,7 @@
 <% content_for :body_class, "garden-body" %>
 <% content_for :hide_navbar, "true" %>
 
-<div class="loader-page">
+<div class="loader-page" data-controller="loader">
 
   <!-- Version badge -->
   <div class="loader-version">
@@ -15,11 +15,11 @@
 
   <!-- Progress bar -->
   <div class="loader-bottom">
-    <p class="loader-status">GARDEN LOADED!</p>
+    <p class="loader-status" data-loader-target="status">LOADING PLANTS...</p>
     <div class="loader-bar-track">
       <div class="loader-bar"></div>
     </div>
-    <p class="loader-percent">100%</p>
+    <p class="loader-percent" data-loader-target="percent">0%</p>
   </div>
 
 </div>
