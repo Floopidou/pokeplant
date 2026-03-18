@@ -14,7 +14,7 @@
   &::before,
   &::after {
     content: "";
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     width: 200%;
@@ -57,7 +57,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: calc(16px + env(safe-area-inset-top, 0px)) 16px calc(130px + env(safe-area-inset-bottom, 0px));
+  padding: calc(16px + env(safe-area-inset-top, 0px)) 16px calc(90px + env(safe-area-inset-bottom, 0px));
   justify-content: center;
 }
 
@@ -125,8 +125,7 @@
   font-family: $pixel-font;
   font-size: 1.7rem;
   color: $pp-dark-green;
-  margin: 8px 0 20px;
-  margin-bottom: 40px;
+  margin: 8px 0 8px;
   text-align: center;
   text-shadow: 0 3px 0 white, 0 8px 12px rgba(255, 255, 255, 0.4);
 }
@@ -146,7 +145,7 @@
   position: relative;
   width: 320px;   // exactly fits the diamond: 0..170+150
   height: 375px;
-  margin-top: 40px;
+  margin-top: 8px;
 }
 
 // Each slot is absolutely placed; later rows have higher z-index

@@ -8,7 +8,7 @@
 
   <!-- Nav: back + coin badge + info button -->
   <div class="pot-nav">
-    <%= link_to plant_path(@plant), class: "pot-back-btn" do %>&#8592;<% end %>
+    <%= link_to plant_path(@plant), class: "pot-back-btn" do %><%= image_tag "arrow.svg", class: "back-arrow-img", alt: "back" %><% end %>
     <div class="pot-nav-right">
       <div class="garden-badge">
         <%= image_tag "leaf_coin.svg", class: "garden-badge-icon garden-coin-icon", alt: "coins" %>

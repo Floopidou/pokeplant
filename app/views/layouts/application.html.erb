@@ -25,7 +25,11 @@
   </head>
 
   <% bgm_tracks = Dir.glob(Rails.root.join("public/sounds/bgm/*.mp3")).map { |f| "/sounds/bgm/#{File.basename(f)}" }.to_json %>
-  <body class="<%= content_for(:body_class) %>">
+  <body class="<%= content_for(:body_class) %>"
+        <% if user_signed_in? && @reminders %>
+          data-controller="reminders"
+          data-reminders-count-value="<%= @reminder_count %>"
+        <% end %>>
     <div id="pp-audio"
          data-turbo-permanent
          data-controller="audio"
@@ -38,6 +42,31 @@
     </div>
 
     <%= render "shared/flashes" %>
+
+    <% if user_signed_in? && @reminders %>
+      <% if @reminder_count > 0 %>
+        <button class="garden-badge--bell" data-reminders-target="bell" data-action="click->reminders#open">
+          <svg width="38" height="33" viewBox="0 0 60 52" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+            <rect x="4" y="4" width="56" height="48" fill="#864B39"/>
+            <rect x="0" y="0" width="56" height="48" fill="#864B39"/>
+            <rect x="4" y="4" width="48" height="24" fill="#FFFDE5"/>
+            <rect x="4" y="28" width="48" height="16" fill="#F9DFE4"/>
+            <rect x="8"  y="8"  width="4" height="4" fill="#F2A0B0"/>
+            <rect x="12" y="12" width="4" height="4" fill="#F2A0B0"/>
+            <rect x="16" y="16" width="4" height="4" fill="#F2A0B0"/>
+            <rect x="20" y="20" width="4" height="4" fill="#F2A0B0"/>
+            <rect x="24" y="24" width="4" height="4" fill="#F2A0B0"/>
+            <rect x="44" y="8"  width="4" height="4" fill="#F2A0B0"/>
+            <rect x="40" y="12" width="4" height="4" fill="#F2A0B0"/>
+            <rect x="36" y="16" width="4" height="4" fill="#F2A0B0"/>
+            <rect x="32" y="20" width="4" height="4" fill="#F2A0B0"/>
+            <rect x="28" y="24" width="4" height="4" fill="#F2A0B0"/>
+          </svg>
+          <span class="garden-badge-count"><%= @reminder_count %></span>
+        </button>
+      <% end %>
+      <%= render "plants/reminders_popup", reminders: @reminders %>
+    <% end %>
     <%= link_to "Skip to main content", "#main-content", class: "visually-hidden-focusable" %>
     <% unless content_for?(:hide_navbar) %>
       <header>

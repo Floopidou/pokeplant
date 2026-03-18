@@ -28,12 +28,11 @@
 }
 
 .care-back-btn {
-  font-family: $pixel-font;
-  font-size: 1.2rem;
-  color: $pp-dark-green;
+  display: inline-flex;
+  align-items: center;
   text-decoration: none;
-  text-shadow: 0 2px 0 white;
-  line-height: 1;
+
+  &:active { opacity: 0.7; }
 }
 
 .care-help-btn {

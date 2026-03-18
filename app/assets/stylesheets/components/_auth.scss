@@ -476,8 +476,8 @@
   &::before,
   &::after {
     content: "";
-    position: fixed;
-    top: 10;
+    position: absolute;
+    top: 0;
     left: 0;
     width: 200%;
     height: 100%;

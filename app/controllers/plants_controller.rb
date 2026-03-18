@@ -28,11 +28,6 @@ class PlantsController < ApplicationController
     @plant_pages = all_plants.to_a.each_slice(6).to_a
     @plant_pages << [] if @plant_pages.empty?
 
-    thirsty = all_plants.select(&:needs_water?)
-    grumpy  = all_plants.select(&:needs_repot?)
-    lonely  = all_plants.select { |p| p.mood_points <= 60 && !p.needs_water? && !p.needs_repot? }
-    @reminder_count = thirsty.size + grumpy.size + lonely.size
-    @reminders = { thirsty: thirsty, grumpy: grumpy, lonely: lonely }
   end
 
   def show

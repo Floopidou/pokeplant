@@ -1,6 +1,7 @@
 class ChatsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_plant
+  skip_before_action :load_reminders
 
   def index
     @chats = @plant.chats.order(created_at: :desc)
