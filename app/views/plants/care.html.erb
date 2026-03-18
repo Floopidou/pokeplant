@@ -9,7 +9,7 @@
 
   <!-- Nav: back + info button -->
   <div class="care-nav">
-    <%= link_to plant_path(@plant), class: "care-back-btn" do %>&#8592;<% end %>
+    <%= link_to plant_path(@plant), class: "care-back-btn" do %><%= image_tag "arrow.svg", class: "back-arrow-img", alt: "back" %><% end %>
     <%= link_to infos_plant_path(@plant), class: "care-help-btn" do %>
       <%= image_tag "info_page.svg", class: "care-help-icon", alt: "info" %>
     <% end %>

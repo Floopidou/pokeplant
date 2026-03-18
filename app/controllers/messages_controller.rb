@@ -1,6 +1,7 @@
 class MessagesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_chat
+  skip_before_action :load_reminders
 
   def create
     # 1. Sauvegarder le message de l'utilisateur (texte ou image)

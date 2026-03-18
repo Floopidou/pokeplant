@@ -3,12 +3,9 @@
 
 <div class="garden-page plant-menu-page" data-controller="coming-soon">
 
-  <!-- Nav: back + info button -->
+  <!-- Nav: back only -->
   <div class="care-nav">
-    <%= link_to plants_path, class: "care-back-btn" do %>&#8592;<% end %>
-    <%= link_to infos_plant_path(@plant), class: "care-help-btn" do %>
-      <%= image_tag "info_page.svg", class: "care-help-icon", alt: "info" %>
-    <% end %>
+    <%= link_to plants_path, class: "care-back-btn" do %><%= image_tag "arrow.svg", class: "back-arrow-img", alt: "back" %><% end %>
   </div>
 
   <!-- Title -->
@@ -36,8 +33,8 @@
       <% end %>
     </div>
     <div class="plant-action-row plant-action-row--center">
-      <%= link_to plants_path, class: "plant-action-btn" do %>
-        <%= image_tag "cross.svg", class: "plant-action-icon", alt: "" %>
+      <%= link_to infos_plant_path(@plant), class: "plant-action-btn" do %>
+        <%= image_tag "info_page.svg", class: "plant-action-icon", alt: "info" %>
       <% end %>
     </div>
     <div class="plant-action-row">

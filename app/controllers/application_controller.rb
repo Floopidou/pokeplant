@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
   layout :layout_by_resource
 
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :load_reminders, if: :user_signed_in?, unless: :devise_controller?
 
   protected
 
@@ -17,6 +18,15 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def load_reminders
+    all_plants = current_user.plants
+    thirsty = all_plants.select(&:needs_water?)
+    grumpy  = all_plants.select(&:needs_repot?)
+    lonely  = all_plants.select { |p| p.mood_points <= 60 && !p.needs_water? && !p.needs_repot? }
+    @reminder_count = thirsty.size + grumpy.size + lonely.size
+    @reminders = { thirsty: thirsty, grumpy: grumpy, lonely: lonely }
+  end
 
   def layout_by_resource
     devise_controller? ? "devise" : "application"

@@ -15,6 +15,13 @@ html, body {
   color-scheme: light;
 }
 
+// ── Shared back arrow ────────────────────────────────────────
+.back-arrow-img {
+  width: 28px;
+  height: auto;
+  image-rendering: pixelated;
+}
+
 // Application layout — main is the universal scroll container.
 // Pages that fit the viewport won't trigger scroll;
 // pages with taller content (infos, chats list…) scroll here.
