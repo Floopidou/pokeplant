@@ -39,22 +39,23 @@
                 class: "chat-form",
                 data: { action: "submit->chat-form#submit" } do |f| %>
     <div class="chat-input-wrapper">
-      <%= f.text_field :content,
-                       class: "chat-input pixel-input",
-                       placeholder: "Talk to your plant...",
-                       autocomplete: "off",
-                       id: "chat-input",
-                       required: true,
-                       data: { chat_form_target: "input" } %>
-      <button type="submit"
-              class="chat-send-btn pixel-btn pixel-btn--pink"
-              data-chat-form-target="button">
-        SEND
-      </button>
+      <div class="chat-input-container">
+        <%= f.text_field :content,
+                        class: "chat-input pixel-input",
+                        placeholder: "Talk to your plant...",
+                        autocomplete: "off",
+                        id: "chat-input",
+                        required: true,
+                        data: { chat_form_target: "input" } %>
+        <button type="submit"
+                data-chat-form-target="button" class="send-btn">
+          <%= image_tag "send.svg", alt:"send", class:"send-btn" %>
+        </button>
+      </div>
       <button type="button"
-              class="chat-add-btn pixel-btn pixel-btn--green"
+              class="chat-add-btn pixel-btn pixel-btn--green plus_btn"
               data-action="click->photo-modal#open">
-        +
+        <%= image_tag "trombone.svg", alt: "clip", class: "btn-icon" %>
       </button>
     </div>
   <% end %>
