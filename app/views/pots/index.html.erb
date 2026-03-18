@@ -6,7 +6,9 @@
 
 <div class="garden-page pot-page" data-controller="care">
 
-  <!-- Nav: back + coin badge -->
+  <%= image_tag "glass.svg", class: "pot-glass", alt: "" %>
+
+  <!-- Nav: back + coin badge + info button -->
   <div class="pot-nav">
     <%= link_to plant_path(@plant), class: "pot-back-btn" do %><%= image_tag "arrow.svg", class: "back-arrow-img", alt: "back" %><% end %>
     <div class="garden-badge">

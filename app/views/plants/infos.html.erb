@@ -18,7 +18,7 @@
   <%= image_tag infos_bg, class: "infos-bg", alt: "" %>
 
   <div class="infos-top">
-    <%= link_to plants_path, class: "infos-back" do %>
+    <%= link_to plant_path(@plant), class: "infos-back" do %>
       <%= image_tag "arrow.svg", alt: "back" %>
     <% end %>
     <h1 class="infos-title"><%= @plant.common_name %></h1>
@@ -75,7 +75,14 @@
             <path d="M<%= 49.51+light_ind_d %> 6.045L<%= 49.51+light_ind_d %> 5.038L<%= 48.34+light_ind_d %> 5.038L<%= 48.34+light_ind_d %> 3.023L<%= 47.17+light_ind_d %> 3.023L<%= 47.17+light_ind_d %> 1.008L<%= 46.0+light_ind_d %> 1.008L<%= 46.0+light_ind_d %> 0L<%= 54.19+light_ind_d %> 0L<%= 54.19+light_ind_d %> 1.008L<%= 53.02+light_ind_d %> 1.008L<%= 53.02+light_ind_d %> 3.023L<%= 51.85+light_ind_d %> 3.023L<%= 51.85+light_ind_d %> 5.038L<%= 50.68+light_ind_d %> 5.038L<%= 50.68+light_ind_d %> 6.045Z" fill="#1A120A" fill-opacity="0.56"/>
           </svg>
         </div>
-        <span class="infos-gauge-label">Light power <%= light_need %></span>
+        <% light_label = case light_need
+                         when 0..2 then "Nightlike"
+                         when 3..4 then "Dark"
+                         when 5..6 then "Normal"
+                         when 7..8 then "Luminous"
+                         else           "Bright as sun"
+                         end %>
+        <span class="infos-gauge-label"><%= light_label %></span>
       </div>
 
       <%# ── Water interval gauge (blue drop icon + blue bar) ── %>

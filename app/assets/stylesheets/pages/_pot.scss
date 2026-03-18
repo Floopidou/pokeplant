@@ -1,6 +1,17 @@
 // ── Pot page layout ────────────────────────────────────────────
 
+.garden-body:has(.pot-page) {
+  overflow: hidden;
+  height: 100dvh;
+
+  main {
+    overflow: hidden;
+    height: 100dvh;
+  }
+}
+
 .pot-page {
+  position: relative;
   justify-content: flex-start;
   padding-top: calc(16px + env(safe-area-inset-top, 0px));
   padding-bottom: 0;
@@ -8,6 +19,24 @@
   padding-right: 0;
   gap: 2px;
   align-items: center;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+.pot-glass {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 130px;
+  height: auto;
+  z-index: 3;
+  pointer-events: none;
+  animation: glass-drop 1s ease-out forwards;
+}
+
+@keyframes glass-drop {
+  from { transform: translateX(-50%) translateY(0px); }
+  to   { transform: translateX(-50%) translateY(312px); }
 }
 
 .pot-nav {
@@ -78,7 +107,8 @@
 .pot-bottom {
   width: 100%;
   flex: 1;
-  margin-top: 32px;
+  min-height: 0;
+  margin-top: 8px;
   display: flex;
   flex-direction: column;
 }
@@ -140,11 +170,14 @@
   flex: unset;
   width: 100%;
   cursor: default;
+  font-size: 1.2rem;
 }
 
 .pot-store-panel {
-  padding: 24px 16px 48px;
+  padding: 2px 16px 48px;
   overflow-y: auto;
+  flex: 1;
+  min-height: 0;
 }
 
 .pot-store-grid {
