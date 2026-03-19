@@ -30,6 +30,7 @@ main#main-content {
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   position: relative;
+  z-index: 1;
 }
 
 // Devise layout uses a bare <main> (no id)
@@ -37,4 +38,6 @@ main#main-content {
   height: 100dvh;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+  position: relative;
+  z-index: 1;
 }
