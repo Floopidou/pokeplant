@@ -74,7 +74,7 @@
                 url: plant_chat_messages_path(@plant, @chat),
                 id: "chat-form",
                 class: "chat-form",
-                data: { action: "submit->chat-form#submit" } do |f| %>
+                data: { action: "submit->chat-form#submit", no_loader: true } do |f| %>
     <div class="chat-input-wrapper">
       <div class="chat-input-container">
         <%= f.text_field :content,
