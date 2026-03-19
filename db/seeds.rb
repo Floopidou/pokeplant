@@ -58,7 +58,7 @@ perrine = User.create!(
   password: "000000",
   username: "perrine",
   birthdate: Date.new(1996, 9, 26),
-  leaf_coins: 90
+  leaf_coins: 1000
 )
 
 # --- Pots ---
