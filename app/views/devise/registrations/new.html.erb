@@ -36,13 +36,14 @@
               hint: "3-20 characters, letters, numbers and _ only" %>
 
           <%= f.input :birthdate,
+              as: :string,
               label: false,
               label_html: { class: "pixel-label" },
               wrapper_html: { class: "pixel-form-group" },
               input_html: {
                 class: "pixel-input",
-                placeholder: "YYYY/MM/DD",
-                autocomplete: "date"
+                type: "date",
+                autocomplete: "bday"
               },
               required: true %>
 
