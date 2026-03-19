@@ -2,15 +2,14 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
   connect() {
-    this._onVisit  = this._showWithDelay.bind(this)
     this._onLoad   = this._hide.bind(this)
     this._onRender = this._hide.bind(this)
     this._onSubmit = (e) => {
-      if (e.target && e.target.dataset.noLoader) return
-      this._showWithDelay()
+      if (e.target && e.target.action && e.target.action.includes("/chats")) {
+        this._showWithDelay()
+      }
     }
 
-    document.addEventListener("turbo:visit",        this._onVisit)
     document.addEventListener("turbo:submit-start", this._onSubmit)
     document.addEventListener("turbo:load",         this._onLoad)
     document.addEventListener("turbo:render",       this._onRender)
@@ -18,14 +17,12 @@ export default class extends Controller {
 
   disconnect() {
     clearTimeout(this._timer)
-    document.removeEventListener("turbo:visit",        this._onVisit)
     document.removeEventListener("turbo:submit-start", this._onSubmit)
     document.removeEventListener("turbo:load",         this._onLoad)
     document.removeEventListener("turbo:render",       this._onRender)
   }
 
   _showWithDelay() {
-    // Only show after 200ms — fast navigations won't flash the loader
     this._timer = setTimeout(() => {
       this.element.classList.add("is-active")
     }, 200)
