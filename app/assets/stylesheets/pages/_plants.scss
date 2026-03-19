@@ -400,8 +400,6 @@
 
 .tags-submit {
   margin-top: 40px;
-  width: 100%;
-  align-self: center;
 }
 
 // ── Name page ────────────────────────────────────────────────
@@ -446,6 +444,35 @@
     background: white;
     border-color: $pp-dark-green;
     box-shadow: 3px 4px 0 $pp-dark-green;
+  }
+}
+
+.garden-page-btn {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+
+  .pixel-btn-bg {
+    display: block;
+    width: 147px;
+    height: 39px;
+  }
+
+  .pixel-btn-label {
+    position: absolute;
+    top: 43%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: "PressStart2P", monospace;
+    font-size: 7px;
+    color: #000;
+    white-space: nowrap;
+    pointer-events: none;
   }
 }
 
