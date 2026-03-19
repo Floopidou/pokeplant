@@ -26,9 +26,10 @@
            data-action="change->plant-upload#showPreview"
            style="display:none">
 
-    <button type="submit" class="garden-page-btn new-plant-submit"
+    <button type="submit" class="new-plant-submit"
             data-plant-upload-target="submitBtn" disabled>
-      Identify my plant
+      <%= image_tag "button.svg", class: "pixel-btn-bg", alt: "" %>
+      <span class="pixel-btn-label">Identify my plant</span>
     </button>
   </form>
 
