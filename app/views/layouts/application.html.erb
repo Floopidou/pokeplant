@@ -47,7 +47,7 @@
 
     <%= render "shared/flashes" %>
 
-    <% if user_signed_in? && @reminders %>
+    <% if user_signed_in? && @reminders && !content_for?(:hide_reminders) %>
       <% if @reminder_count > 0 %>
         <button class="garden-badge--bell" data-reminders-target="bell" data-action="click->reminders#open">
           <svg width="38" height="33" viewBox="0 0 60 52" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
@@ -71,6 +71,7 @@
       <% end %>
       <%= render "plants/reminders_popup", reminders: @reminders %>
     <% end %>
+
     <%= link_to "Skip to main content", "#main-content", class: "visually-hidden-focusable" %>
     <% unless content_for?(:hide_navbar) %>
       <header>

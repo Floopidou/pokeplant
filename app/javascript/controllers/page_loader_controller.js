@@ -5,17 +5,20 @@ export default class extends Controller {
     this._onVisit  = this._showWithDelay.bind(this)
     this._onLoad   = this._hide.bind(this)
     this._onRender = this._hide.bind(this)
+    this._onSubmit = this._showWithDelay.bind(this)
 
-    document.addEventListener("turbo:visit",  this._onVisit)
-    document.addEventListener("turbo:load",   this._onLoad)
-    document.addEventListener("turbo:render", this._onRender)
+    document.addEventListener("turbo:visit",        this._onVisit)
+    document.addEventListener("turbo:submit-start", this._onSubmit)
+    document.addEventListener("turbo:load",         this._onLoad)
+    document.addEventListener("turbo:render",       this._onRender)
   }
 
   disconnect() {
     clearTimeout(this._timer)
-    document.removeEventListener("turbo:visit",  this._onVisit)
-    document.removeEventListener("turbo:load",   this._onLoad)
-    document.removeEventListener("turbo:render", this._onRender)
+    document.removeEventListener("turbo:visit",        this._onVisit)
+    document.removeEventListener("turbo:submit-start", this._onSubmit)
+    document.removeEventListener("turbo:load",         this._onLoad)
+    document.removeEventListener("turbo:render",       this._onRender)
   }
 
   _showWithDelay() {
