@@ -1,5 +1,6 @@
 <% content_for :body_class, "infos-body" %>
 <% content_for :hide_navbar, "true" %>
+<% content_for :hide_reminders, true %>
 
 <% light_need  = @plant.light_need.to_i.clamp(0, 10) %>
 <% water_val   = @plant.watering_interval.to_i.clamp(0, 10) %>
@@ -17,10 +18,10 @@
                end %>
   <%= image_tag infos_bg, class: "infos-bg", alt: "" %>
 
+  <%= link_to plant_path(@plant), class: "infos-close" do %>
+    <%= image_tag "cross.svg", alt: "close" %>
+  <% end %>
   <div class="infos-top">
-    <%= link_to plant_path(@plant), class: "infos-back" do %>
-      <%= image_tag "arrow.svg", alt: "back" %>
-    <% end %>
     <h1 class="infos-title"><%= @plant.common_name %></h1>
   </div>
 
