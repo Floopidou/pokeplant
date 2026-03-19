@@ -9,7 +9,7 @@
   <% avatar = File.exist?(Rails.root.join("app/assets/images/avatars/#{@plant.avatar_img}")) ? "avatars/#{@plant.avatar_img}" : "avatars/undefined_pink_happy.png" %>
   <%= image_tag avatar, class: "name-avatar", alt: @plant.common_name %>
 
-  <form action="<%= apply_name_plant_path(@plant) %>" method="post" class="name-form">
+  <form action="<%= apply_name_plant_path(@plant) %>" method="post" class="name-form" data-no-loader="true">
     <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
     <%= hidden_field_tag :_method, "patch" %>
 

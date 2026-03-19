@@ -5,7 +5,10 @@ export default class extends Controller {
     this._onVisit  = this._showWithDelay.bind(this)
     this._onLoad   = this._hide.bind(this)
     this._onRender = this._hide.bind(this)
-    this._onSubmit = this._showWithDelay.bind(this)
+    this._onSubmit = (e) => {
+      if (e.target && e.target.dataset.noLoader) return
+      this._showWithDelay()
+    }
 
     document.addEventListener("turbo:visit",        this._onVisit)
     document.addEventListener("turbo:submit-start", this._onSubmit)
