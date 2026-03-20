@@ -5,7 +5,7 @@ export default class extends Controller {
     this._onLoad   = this._hide.bind(this)
     this._onRender = this._hide.bind(this)
     this._onSubmit = (e) => {
-      if (e.target && e.target.action && e.target.action.includes("/chats")) {
+      if (e.target && e.target.action && e.target.action.includes("/chats") && !e.target.dataset.noLoader) {
         this._showWithDelay()
       }
     }
